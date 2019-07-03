@@ -1,0 +1,34 @@
+<p>{{ contact.name }}</p>
+<!-- Поля контактов -->
+{% for field in contact.get_contact_fields %}
+    <p>
+        {% if field.icon_ui %}
+            <!-- Иконка из UIKit-->
+            <span uk-icon="{{ field.icon_ui }}"></span>
+        {% elif field.icon %}
+            <!-- Загруженая иконка -->
+            <img src="{{ field.icon.image.url }}">
+        {% endif %}
+        <!-- Поле 1 -->
+        {{ field.text|safe }}
+        <!-- Поле 2 -->
+        {{ field.text_two|safe }}
+    </p>
+{% endfor %}
+<!-- Соц. ссылки -->
+{% for link_soc in contact.get_contact_socnet %}
+    <p>
+        <a href="{{ link_soc.get_link_contact_soc }}">
+            {% if link_soc.link.icon_ui %}
+                <!-- Иконка из UIKit-->
+                <span uk-icon="{{ link_soc.link.icon_ui }}"></span>
+            {% elif link_soc.link.icon %}
+                <!-- Загруженая иконка -->
+                <img src="{{ link_soc.link.icon.image.url }}">
+            {% else %}
+                <!-- Название, если нет иконок-->
+                {{ link_soc.link }}
+            {% endif %}
+        </a>
+    </p>
+{% endfor %}

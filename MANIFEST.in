@@ -1,0 +1,17 @@
+global-include *.py *.js *.rst *.html *.css *.lyx *.pdf *.png *.gif *.jpg *.txt *.bat *.html *tpl *
+global-include backend
+global-include CMS
+global-include project
+global-exclude *.pyc .gitignore
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude local_settings
+global-exclude prod_settings
+global-exclude manage.py
+
+prune .git
+prune __target__
+prune dist
+prune venv
+prune .idea
+prune oms_cms.egg-info

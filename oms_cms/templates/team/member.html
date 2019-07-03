@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p><a href="{{ member.get_absolute_url }}">{{ member.full_name }}</a></p>
+    {% if member.photo %}
+        <img src="{{ member.photo.image.url }}">
+    {% endif %}
+    <p>{{ member.desk|safe }}</p>
+{% endblock content %}

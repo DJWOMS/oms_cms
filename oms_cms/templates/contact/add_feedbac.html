@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Обратная связь{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="my-3">Обратная связь</h1>
+            <form action="{% url 'feedback' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn btn-primary" type="submit" value="Отправить">
+            </form>
+        </div>
+    </div>
+{% endblock content %}

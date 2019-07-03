@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load lang_tags %}
+{% block title %}Новости{% endblock title %}
+{% block content %}
+    <div class="uk-child-width-1-2@m" uk-grid>
+        {% if post_list.exists %}
+            {% for post in post_list %}
+                <div>
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-media-top">
+                            <img src="{{ post.photo.image.url }}" alt="">
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">
+                                <a href="{{ post.get_absolute_url }}">
+                                    {{ post.title }}
+                                </a>
+                            </h3>
+                            <p>{{ post.mini_text | truncatewords:50 | safe }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h2>Еще новостей нет!</h2>
+        {% endif %}
+    </div>
+    <div>
+        {% if is_paginated %}
+            {% include 'base/includes/pagination.html' %}
+        {% endif %}
+    </div>
+    <hr>
+    {% list_lang %}
+{% endblock content %}

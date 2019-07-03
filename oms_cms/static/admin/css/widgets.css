@@ -1,0 +1,18 @@
+input[type="checkbox"] {
+  display: block;
+}
+.input-my input[type="checkbox"] + label::before {
+    font-family: jet-icons;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    color: rgb(71, 186, 193);
+    font-size: 0.85714rem;
+    content: "";
+    letter-spacing: 0.35714rem;
+    font-variant: normal;
+}

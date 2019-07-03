@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+
+  # database containers, one for each db
+  database:
+    image: postgres:10
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+    env_file:
+      - conf/db/database_env
+    networks:
+      - database_network
+
+  # web container, with django + gunicorn
+  djangomoses:
+    build: .
+    environment:
+      - DJANGO_SETTINGS_MODULE
+    volumes:
+      - .:/opt/services/djangoapp/src
+      - static:/opt/services/djangoapp/static
+      - media:/opt/services/djangoapp/media
+    networks:
+      - database_network
+      - nginx_network
+    depends_on:
+      - database
+
+  # reverse proxy container (nginx)
+  nginx:
+    image: nginx:1.15
+    ports:
+      - 8000:80
+    volumes:
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d
+      - static:/opt/services/djangoapp/static
+      - media:/opt/services/djangoapp/media
+    networks:
+      - nginx_network
+    depends_on:
+      - djangomoses
+
+networks:
+  database_network:
+    driver: bridge
+  nginx_network:
+    driver: bridge
+
+volumes:
+  database_volume:
+  static:
+  media:

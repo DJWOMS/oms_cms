@@ -1,0 +1,11 @@
+{% for post in post_list %}
+    <div class="sales_container_slider_list_item blur"
+         {% if post.photo %}
+            style="background:url('{{ post.photo.image.url }}') center/cover no-repeat">
+         {% endif %}
+    <p class="sales_container_slider_list_item_date">{{ post.published_date }}</p>
+    <p class="sales_container_slider_list_item_text">
+        {{ post.title }}
+    </p>
+    </div>
+{% endfor %}

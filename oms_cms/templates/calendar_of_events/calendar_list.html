@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Календари{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="my-4">Календари</h1>
+                {% for cat in events %}
+                    <!-- Post -->
+                    {#                    <div class="card mb-4">#}
+                    {#                        {% if post.photo %}#}
+                    {#                            <img class="img-responsive" src="{{ post.photo.image.url }}"#}
+                    {#                                 alt="{{ post.title }}">#}
+                    {#                        {% endif %}#}
+                    {#                        <div class="card-body">#}
+                    <div class="card-header">Занятие {{ cat.category.name }}</div>
+                    <div class="card-header">Платно {{ cat.paid_or_free }}</div>
+                    <div class="card-header">По записи {{ cat.ingress }}</div>
+                    {#                            <p class="card-text">{{ post.mini_text | truncatewords:50 | safe }}</p>#}
+                    {#                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More#}
+                    {#                                &rarr;</a>#}
+                    {#                    </div>#}
+                    <div class="card-footer text-muted">
+                        <a href="{% url 'record' pk=cat.id %}"> {{ cat.date }}</a>
+                        {#                            {% if post.author %}#}
+                        {#                                <a href="#">{{ post.author }}</a>#}
+                        {#                            {% endif %}#}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+{% endblock content %}

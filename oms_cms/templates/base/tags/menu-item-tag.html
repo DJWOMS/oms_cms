@@ -1,0 +1,63 @@
+{% if ul %}
+    <ul class="{{ ul }}">
+{% endif %}
+
+{% for item in items %}
+    {% if item.url %}
+
+        {% if li %}
+            <li class="{{ li }}">
+        {% elif item.style_li %}
+            <li class="{{ item.style_li }}">
+        {% endif %}
+
+{#        {% for item_t in item.itemmenulang.all %}#}
+            {% if a %}
+                <a class="{{ a }}" href="{{ item.item.url }}">{{ item.get_title }}</a>
+            {% elif item.style_a %}
+                <a class="{{ item.style_a }}" href="{{ item.item.url }}">{{ item.get_title }}</a>
+            {% else %}
+                <a class="" href="{{ item.item.url }}">{{ item.get_title}}</a>
+            {% endif %}
+{#        {% endfor %}#}
+        </li>
+
+    {% elif item.anchor %}
+        {% if li %}
+            <li class="{{ li }}">
+                {% elif item.style_li %}
+            <li class="{{ item.style_li }}">
+        {% endif %}
+
+        {% if a %}
+            <a class="{{ a }}" href="{{ item.item.get_anchor }}">{{ item.get_title }}</a>
+        {% elif item.style_a %}
+            <a class="{{ item.style_a }}" href="{{ item.item.get_anchor }}">{{ item.get_title }}</a>
+        {% else %}
+            <a class="" href="{{ item.item.get_anchor }}">{{ item.get_title}}</a>
+        {% endif %}
+        </li>
+
+    {% else %}
+{#        {% firstof li item.style_li '<li class="val">'%}#}
+        {% if li %}
+            <li class="{{ li }}">
+        {% elif item.style_li %}
+            <li class="{{ item.style_li }}">
+        {% endif %}
+
+        {% if a %}
+            <a class="{{ a }}" href="{{ item.item.content_object.get_absolute_url }}">{{ item.get_title }}</a>
+        {% elif item.style_a %}
+            <a class="{{ item.style_a }}"
+               href="{{ item.item.content_object.get_absolute_url }}">{{ item.get_title }}</a>
+
+        {% else %}
+            <a class="" href="{{ item.item.content_object.get_absolute_url }}">{{ item.get_title }}</a>
+        {% endif %}
+
+
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>

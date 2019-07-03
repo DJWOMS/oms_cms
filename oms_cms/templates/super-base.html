@@ -1,0 +1,24 @@
+<!-- Для подключение деректории static -->
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta данные -->
+    {% block meta %}
+        <meta charset="UTF-8">
+    {% endblock meta %}
+    <!-- Title старницы -->
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Подключение стилей -->
+    {% block style %}
+    {% endblock style %}
+</head>
+<body>
+<!-- Тег body -->
+{% block body %}
+{% endblock body %}
+<!-- Подключение js и т.д. -->
+{% block scripts %}
+{% endblock scripts %}
+</body>
+</html>

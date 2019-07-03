@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load  ms_instahram_tags %}
+{% load lang_tags menu_tags contact_tags calendar_tags %}
+{% block title %}{{ page.title }}{% endblock title %}
+{% block content %}
+    {% menu_item menu='head' a='menu_container_box_item_link' %}
+    {{ page.text|safe }}
+    <hr>
+    {% contact %}
+    <hr>
+    {% list_lang %}
+    <hr>
+    {% category_calendar filter="Для мужчин" %}
+    <hr>
+    {% instagram_photo %}
+    <hr>
+    {% instagram_tag tag="test" %}
+{% endblock content %}
