@@ -1,13 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
 from photologue.models import Gallery
 
-from oms_cms.backend.languages.models import AbstractLang
 
-
-class Pages(AbstractLang):
+class Pages(models.Model):
     """Страницы"""
     author = models.ForeignKey(
         User,
@@ -17,7 +14,7 @@ class Pages(AbstractLang):
         blank=True
     )
     title = models.CharField("Заголовок", max_length=500)
-    text = RichTextUploadingField("Тест", blank=True)
+    text = models.TextField("Тест", blank=True)
     edit_date = models.DateTimeField(
         "Дата редактирования",
         auto_now=True,

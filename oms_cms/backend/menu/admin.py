@@ -3,8 +3,8 @@ from django import forms
 from mptt.admin import MPTTModelAdmin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline, GenericInlineModelAdmin
-from .models import Menu, MenuItem, ItemMenuLang
-from  jet.admin import CompactInline
+from .models import Menu, MenuItem
+from jet.admin import CompactInline
 
 
 class CustomModelChoiceField(forms.ModelChoiceField):
@@ -27,27 +27,12 @@ class CustomModelChoiceField(forms.ModelChoiceField):
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
     """Меню"""
-    list_display = ("name", "slug", "status")
-
-
-class ItemMenuLangInline(CompactInline):
-    model = ItemMenuLang
-    sortable_field_name = "lang"
-    extra = 1
-    classes = ['collapse']
-
-
-class ItemMenuInline(admin.StackedInline):
-    model = MenuItem
-    sortable_field_name = "name"
-    extra = 1
-    inlines = (ItemMenuLangInline,)
+    list_display = ("name", "status")
 
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
     """Пункты меню"""
-    inlines = (ItemMenuLangInline,)
     # form = FieldForm
     list_display = ("name", "parent", "menu", "id")
     mptt_level_indent = 20
@@ -69,12 +54,6 @@ class MenuItemAdmin(admin.ModelAdmin):
                 'anchor',
                 'content_type',
                 'object_id'
-            )
-        }),
-        ('стили', {
-            'fields': (
-                'style_li',
-                'style_a',
             )
         }),
     )

@@ -19,7 +19,6 @@ django-grapesjs==0.0.7
 django-jet==1.0.8
 django-js-asset==1.1.0
 django-mptt==0.9.1
-django-nose==1.4.6
 django-photologue==3.9
 django-sortedm2m==1.5.0
 djangorestframework==3.9.2

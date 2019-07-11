@@ -4,11 +4,13 @@ OMS CMS project by DJWOMS.
 
 import os
 from .base.ckeditor import CKEDITOR_UPLOAD_PATH, CKEDITOR_CONFIGS
-from .base.config import *
+from .base.base_config import *
 from .base.jet import *
 from .base.api_settings import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SECRET_KEY = 'b0!c@b!o_#F$^#@@!D@bv%#yhxs=qm@ana6l2$n=!p1ejm@'
 
 
 # Application definition
@@ -26,15 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    # tests
-    'django_nose',
 
-    'debug_toolbar',
     'mptt',
-
-    # Editor
-    'ckeditor',
-    'ckeditor_uploader',
 
     # Auth
     'allauth',
@@ -141,8 +136,6 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-
-SITE_ID = 1
 
 try:
     from .local_settings import *

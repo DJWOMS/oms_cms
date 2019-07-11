@@ -1,4 +1,3 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 from photologue.models import Photo, Gallery
@@ -16,7 +15,7 @@ class InfoBlock(models.Model):
     )
     title = models.CharField("Заголовок", max_length=100)
     sub_title = models.CharField("Под заголовок", max_length=100, blank=True, null=True)
-    desc = RichTextUploadingField("Описание", max_length=1000, blank=True)
+    desc = models.TextField("Описание", max_length=1000, blank=True)
     slider = models.ForeignKey(
         Gallery,
         verbose_name="Слайдер",

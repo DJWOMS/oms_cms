@@ -4,10 +4,10 @@ from oms_cms.backend.contact.models import Contact, ContactFields, ContactSocNet
 
 
 class Command(BaseCommand):
-    help = 'Add lang'
+    help = 'Add contact'
 
     def handle(self, *args, **options):
-        contact = Contact.objects.create(name="Контакты", lang_id=1, slug="contact")
+        contact = Contact.objects.create(name="Контакты", slug="contact")
         ContactFields.objects.create(
             text="Адрес клуба",
             text_two="Лобачевского 74",
@@ -39,7 +39,6 @@ class Command(BaseCommand):
 
         contact_footer = Contact.objects.create(
             name="Контакты footer",
-            lang_id=1,
             slug="contact-footer"
         )
         ContactFields.objects.create(

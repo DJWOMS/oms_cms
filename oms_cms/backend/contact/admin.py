@@ -1,6 +1,16 @@
+from django import forms
 from django.contrib import admin
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from .models import Contact, ContactSocNet, Feedback, ContactFields, EmailsFeedback
+
+
+class ContactAdminForm(forms.ModelForm):
+    """Виджет редактора ckeditor"""
+    desk_cont = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Contact
+        fields = '__all__'
 
 
 class SocialNetworksAdmin(admin.StackedInline):
@@ -24,6 +34,7 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ("id",)
     inlines = (SocialNetworksAdmin, ContactFieldsAdmin)
     prepopulated_fields = {"slug": ("name",)}
+    form = ContactAdminForm
 
 
 @admin.register(Feedback)

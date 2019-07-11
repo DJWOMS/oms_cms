@@ -1,25 +1,14 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
-from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 from photologue.models import Gallery, Photo
-
-from oms_cms.backend.languages.models import Lang, AbstractLang
 
 
 class Category(MPTTModel):
     """Класс модели категорий сетей"""
     name = models.CharField("Название", max_length=50)
-    lang = models.ForeignKey(
-        Lang,
-        verbose_name="Язык",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
     parent = TreeForeignKey(
         'self',
         verbose_name="Родительская категория",
@@ -38,7 +27,7 @@ class Category(MPTTModel):
         verbose_name_plural = "Категории новостей"
 
     def get_absolute_url(self):
-        return reverse('list-news', kwargs={'lang': self.lang.slug, 'slug': self.slug})
+        return reverse('list-news', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.name
@@ -47,13 +36,6 @@ class Category(MPTTModel):
 class Tags(models.Model):
     """Класс модели тегов"""
     name = models.CharField("Тег", max_length=50, unique=True)
-    lang = models.ForeignKey(
-        Lang,
-        verbose_name="Язык",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
     slug = models.SlugField("url", unique=True, max_length=100, blank=True, null=True)
 
     class Meta:
@@ -64,7 +46,7 @@ class Tags(models.Model):
         return self.name
 
 
-class Post(AbstractLang):
+class Post(models.Model):
     """Класс модели поста"""
     author = models.ForeignKey(
         User,
@@ -75,8 +57,8 @@ class Post(AbstractLang):
     )
     title = models.CharField("Заголовок", max_length=500)
     subtitle = models.CharField("Под заголовок", max_length=500, blank=True, null=True)
-    mini_text = RichTextUploadingField("Краткое содержание", max_length=5000)
-    text = RichTextUploadingField("Полное содержание", max_length=10000000)
+    mini_text = models.TextField("Краткое содержание", max_length=5000)
+    text = models.TextField("Полное содержание", max_length=10000000)
     created_date = models.DateTimeField("Дата создания", auto_now_add=True)
     edit_date = models.DateTimeField(
         "Дата редактирования",
@@ -103,13 +85,13 @@ class Post(AbstractLang):
         null=True,
         blank=True)
     tag = models.ManyToManyField(Tags, verbose_name="Тег", blank=True)
-    category = models.ManyToManyField(
+    category = models.ForeignKey(
         Category,
         verbose_name="Категория",
-        blank=True
+        on_delete=models.CASCADE,
     )
     template = models.CharField("Шаблон", max_length=500, default="news/post_detail.html")
-    slug = models.SlugField("url", max_length=500) #unique=True,
+    slug = models.SlugField("url", max_length=500, unique=True)
 
     published = models.BooleanField("Опубликовать?", default=True)
     viewed = models.IntegerField("Просмотрено", default=0)
@@ -132,32 +114,26 @@ class Post(AbstractLang):
         self.save()
 
     def get_category_slug(self):
-        return self.category.first().slug
+        return self.category.slug
 
     def get_category_template(self):
-        return self.category.first().template
+        return self.category.template
 
     def get_category_paginated(self):
-        return self.category.first().paginated
+        return self.category.paginated
 
     def get_absolute_url(self):
-        return reverse('new-detail',
-                       kwargs={
-                           'lang': self.lang.slug,
-                           'category': self.category.first().slug,
-                           'post': self.slug
-                       }
-                       )
+        return reverse('new-detail', kwargs={'category': self.category.slug, 'post': self.slug})
 
     def __str__(self):
-        return "{}".format(self.lang)
+        return "{}".format(self.title)
 
 
 class Comments(models.Model):
     """Модель коментариев к новостям"""
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, verbose_name="Новость", on_delete=models.CASCADE)
-    text = RichTextField("Сообщение", max_length=2000, config_name='special')
+    text = models.TextField("Сообщение", max_length=2000)
     date = models.DateTimeField("Дата", auto_now_add=True)
     update = models.DateTimeField("Изменен", auto_now=True)
     parent_comment = models.ForeignKey(

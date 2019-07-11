@@ -5,17 +5,11 @@ from django.db import models
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
-from oms_cms.backend.languages.models import Lang, LangDefault
-
-from oms_cms.backend.news.models import Post
-from oms_cms.backend.pages.models import Pages
-
 
 class Menu(models.Model):
     """Позиция меню"""
     name = models.CharField("Название", max_length=255)
     status = models.BooleanField("Только для зарегистрированных", default=False)
-    slug = models.SlugField("Название на лат.", max_length=200, unique=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +24,7 @@ class Menu(models.Model):
 
 class MenuItem(MPTTModel):
     """Элементы меню"""
+    title = models.CharField("Название пункта меню на сайте", max_length=255)
     name = models.CharField("Название латиницей", max_length=255)
     parent = TreeForeignKey(
         'self',
@@ -49,11 +44,7 @@ class MenuItem(MPTTModel):
             models.Q(app_label='news', model='post') | \
             models.Q(app_label='news', model='category') | \
             models.Q(app_label='contact', model='contact') | \
-            models.Q(app_label='calendar_of_events', model='calendar') | \
-            models.Q(app_label='team', model='category') | \
-            models.Q(app_label='team', model='team') | \
-            models.Q(app_label='photologue', model='gallery') | \
-            models.Q(app_label='build_page', model='buildpage')
+            models.Q(app_label='photologue', model='gallery')
 
     content_type = models.ForeignKey(
         ContentType,
@@ -65,9 +56,6 @@ class MenuItem(MPTTModel):
     object_id = models.PositiveIntegerField(verbose_name='Id записи', default=1, null=True)
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    style_li = models.CharField("Стиль для <li>", max_length=500, blank=True, null=True)
-    style_a = models.CharField("Стиль для <a>", max_length=500, blank=True, null=True)
-
     def get_anchor(self):
         if self.anchor:
             return "{}/#{}".format(Site.objects.get_current().domain, self.anchor)
@@ -77,31 +65,9 @@ class MenuItem(MPTTModel):
     def __str__(self):
         return self.name
 
-    def get_title(self):
-        return "{}".format(ItemMenuLang.objects.get(
-            item_id=self.id,
-            lang__slug=LangDefault.objects.first().lang_default.slug).title
-        )
-
     content_object.short_description = 'ID'
 
     class Meta:
         verbose_name = "Пункт меню"
         verbose_name_plural = "Пункты меню"
 
-
-class ItemMenuLang(models.Model):
-    """Пункт меню для разных языков"""
-    item = models.ForeignKey(MenuItem, verbose_name="Пункт меню", on_delete=models.CASCADE)
-    lang = models.ForeignKey(Lang, verbose_name="Язык", on_delete=models.CASCADE)
-    title = models.CharField("Название пункта меню на сайте", max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-
-    def get_title(self):
-        return "{}".format(self.title)
-
-    class Meta:
-        verbose_name = "Язык пункта меню"
-        verbose_name_plural = "Язык пункта меню"

@@ -5,7 +5,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from oms_cms.backend.urls import urlpatterns as cms_url
+import oms_cms.backend.urls
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
@@ -19,7 +19,7 @@ urlpatterns = [
     # path('', include('backend.menu.urls')),
 ]
 
-urlpatterns += cms_url
+urlpatterns += oms_cms.backend.urls.urlpatterns
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_title = "OMS CMS"

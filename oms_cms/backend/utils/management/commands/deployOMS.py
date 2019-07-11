@@ -15,5 +15,4 @@ class Command(BaseCommand):
         call_command('addcontact', verbosity=3)
         call_command('addpage', verbosity=3)
         call_command('addposts', verbosity=3)
-        call_command('addmsinstagram', verbosity=3)
         self.stdout.write('Success deploy oms-cms')

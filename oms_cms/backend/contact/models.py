@@ -1,6 +1,3 @@
-import os
-
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail, BadHeaderError
 
@@ -14,7 +11,6 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 #from oms_cms.backend.contact.send_mail import send_mail_contact
-from oms_cms.backend.languages.models import AbstractLang, Lang
 
 from oms_cms.backend.social_networks.models import SocialNetworks
 from oms_cms.config import settings
@@ -29,15 +25,8 @@ class Contact(models.Model):
         ("footer", "низ"),
         ("top_menu", "верхнее меню"),
     )
-    lang = models.ForeignKey(
-        Lang,
-        verbose_name="Язык",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
     name = models.CharField("Название", max_length=100, default="Контакты")
-    desk_cont = RichTextUploadingField("Описание", max_length=5000, default="", blank=True)
+    desk_cont = models.TextField("Описание", max_length=5000, default="", blank=True)
     map = models.CharField("Карта", max_length=10000, blank=True)
     section = models.CharField(
         "Расположение",

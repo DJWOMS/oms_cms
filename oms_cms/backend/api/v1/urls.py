@@ -22,7 +22,6 @@ urlpatterns = [
     path('gallery/', include('oms_cms.backend.api.v1.photologue.urls')),
     path('video/', include('oms_cms.backend.api.v1.video.urls')),
     path('info-block/', include('oms_cms.backend.api.v1.info_block.urls')),
-    path('instagram/', include('oms_cms.backend.api.v1.ms_instagram.urls')),
     path('partners/', include('oms_cms.backend.api.v1.partners.urls')),
     path('about/', include('oms_cms.backend.api.v1.about.urls')),
 

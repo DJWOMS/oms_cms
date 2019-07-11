@@ -10,7 +10,7 @@
 
 - pip install git+https://github.com/DJWOMS/oms_cms.git
 
-- django-admin startproject name --template=https://github.com/SGroupAM/moses_project/archive/master.zip
+- django-admin startproject name --template=https://github.com/DJWOMS/oms_project/archive/master.zip
 
 **Develop**
 
@@ -67,7 +67,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 - Выполнение всех команд разом
 -- python manage.py deploy
 - Выполнение всех команд разом и заполнить тест данными
--- python manage.py deployGFS
+-- python manage.py deployOMS
 
 
 

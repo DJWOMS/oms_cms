@@ -10,6 +10,5 @@ class Command(BaseCommand):
             title="Главная",
             text='Page test',
             slug='',
-            lang_id=1
         )
         self.stdout.write('Success page')

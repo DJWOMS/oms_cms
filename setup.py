@@ -9,7 +9,7 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.14"
+VERSION = "0.15"
 RELEASE = VERSION
 
 # version = __import__('Moses-CMS').get_version()
@@ -27,7 +27,7 @@ setup(
     name='oms-cms',
     version=VERSION,
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
-    url='https://',
+    url='https://djangochannel.com',
     author='DJWOMS - Omelchenko Michael',
     author_email='djwoms@gmail.com',
     description=('A high-level Python Web CMS'),

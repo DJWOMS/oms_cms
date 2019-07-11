@@ -6,13 +6,18 @@ CMS_APP = [
     'oms_cms.backend.news',
     'oms_cms.backend.social_networks',
     'oms_cms.backend.contact',
-    'oms_cms.backend.ms_instagram',
     'oms_cms.backend.utils',
     'oms_cms.backend.search',
     'oms_cms.backend.video',
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
     'oms_cms.backend.about',
+
+    # Editor
+    'ckeditor',
+    'ckeditor_uploader',
+
+    'debug_toolbar',
 ]
 
 LANGUAGE_CODE = 'ru-ru'
