@@ -13,7 +13,6 @@ class AllNews(ListView):
 
     def get_queryset(self):
         post_list = Post.objects.filter(
-            lang__slug__icontains=self.kwargs.get('lang'),
             category__active=True,
             published=True,
             published_date__lte=datetime.now())
@@ -35,7 +34,6 @@ class News(ListView):
     """Вывод новостей из конкретной категории"""
     def get_queryset(self):
         post_list = Post.objects.filter(
-                lang__slug__icontains=self.kwargs.get('lang'),
                 category__slug=self.kwargs.get('slug'),
                 category__active=True,
                 published=True,
@@ -55,11 +53,9 @@ class News(ListView):
 
 class PostDetail(View):
     """Вывод полной новости"""
-    def get(self, request, lang='ru', category=None, post=None):
-        modal = request.GET.get("modal", None)
+    def get(self, request, category=None, post=None):
         new = get_object_or_404(
             Post,
-            lang__slug__icontains=lang,
             slug=post,
             category__active=True,
             published=True,
@@ -67,10 +63,7 @@ class PostDetail(View):
         if new.status and request.user.is_authenticated or not new.status:
             new.viewed += 1
             new.save()
-            if modal is None:
-                return render(request, new.template, {"post": new})
-            else:
-                return render(request, 'news/modal-news-uikit.html', {"post": new})
+            return render(request, new.template, {"post": new})
         else:
             raise Http404
 
