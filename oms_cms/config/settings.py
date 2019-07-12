@@ -30,9 +30,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # 'allauth.socialaccount.providers.vk',
 
-    # Gallery
-    'photologue',
-    'sortedm2m',
     # API
     'rest_framework',
     'corsheaders',

@@ -19,7 +19,7 @@ class PagesAdmin(admin.ModelAdmin):
     """Статичные страницы"""
     list_display = ("title", "activate", "id")
     list_editable = ("activate", )
-    list_filter = ("author", "activate", "template")
+    list_filter = ("activate", "template")
     search_fields = ("title",)
     prepopulated_fields = {"slug": ("title", )}
     form = PagesAdminForm

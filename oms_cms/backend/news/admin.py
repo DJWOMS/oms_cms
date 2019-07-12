@@ -54,9 +54,9 @@ class CommentsInline(admin.StackedInline):
 class PostAdmin(admin.ModelAdmin):
     """Статьи"""
     form = PostAdminForm
-    list_display = ('title', 'created_date', 'get_category', 'id')
+    list_display = ('title', 'created_date', 'category', 'id')
 
-    search_fields = ("title", "category", "lang")
+    search_fields = ("title", "category")
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = (
         (None, {
@@ -68,9 +68,6 @@ class PostAdmin(admin.ModelAdmin):
                 'text',
                 'edit_date',
                 'published_date',
-                'photo',
-                'gallery',
-                'background_color',
                 'category',
                 'tag',
             )
@@ -78,7 +75,6 @@ class PostAdmin(admin.ModelAdmin):
         ('Настройки', {
             'classes': ('collapse',),
             'fields': (
-                'lang',
                 'template',
                 'published',
                 'status',
@@ -90,11 +86,6 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = ('viewed',)
 
     inlines = (CommentsInline,)
-
-    def get_category(self, obj):
-        return ",\n".join([p.name for p in obj.category.all()])
-
-    get_category.short_description = "Категория"
 
 
 @admin.register(Comments)

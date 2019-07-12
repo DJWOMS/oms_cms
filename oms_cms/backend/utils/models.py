@@ -1,12 +1,11 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from photologue.models import Photo
 
 
 class ConvertImage(models.Model):
     """Конвертированые изображения"""
-    photo = models.OneToOneField(Photo, verbose_name="Исходное изображение", on_delete=models.CASCADE)
+    # photo = models.OneToOneField(Photo, verbose_name="Исходное изображение", on_delete=models.CASCADE)
     image_webp = models.ImageField("webp", null=True, blank=True)
     image_j2k = models.ImageField("j2k", null=True, blank=True)
 

@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
-from photologue.models import Gallery, Photo
 
 
 class Category(MPTTModel):
@@ -72,18 +71,12 @@ class Post(models.Model):
         blank=True,
         null=True)
 
-    photo = models.ForeignKey(
-        Photo,
-        verbose_name="Главная фотография",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True)
-    gallery = models.ForeignKey(
-        Gallery,
-        verbose_name="Фотографии",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True)
+    # photo = models.ForeignKey(
+    #     Photo,
+    #     verbose_name="Главная фотография",
+    #     on_delete=models.SET_NULL,
+    #     null=True,
+    #     blank=True)
     tag = models.ManyToManyField(Tags, verbose_name="Тег", blank=True)
     category = models.ForeignKey(
         Category,
@@ -96,13 +89,6 @@ class Post(models.Model):
     published = models.BooleanField("Опубликовать?", default=True)
     viewed = models.IntegerField("Просмотрено", default=0)
     status = models.BooleanField("Для зарегистрированных", default=False)
-    background_color = models.CharField(
-        "Цвет фона",
-        help_text="#000000",
-        max_length=50,
-        blank=True,
-        null=True
-    )
 
     class Meta:
         verbose_name = "Новость"

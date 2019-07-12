@@ -41,6 +41,7 @@ class MenuItemAdmin(admin.ModelAdmin):
         (None, {
             'fields': (
                 'name',
+                'title',
                 'parent',
                 'menu',
                 "status",

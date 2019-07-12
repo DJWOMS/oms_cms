@@ -5,7 +5,6 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
-from photologue.models import Photo
 
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -68,13 +67,13 @@ class ContactFields(models.Model):
     text_two = models.CharField("Поле 2", max_length=1000, default='', blank=True)
     icon_ui = models.CharField("Класс иконки", max_length=500, default='', blank=True)
     type = models.CharField("Тип данных", max_length=10, choices=TYPE)
-    icon = models.ForeignKey(
-        Photo,
-        verbose_name="Иконка",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
+    # icon = models.ForeignKey(
+    #     Photo,
+    #     verbose_name="Иконка",
+    #     on_delete=models.SET_NULL,
+    #     null=True,
+    #     blank=True
+    # )
     contact = models.ForeignKey(
         Contact,
         related_name="contact_field",

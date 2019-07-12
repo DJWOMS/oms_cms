@@ -17,8 +17,6 @@ django-cors-headers==2.5.2
 django-debug-toolbar==1.11
 django-js-asset==1.1.0
 django-mptt==0.9.1
-django-photologue==3.9
-django-sortedm2m==1.5.0
 djangorestframework==3.9.2
 docutils==0.14
 drf-yasg==1.15.0
