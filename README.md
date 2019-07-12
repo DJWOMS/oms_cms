@@ -10,7 +10,7 @@
 
 - pip install git+https://github.com/DJWOMS/oms_cms.git
 
-- django-admin startproject name --template=https://github.com/DJWOMS/oms_project/archive/master.zip
+- django-admin startproject "name" --template=https://github.com/DJWOMS/oms_project/archive/master.zip
 
 **Develop**
 
