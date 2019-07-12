@@ -1,9 +1,8 @@
-{#<nav aria-label="...">#}
-<ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+<ul class="">
     {% if page_obj.has_previous %}
-        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#"><span></span></a></li>
     {% else %}
-        <li><a href="#"><span uk-pagination-next></span></a></li>
+        <li><a href="#"><span></span></a></li>
     {% endif %}
 
     {% for i in paginator.page_range %}

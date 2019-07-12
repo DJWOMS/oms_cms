@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load lang_tags %}
 {% block title %}
     {{ post.title }}
 {% endblock title %}
@@ -36,8 +35,5 @@
                 Просмотренно - {{ post.viewed }}
             </div>
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container -->
-    {% list_lang %}
 {% endblock content %}
