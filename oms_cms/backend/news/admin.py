@@ -2,7 +2,6 @@ from django import forms
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from jet.admin import CompactInline
 
 from .models import Post, Category, Tags, Comments
 
@@ -43,7 +42,7 @@ class TagsAdmin(admin.ModelAdmin):
     list_filter = ("name",)
 
 
-class CommentsInline(CompactInline):
+class CommentsInline(admin.StackedInline):
     model = Comments
     extra = 2
     show_change_link = True

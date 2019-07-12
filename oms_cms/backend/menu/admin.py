@@ -4,7 +4,6 @@ from mptt.admin import MPTTModelAdmin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline, GenericInlineModelAdmin
 from .models import Menu, MenuItem
-from jet.admin import CompactInline
 
 
 class CustomModelChoiceField(forms.ModelChoiceField):

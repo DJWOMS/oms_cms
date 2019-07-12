@@ -1,11 +1,9 @@
 from django.contrib import admin
 
-from jet.admin import CompactInline
-
 from oms_cms.backend.languages.models import Lang
 
 
-class MosesInline(CompactInline):
+class MosesInline(admin.StackedInline):
     """Инлайн"""
     try:
         extra = Lang.objects.all().count()

@@ -10,16 +10,9 @@ from .base.api_settings import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'b0!c@b!o_#F$^#@@!D@bv%#yhxs=qm@ana6l2$n=!p1ejm@'
-
 
 # Application definition
 INSTALLED_APPS = [
-    # Custom admin
-    'django_grapesjs',
-    'jet.dashboard',
-    'jet',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

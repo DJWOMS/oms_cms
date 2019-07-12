@@ -15,8 +15,6 @@ django-allauth==0.38.0
 django-ckeditor==5.6.1
 django-cors-headers==2.5.2
 django-debug-toolbar==1.11
-django-grapesjs==0.0.7
-django-jet==1.0.8
 django-js-asset==1.1.0
 django-mptt==0.9.1
 django-photologue==3.9

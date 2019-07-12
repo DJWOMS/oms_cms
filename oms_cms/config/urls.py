@@ -8,15 +8,12 @@ from django.conf.urls.static import static
 import oms_cms.backend.urls
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
 
     path('accounts/', include('allauth.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('photologue/', include('photologue.urls', namespace='photologue')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    # path('', include('backend.menu.urls')),
 ]
 
 urlpatterns += oms_cms.backend.urls.urlpatterns
