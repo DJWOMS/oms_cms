@@ -42,6 +42,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 ````
 - pip install -r req.txt
+- python manage.py collectstatic
 
 Проверка стиля
 - flake8 your_apps
