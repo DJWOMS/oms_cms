@@ -8,9 +8,9 @@ venv
 local_settings.py
 prod_settings.py
 
-!oms_cms/static/js
-!oms_cms/static/css
-oms_cms/static/*
+!/oms_cms/static/js
+!/oms_cms/static/css
+/oms_cms/static/*
 
 **/migrations/**
 !**/migrations
@@ -21,8 +21,8 @@ __pycache__/
 .pyc
 *.pyc
 
-**/media/**
-!**/media
+**/media/*
+
 
 .DS_Store
 *.egg-info/
