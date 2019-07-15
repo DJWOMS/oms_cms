@@ -23,7 +23,7 @@ class ImageSerializerField(serializers.Field):
         f = value.split("/").pop().split(".").pop(1)
         if f == "jpeg" or f == "jpg" or f == "webp":
             way = "tmp/img{}.j2p".format(value.split("/").pop().split(".").pop(0))
-            outputPath = os.path.join(settings.MEDIA_ROOT, way)
+            outputPath = os.path.joGin(settings.MEDIA_ROOT, way)
             # quality = 50
             try:
                 Image.open(settings.MEDIA_ROOT + "/" + way)

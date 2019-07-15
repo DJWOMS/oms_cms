@@ -11,12 +11,12 @@ def contact(context, name=None, template='base/tags/contact/contact_block_tag.ht
     """Вывод контактов по имени"""
     if name is not None:
         try:
-            context = Contact.objects.get(name__icontains=name)
+            context = Contact.objects.get(name__icontains=name, lang__slug=context["request"].session.get("lang"))
         except Contact.DoesNotExist:
             return {'template': template}
     else:
-        # context = Contact.objects.filter(lang__slug=context["request"].session.get("lang")).first()
-        context = Contact.objects.filter().first()
+        context = Contact.objects.filter(lang__slug=context["request"].session.get("lang")).first()
+        # context = Contact.objects.filter().first()
     return {'template': template, "contact": context}
 
 

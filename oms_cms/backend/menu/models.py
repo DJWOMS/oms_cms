@@ -5,6 +5,8 @@ from django.db import models
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
+from oms_cms.backend.languages.models import AbstractLang
+
 
 class Menu(models.Model):
     """Позиция меню"""
@@ -22,7 +24,7 @@ class Menu(models.Model):
         verbose_name_plural = "Меню"
 
 
-class MenuItem(MPTTModel):
+class MenuItem(MPTTModel, AbstractLang):
     """Элементы меню"""
     title = models.CharField("Название пункта меню на сайте", max_length=255)
     name = models.CharField("Название латиницей", max_length=255)
@@ -44,7 +46,7 @@ class MenuItem(MPTTModel):
             models.Q(app_label='news', model='post') | \
             models.Q(app_label='news', model='category') | \
             models.Q(app_label='contact', model='contact') | \
-            models.Q(app_label='photologue', model='gallery')
+            models.Q(app_label='oms-gallery', model='gallery')
 
     content_type = models.ForeignKey(
         ContentType,

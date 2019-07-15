@@ -3,11 +3,19 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
+from oms_gallery.models import Photo
+
+from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_lang
 
 
 class Category(MPTTModel):
     """Класс модели категорий сетей"""
     name = models.CharField("Название", max_length=50)
+    lang = models.ForeignKey(
+        Lang,
+        verbose_name="Язык",
+        on_delete=models.SET(get_sentinel_lang),
+    )
     parent = TreeForeignKey(
         'self',
         verbose_name="Родительская категория",
@@ -26,7 +34,7 @@ class Category(MPTTModel):
         verbose_name_plural = "Категории новостей"
 
     def get_absolute_url(self):
-        return reverse('list-news', kwargs={'slug': self.slug})
+        return reverse('list-news', kwargs={'lang': self.lang.slug, 'slug': self.slug})
 
     def __str__(self):
         return self.name
@@ -45,7 +53,7 @@ class Tags(models.Model):
         return self.name
 
 
-class Post(models.Model):
+class Post(AbstractLang):
     """Класс модели поста"""
     author = models.ForeignKey(
         User,
@@ -71,12 +79,12 @@ class Post(models.Model):
         blank=True,
         null=True)
 
-    # photo = models.ForeignKey(
-    #     Photo,
-    #     verbose_name="Главная фотография",
-    #     on_delete=models.SET_NULL,
-    #     null=True,
-    #     blank=True)
+    image = models.ForeignKey(
+        Photo,
+        verbose_name="Главная фотография",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True)
     tag = models.ManyToManyField(Tags, verbose_name="Тег", blank=True)
     category = models.ForeignKey(
         Category,
@@ -109,7 +117,7 @@ class Post(models.Model):
         return self.category.paginated
 
     def get_absolute_url(self):
-        return reverse('new-detail', kwargs={'category': self.category.slug, 'post': self.slug})
+        return reverse('new-detail', kwargs={'lang': self.lang.slug, 'category': self.category.slug, 'post': self.slug})
 
     def __str__(self):
         return "{}".format(self.title)

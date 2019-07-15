@@ -1,5 +1,4 @@
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail, BadHeaderError
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -10,30 +9,17 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 #from oms_cms.backend.contact.send_mail import send_mail_contact
-
+from oms_cms.backend.contact.send_mail import send_mail_contact
+from oms_cms.backend.languages.models import AbstractLang
 from oms_cms.backend.social_networks.models import SocialNetworks
 from oms_cms.config import settings
 
 
-class Contact(models.Model):
+class Contact(AbstractLang):
     """Контакты"""
-    SECTIONS = (
-        ("header", "верх"),
-        ("left", "лево"),
-        ("right", "право"),
-        ("footer", "низ"),
-        ("top_menu", "верхнее меню"),
-    )
     name = models.CharField("Название", max_length=100, default="Контакты")
-    desk_cont = models.TextField("Описание", max_length=5000, default="", blank=True)
-    map = models.CharField("Карта", max_length=10000, blank=True)
-    section = models.CharField(
-        "Расположение",
-        max_length=10,
-        choices=SECTIONS,
-        null=True,
-        unique=True
-    )
+    desk_cont = models.TextField("Описание", max_length=5000, blank=True, null=True)
+    map = models.CharField("Карта", max_length=10000, blank=True, null=True)
     slug = models.SlugField("URL", max_length=100, unique=True)
 
     class Meta:
@@ -55,25 +41,15 @@ class Contact(models.Model):
 
 class ContactFields(models.Model):
     """Поля контактов"""
-    TYPE = (
-        ("email", "email"),
-        ("phone", "телефон"),
-        ("address", "адрес"),
-        ("time", "время"),
-        ("info", "информация"),
-        ("other", "другое"),
-    )
     text = models.CharField("Поле 1", max_length=1000, blank=True)
-    text_two = models.CharField("Поле 2", max_length=1000, default='', blank=True)
-    icon_ui = models.CharField("Класс иконки", max_length=500, default='', blank=True)
-    type = models.CharField("Тип данных", max_length=10, choices=TYPE)
-    # icon = models.ForeignKey(
-    #     Photo,
-    #     verbose_name="Иконка",
-    #     on_delete=models.SET_NULL,
-    #     null=True,
-    #     blank=True
-    # )
+    text_two = models.CharField("Поле 2", max_length=1000, blank=True)
+    icon_ui = models.CharField("Класс иконки", max_length=500, blank=True)
+    icon = models.FileField(
+        upload_to="icon/",
+        verbose_name="Иконка",
+        null=True,
+        blank=True
+    )
     contact = models.ForeignKey(
         Contact,
         related_name="contact_field",
@@ -122,13 +98,12 @@ class ContactSocNet(models.Model):
 
 class Feedback(models.Model):
     """Модель формы обратной связи"""
-    # TODO: Убрать null=True и добавить сериализаторы для отправки email и телефона
-    full_name = models.CharField("ФИО", max_length=500, null=True)
-    email = models.EmailField("Email", null=True, blank=True)
-    tel = models.CharField("Тел.", max_length=20, default=0)
-    theme = models.CharField("Тема", max_length=500, null=True, blank=True)
-    message = models.TextField("Сообщение", max_length=1500, null=True, blank=True)
-    section = models.CharField("Модуль", max_length=150, default='', null=True, blank=True)
+    full_name = models.CharField('ФИО', max_length=100)
+    email = models.EmailField('Почта', max_length=150)
+    phone = models.CharField('Телефон', max_length=14, blank=True)
+    subject = models.CharField("Тема", max_length=150)
+    message = models.TextField('Сообщение', max_length=1000)
+    date = models.DateTimeField("Дата", auto_now_add=True)
 
     def __str__(self):
         if self.full_name:
@@ -136,69 +111,31 @@ class Feedback(models.Model):
         elif self.email:
             return "{}".format(self.email)
         else:
-            return "{}".format(self.tel)
+            return "{}".format(self.phone)
 
     def get_absolute_url(self):
-        return reverse('add_feedback')
+        return reverse('feedback')
 
     class Meta:
         verbose_name = "Обратная связь"
         verbose_name_plural = "Обратные связи"
 
 
-class EmailsFeedback(models.Model):
-    """Email для рассылки"""
-    email = models.EmailField("Email")
-
-    def __str__(self):
-        return self.email
-
-    class Meta:
-        verbose_name = "Email администратора"
-        verbose_name_plural = "Emails администратора"
-
-
 @receiver(post_save, sender=Feedback)
 def send_feedback_email(sender, instance, created, **kwargs):
     """Отправка email"""
     if created:
-        section = name = email = phone = theme = comment = ''
-        if instance.section is not None:
-            section = 'Модуль - {}<br>'.format(instance.section)
+        full_name = email = phone = subject = message = date = ''
         if instance.full_name is not None:
-            name = 'ФИО - {}<br>'.format(instance.full_name)
+            full_name = 'ФИО - {}<br>'.format(instance.full_name)
         if instance.email is not None:
             email = 'Email - {}<br>'.format(instance.email)
-        if instance.tel is not None:
-            phone = 'Номер - {}<br>'.format(instance.tel)
-        if instance.theme is not None:
-            theme = 'Тема - {}<br>'.format(instance.theme)
+        if instance.phone is not None:
+            phone = 'Номер - {}<br>'.format(instance.phone)
+        if instance.subject is not None:
+            subject = 'Тема - {}<br>'.format(instance.subject)
         if instance.message is not None:
-            comment = 'Сообщение: <br> {}'.format(instance.message)
-        subject = 'Новое сообщение обратной связи {}'.format(Site.objects.get_current())
-        message = """<p>{}{}{}{}{}{}</p>""".format(section, name, email, phone, theme, comment)
-        send_mail_contact(subject, message)
-
-
-def send_mail_contact(subject, message):
-    message = Mail(
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        to_emails=[e.email for e in EmailsFeedback.objects.all()],
-        subject=subject,
-        html_content='{}'.format(message))
-    try:
-        sg = SendGridAPIClient(settings.EMAIL_HOST_PASSWORD)
-        response = sg.send(message)
-        # print(response.status_code)
-        # print(response.body)
-        # print(response.headers)
-    except Exception as e:
-        print(e)
-
-# def send_mail_contact(subject, message):
-#     """Отправка email контакной формы"""
-#     try:
-#         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [e.email for e in EmailsFeedback.objects.all()])
-#         return True
-#     except BadHeaderError:
-#         return False
+            message = 'Сообщение: <br> {} <br>'.format(instance.message)
+        topic = 'Новое сообщение обратной связи {}'.format(Site.objects.get_current())
+        message = """<p>{}{}{}{}{}{}{}</p>""".format(full_name, email, phone, phone, subject, message, date)
+        send_mail_contact(topic, message)

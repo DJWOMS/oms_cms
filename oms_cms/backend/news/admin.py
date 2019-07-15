@@ -54,35 +54,36 @@ class CommentsInline(admin.StackedInline):
 class PostAdmin(admin.ModelAdmin):
     """Статьи"""
     form = PostAdminForm
-    list_display = ('title', 'created_date', 'category', 'id')
-
+    list_display = ('title', 'lang', 'created_date', 'category', 'id')
+    list_filter = ('lang', 'created_date', 'category', 'published')
     search_fields = ("title", "category")
     prepopulated_fields = {"slug": ("title",)}
-    fieldsets = (
-        (None, {
-            'fields': (
-                'author',
-                'title',
-                'subtitle',
-                'mini_text',
-                'text',
-                'edit_date',
-                'published_date',
-                'category',
-                'tag',
-            )
-        }),
-        ('Настройки', {
-            'classes': ('collapse',),
-            'fields': (
-                'template',
-                'published',
-                'status',
-                'slug',
-                'viewed',
-            )
-        }),
-    )
+    # fieldsets = (
+    #     (None, {
+    #         'fields': (
+    #             'author',
+    #             'title',
+    #             'subtitle',
+    #             'image',
+    #             'mini_text',
+    #             'text',
+    #             'edit_date',
+    #             'published_date',
+    #             'category',
+    #             'tag',
+    #         )
+    #     }),
+    #     ('Настройки', {
+    #         'classes': ('collapse',),
+    #         'fields': (
+    #             'template',
+    #             'published',
+    #             'status',
+    #             'slug',
+    #             'viewed',
+    #         )
+    #     }),
+    # )
     readonly_fields = ('viewed',)
 
     inlines = (CommentsInline,)

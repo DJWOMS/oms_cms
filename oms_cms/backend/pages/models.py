@@ -1,8 +1,10 @@
 from django.db import models
 from django.urls import reverse
 
+from oms_cms.backend.languages.models import AbstractLang
 
-class Pages(models.Model):
+
+class Pages(AbstractLang):
     """Страницы"""
     title = models.CharField("Заголовок", max_length=500)
     text = models.TextField("Тест", blank=True)

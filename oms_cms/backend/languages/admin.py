@@ -1,12 +1,6 @@
 from django.contrib import admin
 
-from .models import LangDefault, Lang
-
-
-@admin.register(LangDefault)
-class ListLangAdmin(admin.ModelAdmin):
-    """Язык по умолчанию"""
-    list_display = ("lang_default",)
+from .models import Lang
 
 
 @admin.register(Lang)

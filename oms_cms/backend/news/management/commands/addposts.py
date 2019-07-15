@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Add post'
 
     def handle(self, *args, **options):
-        category = Category.objects.create(name="Акция", slug="test")
+        category = Category.objects.create(name="Акция", slug="test", lang_id=1)
         i = 10
         while i > 0:
             Post.objects.create(
@@ -14,7 +14,8 @@ class Command(BaseCommand):
                 mini_text="mini_text",
                 text="text",
                 slug="title-{}".format(i),
-                category=category
+                category=category,
+                lang_id=1
             )
             i -= 1
         self.stdout.write('Success add posts')

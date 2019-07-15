@@ -10,5 +10,12 @@ class Command(BaseCommand):
             title="Главная",
             text='Page test',
             slug='',
+            lang_id=1
+        )
+        Pages.objects.create(
+            title="О нас",
+            text='Page about',
+            slug='about',
+            lang_id=1
         )
         self.stdout.write('Success page')

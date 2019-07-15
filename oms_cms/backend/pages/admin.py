@@ -17,9 +17,9 @@ class PagesAdminForm(forms.ModelForm):
 @admin.register(Pages)
 class PagesAdmin(admin.ModelAdmin):
     """Статичные страницы"""
-    list_display = ("title", "activate", "id")
+    list_display = ("title", "lang", "activate", "id")
     list_editable = ("activate", )
-    list_filter = ("activate", "template")
+    list_filter = ("activate", "lang", "template")
     search_fields = ("title",)
     prepopulated_fields = {"slug": ("title", )}
     form = PagesAdminForm

@@ -12,8 +12,6 @@ BUILD = 0
 VERSION = "0.15.1"
 RELEASE = VERSION
 
-# version = __import__('Moses-CMS').get_version()
-
 
 def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname)) as f:
@@ -46,7 +44,7 @@ setup(
     # },
     zip_safe=False,
     classifiers=[
-        'Development Status :: 0.14 - Beta',
+        'Development Status :: 0.15 - Beta',
         'Environment :: Web Environment',
         'CMS :: Moses-CMS',
         'Intended Audience :: Developers',

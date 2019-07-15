@@ -23,7 +23,6 @@ urlpatterns = [
     path('video/', include('oms_cms.backend.api.v1.video.urls')),
     path('info-block/', include('oms_cms.backend.api.v1.info_block.urls')),
     path('partners/', include('oms_cms.backend.api.v1.partners.urls')),
-    path('about/', include('oms_cms.backend.api.v1.about.urls')),
 
     re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0),
             name='schema-json'),

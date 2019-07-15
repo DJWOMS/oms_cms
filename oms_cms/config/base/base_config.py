@@ -11,13 +11,15 @@ CMS_APP = [
     'oms_cms.backend.video',
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
-    'oms_cms.backend.about',
 
     # Editor
     'ckeditor',
     'ckeditor_uploader',
 
     'debug_toolbar',
+
+    # plugins
+    'oms_gallery',
 ]
 
 LANGUAGE_CODE = 'ru-ru'
@@ -42,3 +44,16 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# All auth
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_UNIQUE = True
+# ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+# ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_VERIFICATION = "optional" #"mandatory"
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "administrator", "moderator",]
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
+# ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True

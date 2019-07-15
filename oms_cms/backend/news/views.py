@@ -5,14 +5,17 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.base import View
 
+from oms_cms.backend.languages.models import Lang
 from .models import Category, Post
 
 
 class AllNews(ListView):
     """Список всех статей"""
-
     def get_queryset(self):
+        if self.kwargs.get('lang', None) is None:
+            self.kwargs["lang"] = Lang.objects.get(is_default=True).slug
         post_list = Post.objects.filter(
+            lang__slug__icontains=self.kwargs.get('lang'),
             category__active=True,
             published=True,
             published_date__lte=datetime.now())
@@ -33,7 +36,10 @@ class AllNews(ListView):
 class News(ListView):
     """Вывод новостей из конкретной категории"""
     def get_queryset(self):
+        if self.kwargs.get('lang', None) is None:
+            self.kwargs["lang"] = Lang.objects.get(is_default=True).slug
         post_list = Post.objects.filter(
+                lang__slug__icontains=self.kwargs.get('lang'),
                 category__slug=self.kwargs.get('slug'),
                 category__active=True,
                 published=True,
@@ -53,9 +59,12 @@ class News(ListView):
 
 class PostDetail(View):
     """Вывод полной новости"""
-    def get(self, request, category=None, post=None):
+    def get(self, request, lang=None, category=None, post=None):
+        if lang is None:
+            lang = Lang.objects.get(is_default=True).slug
         new = get_object_or_404(
             Post,
+            lang__slug__icontains=lang,
             slug=post,
             category__active=True,
             published=True,

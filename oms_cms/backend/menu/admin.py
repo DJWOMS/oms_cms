@@ -33,30 +33,30 @@ class MenuAdmin(admin.ModelAdmin):
 class MenuItemAdmin(admin.ModelAdmin):
     """Пункты меню"""
     # form = FieldForm
-    list_display = ("name", "parent", "menu", "id")
+    list_display = ("name", "parent", "lang", "menu", "id")
     mptt_level_indent = 20
-    list_filter = ("menu", "parent")
+    list_filter = ("menu", "parent", "lang")
     search_fields = ("name", "parent", "menu")
-    fieldsets = (
-        (None, {
-            'fields': (
-                'name',
-                'title',
-                'parent',
-                'menu',
-                "status",
-            ),
-
-        }),
-        ('Ссылки', {
-            'fields': (
-                'url',
-                'anchor',
-                'content_type',
-                'object_id'
-            )
-        }),
-    )
+    # fieldsets = (
+    #     (None, {
+    #         'fields': (
+    #             'name',
+    #             'title',
+    #             'parent',
+    #             'menu',
+    #             "status",
+    #         ),
+    #
+    #     }),
+    #     ('Ссылки', {
+    #         'fields': (
+    #             'url',
+    #             'anchor',
+    #             'content_type',
+    #             'object_id'
+    #         )
+    #     }),
+    # )
     # raw_id_fields = ('related_fk', 'related_m2m',)
     # define the autocomplete_lookup_fields
     # autocomplete_fields = ['content_type', 'object_id']

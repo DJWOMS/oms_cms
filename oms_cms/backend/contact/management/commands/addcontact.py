@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Add contact'
 
     def handle(self, *args, **options):
-        contact = Contact.objects.create(name="Контакты", slug="contact")
+        contact = Contact.objects.create(name="Контакты", slug="contact", lang_id=1)
         ContactFields.objects.create(
             text="Адрес клуба",
             text_two="Лобачевского 74",
@@ -37,10 +37,7 @@ class Command(BaseCommand):
             link_id=2
         )
 
-        contact_footer = Contact.objects.create(
-            name="Контакты footer",
-            slug="contact-footer"
-        )
+        contact_footer = Contact.objects.create(name="Контакты footer", slug="contact-footer", lang_id=1)
         ContactFields.objects.create(
             text="Адрес клуба",
             text_two="Лобачевского 74",
