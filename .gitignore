@@ -6,6 +6,7 @@ db.sqlite3
 venv
 
 local_settings.py
+prod_settings.py
 
 **/migrations/**
 !**/migrations
