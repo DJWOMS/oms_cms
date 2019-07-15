@@ -38,16 +38,14 @@ class CategoryAdmin(MPTTModelAdmin):
 @admin.register(Tags)
 class TagsAdmin(admin.ModelAdmin):
     """Категории"""
-    prepopulated_fields = {"slug": ("name",)}
     list_filter = ("name",)
+    prepopulated_fields = {"slug": ("name",)}
 
 
 class CommentsInline(admin.StackedInline):
     model = Comments
-    extra = 2
+    extra = 1
     show_change_link = True
-
-    # readonly_fields = ('text',)
 
 
 @admin.register(Post)
