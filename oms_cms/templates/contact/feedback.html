@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Связаться с нами Вы можете через форму ниже:</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <p class='message'>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+{% endblock content %}

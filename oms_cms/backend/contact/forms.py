@@ -7,4 +7,4 @@ class FeedbackForm(forms.ModelForm):
     """Форма обратной связи"""
     class Meta:
         model = Feedback
-        fields = ("email", "full_name", "tel", "theme", "message")
+        fields = ("full_name", "email", "phone", "subject", "message")

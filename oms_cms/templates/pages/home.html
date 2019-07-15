@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
-{% load menu_tags contact_tags %}
+{% load menu_tags %}
 {% block title %}{{ page.title }}{% endblock title %}
 {% block content %}
     {% menu_item menu='Верхнее' %}
     {{ page.text|safe }}
-    <hr>
-    {% contact 'Контакты footer' %}
-    <hr>
+
 {% endblock content %}

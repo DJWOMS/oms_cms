@@ -1,7 +1,7 @@
 <!-- Подключение базового шаблона -->
 {% extends 'super-base.html' %}
 <!-- Для подключение деректории static -->
-{% load staticfiles %}
+{% load staticfiles lang_tags contact_tags %}
 <!-- Meta данные -->
 {% block meta %}
     <meta charset="UTF-8">
@@ -22,6 +22,10 @@
         {% block content %}
             <!-- Контент который будет меняться на страницах -->
         {% endblock content %}
+    <hr>
+    {% contact 'Контакты footer' %}
+    <hr>
+    {% list_lang %}
     </main>
 {% endblock body %}
 <!-- Подключение js и т.д. -->
