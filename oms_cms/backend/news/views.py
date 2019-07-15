@@ -6,44 +6,28 @@ from django.views.generic import ListView
 from django.views.generic.base import View
 
 from oms_cms.backend.languages.models import Lang
-from .models import Category, Post
+from .models import Post
 
 
-class AllNews(ListView):
-    """Список всех статей"""
+class PostView(ListView):
+    """Вывод всех статей или из категории"""
     def get_queryset(self):
         if self.kwargs.get('lang', None) is None:
             self.kwargs["lang"] = Lang.objects.get(is_default=True).slug
-        post_list = Post.objects.filter(
-            lang__slug__icontains=self.kwargs.get('lang'),
-            category__active=True,
-            published=True,
-            published_date__lte=datetime.now())
-
-        if self.request.user.is_authenticated:
-            posts = post_list
-        else:
-            posts = post_list.filter(status=False)
-
-        if posts.exists():
-            self.paginate_by = posts.first().get_category_paginated()
-            self.template_name = posts.first().get_category_template()
-            return posts
-        else:
-            raise Http404()
-
-
-class News(ListView):
-    """Вывод новостей из конкретной категории"""
-    def get_queryset(self):
-        if self.kwargs.get('lang', None) is None:
-            self.kwargs["lang"] = Lang.objects.get(is_default=True).slug
-        post_list = Post.objects.filter(
+        if self.kwargs.get('slug') is not None:
+            post_list = Post.objects.filter(
                 lang__slug__icontains=self.kwargs.get('lang'),
                 category__slug=self.kwargs.get('slug'),
                 category__active=True,
                 published=True,
                 published_date__lte=datetime.now())
+        else:
+            post_list = Post.objects.filter(
+                lang__slug__icontains=self.kwargs.get('lang'),
+                category__active=True,
+                published=True,
+                published_date__lte=datetime.now())
+
         if self.request.user.is_authenticated:
             posts = post_list
         else:

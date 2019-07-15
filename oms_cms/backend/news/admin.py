@@ -28,7 +28,7 @@ class CommentAdminForm(forms.ModelForm):
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin):
     """Категории"""
-    list_display = ("name", "id",)
+    list_display = ("name", "slug", "id",)
     list_display_links = ("name",)
     list_filter = ("name",)
     prepopulated_fields = {"slug": ("name",)}
