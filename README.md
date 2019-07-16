@@ -7,14 +7,26 @@
 - Postgres == 10
 
 **Установка:**
+- Создать виртуальное окружение
 
-- pip install git+https://github.com/DJWOMS/oms_cms.git
+::
 
-- django-admin startproject "name" --template=https://github.com/DJWOMS/oms_project/archive/master.zip
+    python -m venv venv
+- Активировать виртуальное окружение
+- Установить CMS
+
+::
+
+    pip install git+https://github.com/DJWOMS/oms_cms.git
+- Создать стартовый проект. В "name" указать имя вашего проекта
+
+::
+
+    django-admin startproject "name" --template=https://github.com/DJWOMS/oms_project/archive/master.zip
 
 **Develop**
-
-Создать файл oms_cms/config/local_settings.py и прописать конект к базе
+- Сделать форк или клонировать репозиторий
+- Создать файл oms_cms/config/local_settings.py и прописать конект к базе
 ````
 # coding=utf-8
 import os
@@ -41,34 +53,76 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 ````
-- pip install -r req.txt
-- python manage.py collectstatic
+- Установить зависимости
 
-Проверка стиля
-- flake8 your_apps
+::
 
-Авто исправление
-- autopep8 ./your_apps --recursive -v --in-place -a
+    pip install -r req.txt
+- Собрать статику
+
+::
+
+    python manage.py collectstatic
+- Запустить dev сервер
+
+::
+
+    python manage.py runserver
 
 **Команды**
 - Создание файлов миграций
--- python manage.py makemigrations
+
+
+    python manage.py makemigrations
+    
 - Применение миграций
--- python manage.py migrate
+
+
+    python manage.py migrate
+
+
 - Создание супер пользователя
--- python manage.py createsuperuser
+
+
+    python manage.py createsuperuser
+
 - Создание пользователей
--- python manage.py adduser
+
+
+    python manage.py adduser
+
 - Создание страниц
--- python manage.py addpage
+
+
+    python manage.py addpage
+
 - Создание тестовых постов и категории
--- python manage.py addposts
+
+
+    python manage.py addposts
+
 - Создание меню
--- python manage.py addmenu
+
+
+    python manage.py addmenu
+
 - Выполнение всех команд разом
--- python manage.py deploy
+
+
+    python manage.py deploy
+
 - Выполнение всех команд разом и заполнить тест данными
--- python manage.py deployOMS
+
+
+    python manage.py deployOMS
+    
+Проверка стиля
+
+    flake8 your_apps
+
+Авто исправление
+
+    autopep8 ./your_apps --recursive -v --in-place -a
 
 
 

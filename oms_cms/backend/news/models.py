@@ -26,7 +26,7 @@ class Category(MPTTModel):
     )
     template = models.CharField("Шаблон", max_length=500, default="news/post_list.html")
     slug = models.SlugField("url", unique=True, max_length=100, blank=True, null=True)
-    active = models.BooleanField("Отображать?", default=True)
+    published = models.BooleanField("Отображать?", default=True)
     paginated = models.PositiveIntegerField("Количество новостей на странице", default=5)
 
     class Meta:
@@ -44,6 +44,7 @@ class Tags(models.Model):
     """Класс модели тегов"""
     name = models.CharField("Тег", max_length=50, unique=True)
     slug = models.SlugField("url", unique=True, max_length=100, blank=True, null=True)
+    published = models.BooleanField("Отображать?", default=True)
 
     class Meta:
         verbose_name = "Тег"
@@ -128,6 +129,7 @@ class Comments(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, verbose_name="Новость", on_delete=models.CASCADE)
     text = models.TextField("Сообщение", max_length=2000)
+    published = models.BooleanField("Опубликовать?", default=True)
     date = models.DateTimeField("Дата", auto_now_add=True)
     update = models.DateTimeField("Изменен", auto_now=True)
     parent_comment = models.ForeignKey(
