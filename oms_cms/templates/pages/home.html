@@ -1,8 +1,35 @@
 {% extends 'base.html' %}
-{% load menu_tags %}
-{% block title %}{{ page.title }}{% endblock title %}
+{% load menu_tags seo_tags %}
+{% block seo %}
+    {% seo page %}
+{% endblock seo %}
+{#{% block title %}{% seo page %}{% endblock title %}#}
+
 {% block content %}
+    {% seo page %}
     {% menu_item menu='Верхнее' %}
-    {{ page.text|safe }}
+    <div class="main2">
+        <div class="menu">
+            <ul>
+                <li class="li-menu">
+                    <a class="a-menu" href="https://vk.com/djangochannel">CS</a>
+                </li>
+                <li>
+                    <a class="a-menu" href="#">DOTA</a>
+                </li>
+                <li>
+                    <a class="a-menu" href="#">WoT</a>
+                <li>
+                <li>
+                    <a class="a-menu" href="#">WoS</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text">
+            {{ page.text|safe }}
+        </div>
+    </div>
+
 
 {% endblock content %}

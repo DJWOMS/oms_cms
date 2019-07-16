@@ -6,9 +6,14 @@
     <!-- Meta данные -->
     {% block meta %}
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- Title старницы -->
+        {#        <meta name="description" content="{% block description %} {% endblock description %}">#}
+        {#        <title>{% block title %}aa{% endblock title %}</title>#}
+        {% block seo %}
+        {% endblock seo %}
     {% endblock meta %}
-    <!-- Title старницы -->
-    <title>{% block title %}{% endblock title %}</title>
     <!-- Подключение стилей -->
     {% block style %}
     {% endblock style %}

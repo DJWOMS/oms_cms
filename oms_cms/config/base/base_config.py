@@ -20,6 +20,7 @@ CMS_APP = [
 
     # plugins
     'oms_gallery',
+    'oms_cms.backend.oms_seo',
 ]
 
 LANGUAGE_CODE = 'ru-ru'

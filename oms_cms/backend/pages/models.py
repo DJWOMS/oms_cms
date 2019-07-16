@@ -1,5 +1,8 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
+
+from oms_cms.backend.oms_seo.models import Seo
 
 from oms_cms.backend.languages.models import AbstractLang
 
@@ -15,7 +18,7 @@ class Pages(AbstractLang):
         null=True
     )
     published_date = models.DateTimeField("Дата публикации", blank=True, null=True)
-    activate = models.BooleanField("Опубликовать?", default=True)
+    published = models.BooleanField("Опубликовать?", default=True)
     template = models.CharField("Шаблон", max_length=500, default="pages/home.html")
     slug = models.SlugField(
         "URL",
@@ -26,6 +29,8 @@ class Pages(AbstractLang):
         blank=True,
         null=True
     )
+
+    seo = GenericRelation(Seo)
 
     def __str__(self):
         return self.title

@@ -7,20 +7,19 @@
 - Postgres == 10
 
 **Установка:**
-- Создать виртуальное окружение
+- Создать виртуальное окружение ::
 
-::
 
     python -m venv venv
+    
 - Активировать виртуальное окружение
-- Установить CMS
+- Установить CMS ::
 
-::
 
     pip install git+https://github.com/DJWOMS/oms_cms.git
-- Создать стартовый проект. В "name" указать имя вашего проекта
+    
+- Создать стартовый проект. В "name" указать имя вашего проекта ::
 
-::
 
     django-admin startproject "name" --template=https://github.com/DJWOMS/oms_project/archive/master.zip
 
@@ -53,74 +52,73 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 ````
-- Установить зависимости
+- Установить зависимости ::
 
-::
 
     pip install -r req.txt
-- Собрать статику
+    
+- Собрать статику ::
 
-::
 
     python manage.py collectstatic
-- Запустить dev сервер
+    
+- Запустить dev сервер ::
 
-::
 
     python manage.py runserver
 
 **Команды**
-- Создание файлов миграций
+- Создание файлов миграций ::
 
 
     python manage.py makemigrations
     
-- Применение миграций
+- Применение миграций ::
 
 
     python manage.py migrate
 
 
-- Создание супер пользователя
+- Создание супер пользователя ::
 
 
     python manage.py createsuperuser
 
-- Создание пользователей
+- Создание пользователей ::
 
 
     python manage.py adduser
 
-- Создание страниц
+- Создание страниц ::
 
 
     python manage.py addpage
 
-- Создание тестовых постов и категории
+- Создание тестовых постов и категории ::
 
 
     python manage.py addposts
 
-- Создание меню
+- Создание меню ::
 
 
     python manage.py addmenu
 
-- Выполнение всех команд разом
+- Выполнение всех команд разом ::
 
 
     python manage.py deploy
 
-- Выполнение всех команд разом и заполнить тест данными
+- Выполнение всех команд разом и заполнить тест данными ::
 
 
     python manage.py deployOMS
     
-Проверка стиля
+Проверка стиля ::
 
     flake8 your_apps
 
-Авто исправление
+Авто исправление ::
 
     autopep8 ./your_apps --recursive -v --in-place -a
 

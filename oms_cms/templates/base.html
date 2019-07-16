@@ -3,15 +3,12 @@
 <!-- Для подключение деректории static -->
 {% load staticfiles lang_tags contact_tags %}
 <!-- Meta данные -->
-{% block meta %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{% endblock meta %}
-<!-- Title старницы -->
-{% block title %}
-    Oms-CMS
-{% endblock title %}
+{% block seo %}
+{% endblock seo %}
+{#{% block description %}{% endblock description %}#}
+{#{% block title %}{% endblock title %}#}
+
+<meta name="author" content="">
 <!-- Подключение стилей -->
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -22,13 +19,13 @@
         {% block content %}
             <!-- Контент который будет меняться на страницах -->
         {% endblock content %}
-    <hr>
-    {% contact 'Контакты footer' %}
-    <hr>
-    {% list_lang %}
+        <hr>
+        {% contact 'Контакты footer' %}
+        <hr>
+        {% list_lang %}
     </main>
 {% endblock body %}
 <!-- Подключение js и т.д. -->
 {% block scripts %}
-{#    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>#}
+    {#    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>#}
 {% endblock scripts %}
