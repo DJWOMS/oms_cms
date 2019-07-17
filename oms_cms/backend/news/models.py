@@ -82,8 +82,8 @@ class Post(AbstractLang):
         "Дата публикации",
         default=timezone.now,
         blank=True,
-        null=True)
-
+        null=True
+    )
     image = models.ForeignKey(
         Photo,
         verbose_name="Главная фотография",

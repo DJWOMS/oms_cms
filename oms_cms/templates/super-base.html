@@ -1,5 +1,5 @@
 <!-- Для подключение деректории static -->
-{% load staticfiles %}
+{% load staticfiles seo_tags%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +8,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="google-site-verification" content="{% search_system 'google' %}"/>
+        <meta name="yandex-verification" content="{% search_system 'yandex' %}"/>
         <!-- Title старницы -->
         {#        <meta name="description" content="{% block description %} {% endblock description %}">#}
         {#        <title>{% block title %}aa{% endblock title %}</title>#}
@@ -22,8 +24,11 @@
 <!-- Тег body -->
 {% block body %}
 {% endblock body %}
+{% counter_system_all %}
 <!-- Подключение js и т.д. -->
+{% counter_system 'yandex' %}
 {% block scripts %}
+
 {% endblock scripts %}
 </body>
 </html>
