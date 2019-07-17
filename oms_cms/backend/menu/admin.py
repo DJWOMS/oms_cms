@@ -4,6 +4,7 @@ from mptt.admin import MPTTModelAdmin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline, GenericInlineModelAdmin
 from .models import Menu, MenuItem
+from .forms import AdminRatingForm
 
 
 class CustomModelChoiceField(forms.ModelChoiceField):
@@ -37,6 +38,7 @@ class MenuItemAdmin(admin.ModelAdmin):
     mptt_level_indent = 20
     list_filter = ("menu", "parent", "lang")
     search_fields = ("name", "parent", "menu")
+    # form = AdminRatingForm
     # fieldsets = (
     #     (None, {
     #         'fields': (
