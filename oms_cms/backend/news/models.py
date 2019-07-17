@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -6,6 +7,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from oms_gallery.models import Photo
 
 from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_lang
+from oms_cms.backend.oms_seo.models import Seo
 
 
 class Category(MPTTModel):
@@ -28,6 +30,8 @@ class Category(MPTTModel):
     slug = models.SlugField("url", unique=True, max_length=100, blank=True, null=True)
     published = models.BooleanField("Отображать?", default=True)
     paginated = models.PositiveIntegerField("Количество новостей на странице", default=5)
+
+    seo = GenericRelation(Seo)
 
     class Meta:
         verbose_name = "Категория новостей"
@@ -98,6 +102,8 @@ class Post(AbstractLang):
     published = models.BooleanField("Опубликовать?", default=True)
     viewed = models.IntegerField("Просмотрено", default=0)
     status = models.BooleanField("Для зарегистрированных", default=False)
+
+    seo = GenericRelation(Seo)
 
     class Meta:
         verbose_name = "Новость"

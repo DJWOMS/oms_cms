@@ -18,13 +18,13 @@ class PostView(ListView):
             post_list = Post.objects.filter(
                 lang__slug__icontains=self.kwargs.get('lang'),
                 category__slug=self.kwargs.get('slug'),
-                category__active=True,
+                category__published=True,
                 published=True,
                 published_date__lte=datetime.now())
         else:
             post_list = Post.objects.filter(
                 lang__slug__icontains=self.kwargs.get('lang'),
-                category__active=True,
+                category__published=True,
                 published=True,
                 published_date__lte=datetime.now())
 
@@ -50,7 +50,7 @@ class PostDetail(View):
             Post,
             lang__slug__icontains=lang,
             slug=post,
-            category__active=True,
+            category__published=True,
             published=True,
             published_date__lte=datetime.now())
         if new.status and request.user.is_authenticated or not new.status:

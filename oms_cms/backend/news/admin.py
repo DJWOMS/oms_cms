@@ -3,6 +3,7 @@ from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
+from oms_cms.backend.oms_seo.admin import SeoInlines
 from .models import Post, Category, Tags, Comments
 
 
@@ -63,6 +64,7 @@ class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     prepopulated_fields = {"slug": ("name",)}
     mptt_level_indent = 20
     actions = ['unpublish', 'publish']
+    inlines = (SeoInlines,)
 
 
 @admin.register(Tags)
@@ -119,7 +121,7 @@ class PostAdmin(ActionPublish):
     # )
     readonly_fields = ('viewed',)
 
-    inlines = (CommentsInline,)
+    inlines = (SeoInlines, CommentsInline,)
 
 
 @admin.register(Comments)

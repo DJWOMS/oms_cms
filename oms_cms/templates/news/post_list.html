@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}Новости{% endblock title %}
+{% load seo_tags %}
+{% block seo %}
+    {% seo post_list.first.category %}
+{% endblock seo %}
 {% block content %}
     <div class="uk-child-width-1-2@m" uk-grid>
         {% if post_list.exists %}
