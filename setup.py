@@ -9,7 +9,7 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.2"
+VERSION = "0.3"
 RELEASE = VERSION
 
 
