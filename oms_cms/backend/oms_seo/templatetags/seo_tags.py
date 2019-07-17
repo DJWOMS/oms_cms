@@ -31,7 +31,7 @@ def search_system(name):
 @register.simple_tag
 def counter_system(name):
     """Вывод кода счетчика по имени"""
-    system = CounterForSite.objects.filter(name=name)
+    system = CounterForSite.objects.filter(name=name, published=True)
     if system.exists():
         return mark_safe(system.first().code)
     else:
@@ -41,7 +41,7 @@ def counter_system(name):
 @register.simple_tag
 def counter_system_all():
     """Вывод всех счетчиков"""
-    system = CounterForSite.objects.all()
+    system = CounterForSite.objects.filter(published=True)
     if system.exists():
         return mark_safe(''.join(s.code for s in system))
     else:
