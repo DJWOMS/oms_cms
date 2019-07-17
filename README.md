@@ -68,49 +68,39 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
     python manage.py runserver
 
 **Команды**
-- Создание файлов миграций ::
-
+Создание файлов миграций ::
 
     python manage.py makemigrations
     
-- Применение миграций ::
-
+Применение миграций ::
 
     python manage.py migrate
 
-
-- Создание супер пользователя ::
-
+Создание супер пользователя ::
 
     python manage.py createsuperuser
 
-- Создание пользователей ::
-
+Создание пользователей ::
 
     python manage.py adduser
 
-- Создание страниц ::
-
+Создание страниц ::
 
     python manage.py addpage
 
-- Создание тестовых постов и категории ::
-
+Создание тестовых постов и категории ::
 
     python manage.py addposts
 
-- Создание меню ::
-
+Создание меню ::
 
     python manage.py addmenu
 
-- Выполнение всех команд разом ::
-
+Выполнение всех команд разом ::
 
     python manage.py deploy
 
-- Выполнение всех команд разом и заполнить тест данными ::
-
+Выполнение всех команд разом и заполнить тест данными ::
 
     python manage.py deployOMS
     
