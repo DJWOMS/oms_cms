@@ -4,7 +4,7 @@ OMS CMS project by DJWOMS.
 
 import os
 from .base.ckeditor import CKEDITOR_UPLOAD_PATH, CKEDITOR_CONFIGS
-from .base.base_config import *
+from .base.cms_config import *
 from .base.api_settings import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'django.contrib.humanize',
 
     'mptt',

@@ -37,7 +37,7 @@ class Pages(AbstractLang):
 
     def get_absolute_url(self):
         if self.slug:
-            return reverse('page', kwargs={'slug': self.slug})
+            return reverse('page_slug', kwargs={'slug': self.slug})
         else:
             return reverse('page')
 
