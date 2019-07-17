@@ -1,0 +1,1 @@
+default_app_config = 'oms_cms.backend.info_block.apps.InfoBlockConfig'
