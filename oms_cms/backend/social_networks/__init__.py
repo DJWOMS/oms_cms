@@ -1,0 +1,1 @@
+default_app_config = 'oms_cms.backend.social_networks.apps.SocialNetworksConfig'
