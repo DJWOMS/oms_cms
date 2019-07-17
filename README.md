@@ -20,7 +20,8 @@
     
 - Создать стартовый проект. В "name" указать имя вашего проекта ::
 
-
+    
+    python manage.py omscreate "name project"
     django-admin startproject "name" --template=https://github.com/DJWOMS/oms_project/archive/master.zip
 
 **Develop**
@@ -68,6 +69,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
     python manage.py runserver
 
 **Команды**
+
 Создание файлов миграций ::
 
     python manage.py makemigrations
