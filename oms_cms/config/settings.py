@@ -23,18 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'mptt',
-
-    # Auth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.vk',
-
-    # API
-    'rest_framework',
-    'corsheaders',
-    # DOC
-    'drf_yasg',
 ]
 
 INSTALLED_APPS += CMS_APP
@@ -110,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
 MY_INFO = 80
 MESSAGE_LEVEL = MY_INFO
@@ -118,4 +106,4 @@ MESSAGE_LEVEL = MY_INFO
 try:
     from .local_settings import *
 except ImportError:
-    from .prod_settings import *
+    pass
