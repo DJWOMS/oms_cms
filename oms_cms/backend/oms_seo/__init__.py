@@ -1,0 +1,1 @@
+default_app_config = 'oms_cms.backend.oms_seo.apps.OmsSeoConfig'
