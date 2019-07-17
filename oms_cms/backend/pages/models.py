@@ -41,5 +41,8 @@ class Pages(AbstractLang):
         else:
             return reverse('page')
 
+    class Meta:
+        verbose_name = "Страница"
+        verbose_name_plural = "Страницы"
 
 
