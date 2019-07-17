@@ -1,5 +1,17 @@
 # CMS app
 CMS_APP = [
+    # Auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.vk',
+
+    # API
+    'rest_framework',
+    'corsheaders',
+    # DOC
+    'drf_yasg',
+
     'oms_cms.backend.languages',
     'oms_cms.backend.menu',
     'oms_cms.backend.pages',
@@ -11,7 +23,7 @@ CMS_APP = [
     'oms_cms.backend.video',
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
-
+    'oms_cms.backend.oms_seo',
     # Editor
     'ckeditor',
     'ckeditor_uploader',
@@ -20,7 +32,7 @@ CMS_APP = [
 
     # plugins
     'oms_gallery',
-    'oms_cms.backend.oms_seo',
+
 ]
 
 LANGUAGE_CODE = 'ru-ru'
