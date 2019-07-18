@@ -5,20 +5,15 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-
-#from oms_cms.backend.contact.send_mail import send_mail_contact
 from oms_cms.backend.contact.send_mail import send_mail_contact
 from oms_cms.backend.languages.models import AbstractLang
 from oms_cms.backend.social_networks.models import SocialNetworks
-from oms_cms.config import settings
 
 
 class Contact(AbstractLang):
     """Контакты"""
     name = models.CharField("Название", max_length=100, default="Контакты")
-    desk_cont = models.TextField("Описание", max_length=5000, blank=True, null=True)
+    description = models.TextField("Описание", max_length=5000, blank=True, null=True)
     map = models.CharField("Карта", max_length=10000, blank=True, null=True)
     slug = models.SlugField("URL", max_length=100, unique=True)
 

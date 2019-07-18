@@ -6,7 +6,7 @@ from oms_cms.backend.contact.models import Contact
 register = template.Library()
 
 
-@register.inclusion_tag('base/tags/contact/contact_base_tag.html', takes_context=True)
+@register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
 def contact(context, name=None, template='base/tags/contact/contact_block_tag.html'):
     """Вывод контактов по имени"""
     if name is not None:
