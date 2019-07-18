@@ -3,6 +3,7 @@ import click
 
 
 @click.command()
-def cli_create():
+@click.argument('name')
+def cli_create(name):
     """Create start project"""
-    click.echo('Hello World!')
+    os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
