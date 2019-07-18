@@ -1,19 +1,19 @@
-<ul class="">
-    {% for item in items %}
-        {% if item.url %}
-            <li class="">
-                <a class="" href="{{ item.url }}">{{ item.title }}</a>
-            </li>
-
-        {% elif item.anchor %}
-            <li class="">
-                <a class="" href="{{ item.get_anchor }}">{{ item.title }}</a>
-            </li>
-
-        {% else %}
-            <li class="">
-                <a class="" href="{{ item.content_object.get_absolute_url }}">{{ item.title }}</a>
-            </li>
-        {% endif %}
-    {% endfor %}
+{% load mptt_tags %}
+<ul>
+    {% recursetree items %}
+        <li>
+            {% if node.url %}
+                <a class="" href="{{ node.url }}">{{ node.name }}</a>
+            {% elif node.anchor %}
+                <a class="" href="{{ node.get_anchor }}">{{ node.name }}</a>
+            {% else %}
+                <a class="" href="{{ node.content_object.get_absolute_url }}">{{ node.name }}</a>
+            {% endif %}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
 </ul>
