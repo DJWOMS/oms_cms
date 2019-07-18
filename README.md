@@ -18,10 +18,12 @@
 
     pip install git+https://github.com/DJWOMS/oms_cms.git
     
+    
 - Создать стартовый проект. В "name" указать имя вашего проекта ::
 
     
-    django-admin startproject "name" --template=https://github.com/DJWOMS/oms_project/archive/master.zip
+    oms-start "name"
+
 
 **Develop**
 - Сделать форк или клонировать репозиторий

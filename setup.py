@@ -9,7 +9,7 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.3.11"
+VERSION = "0.3.12"
 RELEASE = VERSION
 
 
@@ -35,7 +35,7 @@ setup(
     include_package_data=True,
     install_requires=reqs,
     entry_points={'console_scripts': [
-        'start-project = oms_cms.scripts.create_project:cli_create',
+        'oms-start = oms_cms.scripts.create_project:cli_create',
     ]},
     # extras_require={
     #     "bcrypt": ["bcrypt"],
