@@ -9,7 +9,7 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.3.9"
+VERSION = "0.3.10"
 RELEASE = VERSION
 
 
@@ -34,9 +34,8 @@ setup(
     packages=['oms_cms'],
     include_package_data=True,
     install_requires=reqs,
-    # scripts=['django/bin/django-admin.py'],
     entry_points={'console_scripts': [
-        'start = django.core.management:execute_from_command_line',
+        'start-project = oms_cms.scripts.create_project:cli_create',
     ]},
     # extras_require={
     #     "bcrypt": ["bcrypt"],
