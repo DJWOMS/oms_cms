@@ -21,6 +21,9 @@ class PostView(ListView):
                 category__published=True,
                 published=True,
                 published_date__lte=datetime.now())
+            if post_list.exists():
+                self.paginate_by = post_list.first().get_category_paginated()
+                self.template_name = post_list.first().get_category_template()
         else:
             post_list = Post.objects.filter(
                 lang__slug__icontains=self.kwargs.get('lang'),
@@ -28,15 +31,10 @@ class PostView(ListView):
                 published=True,
                 published_date__lte=datetime.now())
 
-        if self.request.user.is_authenticated:
-            posts = post_list
-        else:
-            posts = post_list.filter(status=False)
-
-        if posts.exists():
-            self.paginate_by = posts.first().get_category_paginated()
-            self.template_name = posts.first().get_category_template()
-            return posts
+        if post_list.exists():
+            if not self.request.user.is_authenticated:
+                post_list = post_list.filter(status=False)
+            return post_list
         else:
             raise Http404()
 
