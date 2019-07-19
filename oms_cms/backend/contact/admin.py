@@ -6,7 +6,7 @@ from .models import Contact, ContactSocNet, Feedback, ContactFields
 
 class ContactAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    desk_cont = forms.CharField(widget=CKEditorUploadingWidget())
+    description = forms.CharField(widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Contact
