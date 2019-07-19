@@ -4,16 +4,15 @@
     {% seo post_list.first.category %}
 {% endblock seo %}
 {% block content %}
-    <div class="uk-child-width-1-2@m" uk-grid>
+    <div class="">
         {% if post_list.exists %}
             {% for post in post_list %}
-                <div>
-                    <div class="uk-card uk-card-default">
-                        <div class="uk-card-media-top">
+                    <div class="">
+                        <div class="">
                             <img src="{{ post.photo.image.url }}" alt="">
                         </div>
-                        <div class="uk-card-body">
-                            <h3 class="uk-card-title">
+                        <div class="">
+                            <h3 class="">
                                 <a href="{{ post.get_absolute_url }}">
                                     {{ post.title }}
                                 </a>
@@ -21,7 +20,6 @@
                             <p>{{ post.mini_text | truncatewords:50 | safe }}</p>
                         </div>
                     </div>
-                </div>
             {% endfor %}
         {% else %}
             <h2>Еще новостей нет!</h2>

@@ -3,11 +3,11 @@
     {% recursetree items %}
         <li>
             {% if node.url %}
-                <a class="" href="{{ node.url }}">{{ node.name }}</a>
+                <a class="" href="{{ node.url }}">{{ node.title }}</a>
             {% elif node.anchor %}
-                <a class="" href="{{ node.get_anchor }}">{{ node.name }}</a>
+                <a class="" href="{{ node.get_anchor }}">{{ node.title }}</a>
             {% else %}
-                <a class="" href="{{ node.content_object.get_absolute_url }}">{{ node.name }}</a>
+                <a class="" href="{{ node.content_object.get_absolute_url }}">{{ node.title }}</a>
             {% endif %}
             {% if not node.is_leaf_node %}
                 <ul class="children">
