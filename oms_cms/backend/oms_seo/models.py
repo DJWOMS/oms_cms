@@ -34,13 +34,13 @@ class ConnectSSModel(models.Model):
 
 class CounterForSite(models.Model):
     """Счечики и аналитика для сайта"""
-    name = models.CharField("Имя", max_length=60, help_text="Имя счечика")
-    code = models.TextField("Код", help_text="Код счечика или метрики")
+    name = models.CharField("Имя", max_length=60, help_text="Имя счетчика")
+    code = models.TextField("Код", help_text="Код счетчика или метрики")
     published = models.BooleanField("Включен", default=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = "Счечики и аналитика для сайта"
-        verbose_name_plural = "Счечики и аналитика для сайта"
+        verbose_name = "счетчики и аналитика для сайта"
+        verbose_name_plural = "счетчики и аналитика для сайта"
