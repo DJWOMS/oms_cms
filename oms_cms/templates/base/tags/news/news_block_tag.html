@@ -1,11 +1,9 @@
 {% for post in post_list %}
-    <div class="">
-{#         {% if post.photo %}#}
-{#            style="background:url('{{ post.photo.image.url }}') center/cover no-repeat">#}
-{#         {% endif %}#}
+    {% if post.image %}
+        <img src="{{ post.image.url }}">
+    {% endif %}
     <p class="">{{ post.published_date }}</p>
     <p class="">
         {{ post.title }}
     </p>
-    </div>
 {% endfor %}

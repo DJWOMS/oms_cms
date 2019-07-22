@@ -42,5 +42,5 @@ class CounterForSite(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "счетчики и аналитика для сайта"
-        verbose_name_plural = "счетчики и аналитика для сайта"
+        verbose_name = "Счетчики и аналитика для сайта"
+        verbose_name_plural = "Счетчики и аналитика для сайта"
