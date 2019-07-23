@@ -12,7 +12,7 @@ Template tags
 --------------
 Подключение тега. Если не указать шаблон, то будет взят по умолчанию.
 
-.. code-block::
+.. code-block:: python
 
    {% load lang_tags %}
 
@@ -20,7 +20,7 @@ Template tags
 
 Изменение шаблона
 
-.. code-block::
+.. code-block:: python
 
    {% list_lang template="lang.html" %}
 

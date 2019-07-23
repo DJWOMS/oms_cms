@@ -11,7 +11,7 @@ Template tags
 menu
     Название вашего меню, обязательный аргумент
 
-.. code-block::
+.. code-block:: python
 
    {% load menu_tags %}
 
@@ -19,7 +19,7 @@ menu
 
 Изменение шаблона
 
-.. code-block::
+.. code-block:: python
 
    {% menu_item menu="Тестовое" template="menu.html" %}
 
