@@ -1,7 +1,7 @@
 {% for lang in languages %}
     <ul>
         <li>
-            <a href="{% url 'name_lang' name=lang.slug %}">{{ lang.name }}</a>
+            <a href="{{ lang.get_absolute_url }}">{{ lang.name }}</a>
         </li>
     </ul>
 {% endfor %}

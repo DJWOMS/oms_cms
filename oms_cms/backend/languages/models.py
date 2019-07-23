@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Lang(models.Model):
@@ -7,12 +8,15 @@ class Lang(models.Model):
     slug = models.SlugField("Сокращение названия", max_length=5, help_text="Пример: ru")
     is_default = models.BooleanField("Язык по умолчанию", default=False)
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("name_lang", kwargs={"name": self.slug})
+
     class Meta:
         verbose_name = "Язык"
         verbose_name_plural = "Языки"
-
-    def __str__(self):
-        return self.name
 
 
 def get_sentinel_lang():
