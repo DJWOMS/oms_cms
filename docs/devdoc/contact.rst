@@ -67,21 +67,21 @@ Template tags
 
 Поля модели контактов
 ~~~~~~~~~~~~~~~~~~~~~~
-    :name = CharField(max_length=100, default="Контакты"): Название
-    :description = TextField(max_length=5000, blank=True, null=True): Описание
-    :map = CharField(max_length=10000, blank=True, null=True): Карта
-    :slug = SlugField(max_length=100, unique=True): URL
+    :name (max_length=100): Название
+    :description (max_length=5000): Описание
+    :map = (max_length=10000): Карта
+    :slug (max_length=100, unique=True): URL
 
 Поля контактов
 ~~~~~~~~~~~~~~~~~~~~~~
-    :text = CharField(max_length=1000, blank=True): Поле 1
-    :text_two = CharField(max_length=1000, blank=True): Поле 2
-    :icon_ui = CharField(max_length=500, blank=True): Класс иконки
-    :icon = FileField(upload_to="icon/", null=True, blank=True): Иконка
-    :contact = ForeignKey(Contact, related_name="contact_field", on_delete=models.CASCADE): Связь с моделью Контакты
+    :text (max_length=1000): Поле 1
+    :text_two (max_length=1000): Поле 2
+    :icon_ui (max_length=500): Класс иконки
+    :icon (upload_to="icon/"): Иконка
+    :contact ForeignKey: Связь с моделью Контакты
 
 Поля соц. сети контактов
 ~~~~~~~~~~~~~~~~~~~~~~
-    :contact_soc = ForeignKey(Contact, related_name="soc_net", on_delete=models.CASCADE, null=True, blank=True): Связь с моделью Контакты
-    :your_id = CharField(max_length=100, null=True, blank=True): Ваша ссылка
-    :link = ForeignKey(SocialNetworks, on_delete=models.CASCADE, null=True, blank=True): Связь с моделью Соц. сеть
+    :contact_soc ForeignKey: Связь с моделью Контакты
+    :your_id (max_length=100): Ваша ссылка
+    :link ForeignKey: Связь с моделью Соц. сеть

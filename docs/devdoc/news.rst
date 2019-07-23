@@ -148,10 +148,10 @@ Template tags
 Поля модели комментариев
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-    :user = ForeignKey(User, on_delete=models.CASCADE): Пользователь
-    :post = ForeignKey(Post, on_delete=models.CASCADE): Новость
-    :text = TextField(max_length=2000): Сообщение
-    :date = DateTimeField(auto_now_add=True): Дата
-    :update = DateTimeField(auto_now=True): Изменен
-    :parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name='children'): Родительский комментарий
-    :published = BooleanField(default=True): Опубликовать или снять с публикации
+    :user ForeignKey: Связь с моделью Пользователей
+    :post ForeignKey: Связь с моделью Новость
+    :text (max_length=2000): Сообщение
+    :date: Дата
+    :update: Изменен
+    :parent TreeForeignKey(related_name='children'): Родительский комментарий
+    :published: Опубликовать или снять с публикации
