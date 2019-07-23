@@ -9,9 +9,5 @@ register = template.Library()
 def menu_item(context, menu, template='base/tags/menu/menu-item-tag.html'):
     return {
         "template": template,
-        "items": MenuItem.objects.filter(
-            menu__name=menu,
-            # parent__isnull=True,
-            lang__slug=context["request"].session.get("lang")
-        )
+        "items": MenuItem.objects.filter(menu__name=menu, lang__slug=context["request"].session.get("lang"))
     }

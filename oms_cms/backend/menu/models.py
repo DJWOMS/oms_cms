@@ -42,16 +42,16 @@ class MenuItem(MPTTModel, AbstractLang):
     url = models.CharField("url на внешний ресурс", max_length=255, null=True, blank=True)
     anchor = models.CharField("Якорь", max_length=255, null=True, blank=True)
 
-    limit = models.Q(app_label='pages', model='pages') | \
-            models.Q(app_label='news', model='post') | \
-            models.Q(app_label='news', model='category') | \
-            models.Q(app_label='contact', model='contact') | \
-            models.Q(app_label='oms-gallery', model='gallery')
+    # limit = models.Q(app_label='pages', model='pages') | \
+    #         models.Q(app_label='news', model='post') | \
+    #         models.Q(app_label='news', model='category') | \
+    #         models.Q(app_label='contact', model='contact') | \
+    #         models.Q(app_label='oms-gallery', model='gallery')
 
     content_type = models.ForeignKey(
         ContentType,
         verbose_name="Ссылка на",
-        limit_choices_to=limit,
+        # limit_choices_to=limit,
         on_delete=models.CASCADE,
         null=True,
         blank=True)

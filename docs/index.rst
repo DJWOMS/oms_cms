@@ -16,7 +16,8 @@
    devdoc/news
    devdoc/languages
    devdoc/contact
-
+   devdoc/menu
+   devdoc/soc_networks
 
 
 Indices and tables
