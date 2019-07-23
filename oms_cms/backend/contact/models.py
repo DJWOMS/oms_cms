@@ -62,7 +62,7 @@ class ContactFields(models.Model):
 
 
 class ContactSocNet(models.Model):
-    """Модель соц. сетей для участников"""
+    """Модель соц. сетей"""
     contact_soc = models.ForeignKey(
         Contact,
         verbose_name="Контакт",

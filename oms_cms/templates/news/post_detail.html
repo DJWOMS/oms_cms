@@ -4,37 +4,24 @@
     {% seo post %}
 {% endblock seo %}
 {% block content %}
-    <!-- Page Content -->
-    <div id="toggle-animation" class="container">
-        <div class="row">
-            <!-- Post Content Column -->
-            <div class="col-lg-12">
-                <!-- Title -->
-                <h1 class="mt-4">{{ post.title }}</h1>
-                <!-- Author -->
-                {% if post.author %}
-                    <p class="lead">
-                        by
-                        <a href="#">{{ post.author }}</a>
-                    </p>
-                {% endif %}
-                <hr>
-                <!-- Date/Time -->
-                <p>Опубликовано {{ post.created_date }}</p>
-                <hr>
-                <!-- Preview Image -->
-                {% if post.photo %}
-                    <div class="text-center">
-                        <img class="img-fluid rounded" src="{{ post.photo.image.url }}"
-                             alt="{{ post.title }}">
-                    </div>
-                {% endif %}
-                <hr>
-                <!-- Post Content -->
-                {{ post.text|safe }}
-                <hr>
-                Просмотренно - {{ post.viewed }}
-            </div>
+    <h1 class="mt-4">{{ post.title }}</h1>
+    {% if post.author %}
+        <p class="lead">
+            by
+            <a href="#">{{ post.author }}</a>
+        </p>
+    {% endif %}
+    <hr>
+    <p>Опубликовано {{ post.created_date }}</p>
+    <hr>
+    {% if post.image %}
+        <div class="text-center">
+            <img class="img-fluid rounded" src="{{ post.image.url }}"
+                 alt="{{ post.title }}">
         </div>
-    </div>
+    {% endif %}
+    <hr>
+    {{ post.text|safe }}
+    <hr>
+    Просмотренно - {{ post.viewed }}
 {% endblock content %}

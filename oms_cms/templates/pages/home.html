@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load menu_tags seo_tags %}
+{% load menu_tags seo_tags lang_tags %}
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
@@ -29,5 +29,5 @@
         </div>
     </div>
 
-
+{% list_lang %}
 {% endblock content %}

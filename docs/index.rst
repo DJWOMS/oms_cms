@@ -14,6 +14,9 @@
    devdoc/installation
    devdoc/pages
    devdoc/news
+   devdoc/languages
+   devdoc/contact
+
 
 
 Indices and tables
