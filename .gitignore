@@ -30,7 +30,7 @@ __pycache__/
 *.egg
 
 build
-source
+doc
 home.rst
 make.bat
 Makefile
