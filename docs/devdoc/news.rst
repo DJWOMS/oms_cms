@@ -21,7 +21,7 @@ Template tags
 
 Подключение тега. Если не указать шаблон, то будет взят по умолчанию.
 
-.. code-block::
+.. code-block:: python
 
    {% load news_tags %}
 
@@ -29,7 +29,7 @@ Template tags
 
 Изменение шаблона
 
-.. code-block::
+.. code-block:: python
 
    {% category_list template="categories.html" %}
 
@@ -109,7 +109,7 @@ Template tags
 
     Подключение тега. Если не указать шаблон, то будет взят по умолчанию.
 
-    .. code-block::
+    .. code-block:: python
 
        {% load news_tags %}
 
@@ -117,7 +117,7 @@ Template tags
 
     Изменение шаблона
 
-    .. code-block::
+    .. code-block:: python
 
        {% post_list template="news_block_tags.html" %}
 

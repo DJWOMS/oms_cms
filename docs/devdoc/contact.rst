@@ -11,7 +11,7 @@ Template tags
     Подключение тега. Если не указать шаблон, то будет взят по умолчанию.
     Если не указан name будут выбраны все записи контактов.
 
-    .. code-block::
+    .. code-block:: python
 
        {% load contact_tags %}
 
@@ -19,7 +19,7 @@ Template tags
 
     Изменение шаблона
 
-    .. code-block::
+    .. code-block:: python
 
        {% contact name='Контакты', template='base/tags/contact/contact_block_tag.html' %}
 
