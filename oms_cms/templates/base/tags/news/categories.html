@@ -1,0 +1,7 @@
+<ul>
+    {% for category in category_list %}
+        <li>
+            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+        </li>
+    {% endfor %}
+</ul>

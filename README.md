@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/DJWOMS/WomsTeam.svg?branch=master)](https://travis-ci.org/DJWOMS/WomsTeam)
 
+[Documentation](https://oms-cms.readthedocs.io/ru/latest/)
+
 # OMS CMS
  
 - Python => 3.7

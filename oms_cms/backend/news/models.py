@@ -130,20 +130,21 @@ class Post(AbstractLang):
         return "{}".format(self.title)
 
 
-class Comments(models.Model):
+class Comments(MPTTModel):
     """Модель коментариев к новостям"""
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, verbose_name="Новость", on_delete=models.CASCADE)
     text = models.TextField("Сообщение", max_length=2000)
-    published = models.BooleanField("Опубликовать?", default=True)
     date = models.DateTimeField("Дата", auto_now_add=True)
     update = models.DateTimeField("Изменен", auto_now=True)
-    parent_comment = models.ForeignKey(
+    parent = TreeForeignKey(
         "self",
         verbose_name="Родительский комментарий",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
-        blank=True)
+        blank=True,
+        related_name='children')
+    published = models.BooleanField("Опубликовать?", default=True)
 
     class Meta:
         verbose_name = "Комментарий"

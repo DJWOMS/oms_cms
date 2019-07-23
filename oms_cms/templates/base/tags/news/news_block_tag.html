@@ -1,9 +1,7 @@
 {% for post in post_list %}
+    <h2><a href="{{ post.get_absolute_url }}"> {{ post.title }} </a></h2>
     {% if post.image %}
         <img src="{{ post.image.url }}">
     {% endif %}
-    <p class="">{{ post.published_date }}</p>
-    <p class="">
-        {{ post.title }}
-    </p>
+    <p>{{ post.published_date }}</p>
 {% endfor %}
