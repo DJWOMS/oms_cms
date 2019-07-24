@@ -7,10 +7,10 @@ CMS_APP = [
     # 'allauth.socialaccount.providers.vk',
 
     # API
-    'rest_framework',
-    'corsheaders',
+    #'rest_framework',
+    #'corsheaders',
     # DOC
-    'drf_yasg',
+    #'drf_yasg',
 
     'oms_cms.backend.languages',
     'oms_cms.backend.menu',
