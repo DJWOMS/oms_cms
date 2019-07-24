@@ -88,6 +88,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 Создание пользователей ::
 
     python manage.py adduser
+    
+Создание языков ::
+
+    python manage.py addlang
 
 Создание страниц ::
 
