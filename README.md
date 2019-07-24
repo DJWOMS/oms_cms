@@ -112,14 +112,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 Выполнение всех команд разом и заполнить тест данными ::
 
     python manage.py deployOMS
-    
-Проверка стиля ::
-
-    flake8 your_apps
-
-Авто исправление ::
-
-    autopep8 ./your_apps --recursive -v --in-place -a
 
 
 
