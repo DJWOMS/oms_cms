@@ -31,6 +31,8 @@ class Category(MPTTModel):
     published = models.BooleanField("Отображать?", default=True)
     paginated = models.PositiveIntegerField("Количество новостей на странице", default=5)
 
+    #sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
+
     seo = GenericRelation(Seo)
 
     class Meta:
@@ -102,6 +104,8 @@ class Post(AbstractLang):
     published = models.BooleanField("Опубликовать?", default=True)
     viewed = models.IntegerField("Просмотрено", default=0)
     status = models.BooleanField("Для зарегистрированных", default=False)
+
+    #sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
 
     seo = GenericRelation(Seo)
 

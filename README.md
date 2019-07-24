@@ -88,6 +88,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 Создание пользователей ::
 
     python manage.py adduser
+    
+Создание языков ::
+
+    python manage.py addlang
 
 Создание страниц ::
 
@@ -108,14 +112,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 Выполнение всех команд разом и заполнить тест данными ::
 
     python manage.py deployOMS
-    
-Проверка стиля ::
-
-    flake8 your_apps
-
-Авто исправление ::
-
-    autopep8 ./your_apps --recursive -v --in-place -a
 
 
 
