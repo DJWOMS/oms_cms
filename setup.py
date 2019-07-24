@@ -10,10 +10,10 @@ except ImportError:
 from setuptools import find_packages, setup
 
 CURRENT_PYTHON = sys.version_info[:2]
-REQUIRED_PYTHON = (3, 7)
+REQUIRED_PYTHON = (3, 6)
 
 BUILD = 0
-VERSION = "0.3.15"
+VERSION = "0.3.16"
 RELEASE = VERSION
 
 

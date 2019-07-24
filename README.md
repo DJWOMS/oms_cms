@@ -4,7 +4,7 @@
 
 # OMS CMS
  
-- Python => 3.7
+- Python => 3.6
 - Django => 2
 - Postgres == 10
 
