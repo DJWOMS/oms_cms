@@ -18,6 +18,7 @@
    devdoc/contact
    devdoc/menu
    devdoc/soc_networks
+   devdoc/partners
 
 
 Indices and tables
