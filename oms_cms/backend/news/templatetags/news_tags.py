@@ -1,6 +1,6 @@
 from django import template
 
-from oms_cms.backend.news.models import Category, Post
+from oms_cms.backend.news.models import Category, Post, Comments
 
 register = template.Library()
 
@@ -20,5 +20,11 @@ def post_list(category=None, template='base/tags/news/news_block_tag.html'):
     else:
         context = Post.objects.all()
     return {'template': template, "post_list": context}
+
+
+@register.inclusion_tag('news/comments.html', takes_context=True)
+def comments_show(context, pk):
+    """Вывод комментариев к статье"""
+    return {"comments": Comments.objects.filter(post_id=pk, published=True), "context": context}
 
 

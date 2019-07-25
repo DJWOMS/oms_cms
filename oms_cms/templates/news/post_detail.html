@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load seo_tags %}
+{% load seo_tags news_tags %}
 {% block seo %}
     {% seo post %}
 {% endblock seo %}
@@ -24,4 +24,13 @@
     {{ post.text|safe }}
     <hr>
     Просмотренно - {{ post.viewed }}
+    <hr>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">
+        Отправить
+    </button>
+    </form>
+{% comments_show post.id %}
 {% endblock content %}
