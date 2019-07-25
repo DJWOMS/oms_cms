@@ -10,6 +10,8 @@ prod_settings.py
 
 !/oms_cms/static/js
 !/oms_cms/static/css
+!/oms_cms/static/ckeditor
+!/oms_cms/static/mptt
 /oms_cms/static/*
 
 **/migrations/**
