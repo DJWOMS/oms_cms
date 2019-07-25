@@ -1,4 +1,4 @@
-{% load mptt_tags news_tags%}
+{% load mptt_tags news_tags %}
 
 {% recursetree comments %}
     <div class="block-comment">
@@ -7,12 +7,15 @@
                 {{ node.user }}
             </div>
             <div class="btn-comment-self">
-                {% if context.user.is_authenticated and context.user.id != node.user.id %}
-                    <a href="{% url 'answer_comment' node.id %}" class="new-comment"> Ответить</a>
+                {% if context.user.id != node.user.id %}
+                    <a href="{% url 'answer_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}"
+                       class="new-comment"> Ответить</a>
                 {% endif %}
                 {% if context.user.id == node.user.id and context.user.is_authenticated %}
-                    <a class="new-comment" href="{% url 'edit_comment' node.id %}">Редактировать</a>
-                    <a class="new-comment" href="{% url 'delete_comment' node.post.category.slug node.post.slug node.id %}">Удалить</a>
+                    <a class="new-comment"
+                       href="{% url 'edit_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Редактировать</a>
+                    <a class="new-comment"
+                       href="{% url 'delete_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Удалить</a>
                 {% endif %}
             </div>
         </div>

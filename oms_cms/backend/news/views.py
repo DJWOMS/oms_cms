@@ -63,6 +63,7 @@ class PostDetail(View):
         else:
             raise Http404
 
+    # Отправка комментария
     def post(self, request, lang=None, category=None, post=None):
         form = CommentsForm(request.POST)
         if form.is_valid():
@@ -72,31 +73,18 @@ class PostDetail(View):
             form.save()
         return redirect(request.path)
 
-# class CommentCreate(CreateView):
-#     """Отправка комментария к статье"""
-#     model = Comments
-#     form_class = CommentsForm
-#     template_name = 'news/comment_create.html'
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         form.instance.post_id = self.kwargs.get('pk')
-#         self.success_url = form.instance.post.get_absolute_url()
-#         form.save()
-#         return super(CommentCreate, self).form_valid(form)
-
 
 class EditComment(UpdateView):
     """Редактирование комментария"""
     model = Comments
     form_class = CommentsForm
-    template_name = 'news/post_detail.html'
+    template_name = 'news/comment_create.html'
 
-    def form_valid(self, form, post=None):
+    def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.post.category.slug = self.kwargs.get('category')
         form.instance.post.slug = self.kwargs.get('post')
-        self.success_url = self.request.path
+        self.success_url = Post.objects.get(comments=self.kwargs.get('pk')).get_absolute_url()
         form.save()
         return super(EditComment, self).form_valid(form)
 
@@ -112,19 +100,21 @@ class AnswerComment(CreateView):
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
-            form.post = Post.objects.get(comment=self.kwargs.get('pk'))
+            form.post = Post.objects.get(comments=self.kwargs.get('pk'))
             comm_1 = self.model.objects.get(id=self.kwargs.get('pk'))
-            form.text = comm_1.user.username + ',' + form.text
+            form.text = comm_1.user.username + ', ' + form.text
             form.save()
             form.move_to(comm_1)
-            return redirect(form.post.template)
+            return redirect('new-detail',
+                            lang=self.kwargs.get('lang'),
+                            category=self.kwargs.get('category'),
+                            post=self.kwargs.get('post'))
 
 
-class DeleteComment(DeleteView):
+class DeleteComment(View):
     """Удаление комментария"""
-    model = Comments
-    template_name = 'news/comment_confirm_delete.html'
 
-    def get_queryset(self):
-        self.success_url = reverse_lazy('new-detail', self.kwargs.get('pk'))
-        return self.model.objects.filter(id=self.kwargs.get('pk'))
+    def get(self, request, pk, lang=None, category=None, post=None):
+        comm = get_object_or_404(Comments, id=pk)
+        comm.delete()
+        return redirect('new-detail', lang=lang, category=category, post=post)
