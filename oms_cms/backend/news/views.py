@@ -84,7 +84,7 @@ class EditComment(UpdateView):
         form.instance.user = self.request.user
         form.instance.post.category.slug = self.kwargs.get('category')
         form.instance.post.slug = self.kwargs.get('post')
-        self.success_url = Post.objects.get(comments=self.kwargs.get('pk')).get_absolute_url()
+        self.success_url = Post.objects.get(comments=self.object.id).get_absolute_url()
         form.save()
         return super(EditComment, self).form_valid(form)
 

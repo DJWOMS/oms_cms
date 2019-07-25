@@ -12,10 +12,8 @@
                        class="new-comment"> Ответить</a>
                 {% endif %}
                 {% if context.user.id == node.user.id and context.user.is_authenticated %}
-                    <a class="new-comment"
-                       href="{% url 'edit_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Редактировать</a>
-                    <a class="new-comment"
-                       href="{% url 'delete_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Удалить</a>
+                    <a href="{% url 'edit_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Редактировать</a>
+                    <a href="{% url 'delete_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Удалить</a>
                 {% endif %}
             </div>
         </div>
