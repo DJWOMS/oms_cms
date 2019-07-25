@@ -9,8 +9,8 @@ local_settings.py
 prod_settings.py
 
 /oms_cms/static/*
-!/oms_cms/static/js/*
-!/oms_cms/static/css/*
+!/oms_cms/static/js
+!/oms_cms/static/css
 !/oms_cms/static/ckeditor
 !/oms_cms/static/mptt
 
