@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load menu_tags seo_tags lang_tags %}
+{% load menu_tags seo_tags lang_tags contact_tags %}
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
@@ -28,6 +28,13 @@
             {{ page.text|safe }}
         </div>
     </div>
-
+ <form action="{% url 'feedback_gen' %}" method="post">
+     {% csrf_token %}
+        {% gen_form as aform %}
+     {{ aform }}
+     <input type="submit" name="{{aform.prefix}}" value="Submit" />
+{#    {{ bform.as_p }}#}
+{#     <input type="submit" name="{{bform.prefix}}" value="Submit" />#}
+ </form>
 {% list_lang %}
 {% endblock content %}

@@ -9,7 +9,7 @@ class Command(BaseCommand):
         Pages.objects.create(
             title="Главная",
             text='Page test',
-            slug='',
+            slug=None,
             lang_id=1
         )
         Pages.objects.create(

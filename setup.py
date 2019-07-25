@@ -2,14 +2,18 @@
 import os
 import sys
 
-from pip._internal.req import parse_requirements
+try:
+    from pip._internal.req import parse_requirements
+except ImportError:
+    from pip.req import parse_requirements
+
 from setuptools import find_packages, setup
 
 CURRENT_PYTHON = sys.version_info[:2]
-REQUIRED_PYTHON = (3, 7)
+REQUIRED_PYTHON = (3, 6)
 
 BUILD = 0
-VERSION = "0.3.14"
+VERSION = "0.3.17"
 RELEASE = VERSION
 
 

@@ -4,7 +4,7 @@
 
 # OMS CMS
  
-- Python => 3.7
+- Python => 3.6
 - Django => 2
 - Postgres == 10
 
@@ -35,6 +35,9 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'b0!c@b!o_#Fdsf4#%#regdh@ana6l2$n=!p1ejm@'
 
 DEBUG = True
 
