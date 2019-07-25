@@ -62,6 +62,20 @@ Template tags
             </p>
         {% endfor %}
 
+Генерация формы обратной связи:
+
+В теге {% gen_form %} укажите поля которые хоите рендерить.
+Если не указвать поля, отредерятся все.
+
+.. code-block:: python
+
+     <form action="{% url 'feedback_gen' %}" method="post">
+         {% csrf_token %}
+         {% gen_form "full_name" "phone" as form %}
+         {{ form }}
+         <input type="submit" name="" value="Submit" />
+    </form>
+
 Поля
 ----
 
@@ -82,6 +96,15 @@ Template tags
 
 Поля соц. сети контактов
 ~~~~~~~~~~~~~~~~~~~~~~
-    :contact_soc ForeignKey: Связь с моделью Контакты
+    :contact_soc (ForeignKey): Связь с моделью Контакты
     :your_id (max_length=100): Ваша ссылка
-    :link ForeignKey: Связь с моделью Соц. сеть
+    :link (ForeignKey): Связь с моделью Соц. сеть
+
+Поля формы обратной связи
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    :full_name = CharField(max_length=100): ФИО
+    :email = EmailField(max_length=150): Почта
+    :phone = CharField(max_length=14): Телефон
+    :subject = CharField(max_length=150): Тема
+    :message = TextField(max_length=1000): Сообщение
+    :date = DateTimeField(auto_now_add=True): Дата
