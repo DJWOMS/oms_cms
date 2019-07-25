@@ -1,3 +1,3 @@
 *.js linguist-language=Python
-special-vendored-path/* linguist-vendored
+oms_cms/static/* linguist-vendored
 jquery.js linguist-vendored=false
