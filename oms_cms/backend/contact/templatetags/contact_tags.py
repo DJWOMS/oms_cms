@@ -1,16 +1,13 @@
 from django import template
-from django.template.loader import get_template
 
 from oms_cms.backend.contact.models import Contact, Feedback
-from oms_cms.backend.contact.forms import FeedbackFullForm
 from django.forms.models import modelform_factory
 
 register = template.Library()
 
 
-@register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
-def contact(context, name=None, template='base/tags/contact/contact_block_tag.html'):
-    """Вывод контактов по имени"""
+def search_contact(context, name=None):
+    """Queryset контактов по имени и языку"""
     if name is not None:
         try:
             context = Contact.objects.get(name__icontains=name, lang__slug=context["request"].session.get("lang"))
@@ -18,7 +15,21 @@ def contact(context, name=None, template='base/tags/contact/contact_block_tag.ht
             return {'template': template}
     else:
         context = Contact.objects.filter(lang__slug=context["request"].session.get("lang")).first()
+    return context
+
+
+@register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
+def contact(context, name=None, template='base/tags/contact/contact_block_tag.html'):
+    """Вывод контактов по имени"""
+    context = search_contact(context, name)
     return {'template': template, "contact": context}
+
+
+@register.simple_tag(takes_context=True)
+def for_contact(context, name=None):
+    """Вывод контактов по имени без шаблона"""
+    context = search_contact(context, name)
+    return context
 
 
 @register.simple_tag()
