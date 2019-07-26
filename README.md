@@ -9,16 +9,16 @@
 - Postgres == 10
 
 **Установка:**
-- Создать виртуальное окружение ::
+Создать виртуальное окружение ::
 
     python -m venv venv
     
-- Активировать виртуальное окружение
-- Установить CMS ::
+Активировать виртуальное окружение
+Установить CMS ::
 
     pip install git+https://github.com/DJWOMS/oms_cms.git
     
-- Создать стартовый проект. В "name" указать имя вашего проекта ::
+Создать стартовый проект. В "name" указать имя вашего проекта ::
     
     oms-start "name"
 
@@ -56,15 +56,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 ````
 
-- Установить зависимости ::
+Установить зависимости ::
 
     pip install -r req.txt
     
-- Создание БД и настройка CMS ::
+Создание БД и настройка CMS ::
 
     python manage.py deployOMS
     
-- Запустить dev сервер ::
+Запустить dev сервер ::
 
     python manage.py runserver
 
