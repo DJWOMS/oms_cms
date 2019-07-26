@@ -6,16 +6,6 @@
 Категории
 ---------
 
-Поля модели категории
-~~~~~~~~~~~~~~~~~~~~~
-    :name: Название
-    :lang: Язык
-    :parent (related_name='children'): Родительская категория
-    :template (default='news/post_list.html'): Шаблон
-    :slug: url
-    :published: Опубликовать или снять с публикации
-    :paginated (default=5): Количество новостей на странице
-
 Template tags
 ~~~~~~~~~~~~~
 
@@ -45,6 +35,34 @@ Template tags
         {% endfor %}
     </ul>
 
+Вывод списка всех категорий без использования шаблона.
+
+.. code-block:: python
+
+    {% load mptt_tags %}
+    <ul>
+        {% for_category_list as categories %}
+        {% recursetree categories %}
+            <li>
+                <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+    </ul>
+
+Поля модели категории
+~~~~~~~~~~~~~~~~~~~~~
+    :name: Название
+    :lang: Язык
+    :parent (related_name='children'): Родительская категория
+    :template (default='news/post_list.html'): Шаблон
+    :slug: url
+    :published: Опубликовать или снять с публикации
+    :paginated (default=5): Количество новостей на странице
 
 Статьи/новости
 ----------------
@@ -130,8 +148,31 @@ Template tags
             {% if post.image %}
                 <img src="{{ post.image.url }}">
             {% endif %}
+            <p>{{ post.mini_text|safe }}</p>
             <p>{{ post.published_date }}</p>
         {% endfor %}
+
+for_post_list
+~~~~~~~~~~~~~~~~~~~~
+Вывод списка статей без использования шаблона.
+
+.. code-block:: python
+
+    {% for_post_list as post_list %}
+    {% for post in post_list %}
+        <div>
+            <h2><a href="{{ node.get_absolute_url }}">{{ node.title }}</a></h2>
+            {% if post.image %}
+                <img src="{{ post.image.url }}">
+            {% endif %}
+            <p>{{ post.mini_text|safe }}</p>
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
 
 Теги
 ---------

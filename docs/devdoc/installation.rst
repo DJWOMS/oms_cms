@@ -75,6 +75,11 @@
 
     python manage.py adduser
 
+Создание языков ::
+
+    python manage.py addlang
+
+
 Создание страниц ::
 
     python manage.py addpage
