@@ -17,4 +17,3 @@ python:
   version: 3.7
   install:
     - requirements: req.txt
-    - requirements: req-dev.txt

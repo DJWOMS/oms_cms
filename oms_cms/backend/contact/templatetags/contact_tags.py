@@ -1,7 +1,9 @@
 from django import template
 from django.template.loader import get_template
 
-from oms_cms.backend.contact.models import Contact
+from oms_cms.backend.contact.models import Contact, Feedback
+from oms_cms.backend.contact.forms import FeedbackFullForm
+from django.forms.models import modelform_factory
 
 register = template.Library()
 
@@ -16,10 +18,16 @@ def contact(context, name=None, template='base/tags/contact/contact_block_tag.ht
             return {'template': template}
     else:
         context = Contact.objects.filter(lang__slug=context["request"].session.get("lang")).first()
-        # context = Contact.objects.filter().first()
     return {'template': template, "contact": context}
 
 
-# register.inclusion_tag(template_html)(contact)
+@register.simple_tag()
+def gen_form(*args):
+    """Генерация формы для обратной связи"""
+    if args:
+        form = modelform_factory(Feedback, fields=(args))
+    else:
+        form = modelform_factory(Feedback, fields=('__all__'))
+    return form
 
 

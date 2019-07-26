@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load menu_tags seo_tags lang_tags contact_tags %}
+{% load menu_tags seo_tags lang_tags contact_tags partners_tags %}
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
@@ -28,13 +28,26 @@
             {{ page.text|safe }}
         </div>
     </div>
- <form action="{% url 'feedback_gen' %}" method="post">
-     {% csrf_token %}
-        {% gen_form as aform %}
-     {{ aform }}
-     <input type="submit" name="{{aform.prefix}}" value="Submit" />
-{#    {{ bform.as_p }}#}
-{#     <input type="submit" name="{{bform.prefix}}" value="Submit" />#}
- </form>
-{% list_lang %}
+    <form action="{% url 'feedback_gen' %}" method="post">
+        {% csrf_token %}
+        {% gen_form "full_name" "phone" as form %}
+        {{ form }}
+        <input type="submit" name="" value="Submit"/>
+    </form>
+    <form action="{% url 'feedback_gen' %}" method="post">
+        {% csrf_token %}
+        {% gen_form as form %}
+        {{ form }}
+        <input type="submit" name="" value="Submit"/>
+    </form>
+    <hr>
+    {% all_partners as partners %}
+    {% for partner in partners %}
+        <a href="{{ partner.link }}">
+            {% if partner.picture %}
+                <img src="{{ partner.picture.url }}">
+            {% endif %}
+        </a>
+    {% endfor %}
+    {% list_lang %}
 {% endblock content %}

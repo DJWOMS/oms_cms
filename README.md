@@ -11,23 +11,19 @@
 **Установка:**
 - Создать виртуальное окружение ::
 
-
     python -m venv venv
     
 - Активировать виртуальное окружение
 - Установить CMS ::
 
-
     pip install git+https://github.com/DJWOMS/oms_cms.git
     
-    
 - Создать стартовый проект. В "name" указать имя вашего проекта ::
-
     
     oms-start "name"
 
 
-**Develop**
+**Разработка**
 - Сделать форк или клонировать репозиторий
 - Создать файл oms_cms/config/local_settings.py и прописать конект к базе
 ````
@@ -59,18 +55,16 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 ````
-- Установить зависимости ::
 
+- Установить зависимости ::
 
     pip install -r req.txt
     
-- Собрать статику ::
+- Создание БД и настройка CMS ::
 
-
-    python manage.py collectstatic
+    python manage.py deployOMS
     
 - Запустить dev сервер ::
-
 
     python manage.py runserver
 
@@ -88,31 +82,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
     python manage.py createsuperuser
 
-Создание пользователей ::
-
-    python manage.py adduser
-    
-Создание языков ::
-
-    python manage.py addlang
-
-Создание страниц ::
-
-    python manage.py addpage
-
-Создание тестовых постов и категории ::
-
-    python manage.py addposts
-
-Создание меню ::
-
-    python manage.py addmenu
-
-Выполнение всех команд разом ::
-
-    python manage.py deploy
-
-Выполнение всех команд разом и заполнить тест данными ::
+Создание БД и настройка CMS :: ::
 
     python manage.py deployOMS
 

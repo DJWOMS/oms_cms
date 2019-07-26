@@ -95,7 +95,7 @@ class Feedback(models.Model):
     """Модель формы обратной связи"""
     full_name = models.CharField('ФИО', max_length=100)
     email = models.EmailField('Почта', max_length=150)
-    phone = models.CharField('Телефон', max_length=14, blank=True)
+    phone = models.CharField('Телефон', max_length=14)
     subject = models.CharField("Тема", max_length=150)
     message = models.TextField('Сообщение', max_length=1000)
     date = models.DateTimeField("Дата", auto_now_add=True)

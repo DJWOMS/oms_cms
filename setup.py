@@ -13,7 +13,7 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 6)
 
 BUILD = 0
-VERSION = "0.3.17"
+VERSION = "0.4.2"
 RELEASE = VERSION
 
 
@@ -31,7 +31,7 @@ setup(
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
     url='https://djangochannel.com',
     author='DJWOMS - Omelchenko Michael',
-    author_email='djwoms@gmail.com',
+    author_email='socanime@gmail.com',
     description=('A high-level Python Web CMS'),
     long_description=read('README.md'),
     license='BSD',
@@ -47,7 +47,7 @@ setup(
     # },
     zip_safe=False,
     classifiers=[
-        'Development Status :: 0.15 - Beta',
+        'Development Status :: 0.4 - Beta',
         'Environment :: Web Environment',
         'CMS :: Moses-CMS',
         'Intended Audience :: Developers',
