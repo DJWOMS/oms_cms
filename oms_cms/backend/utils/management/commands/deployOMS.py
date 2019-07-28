@@ -8,7 +8,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         call_command('makemigrations', verbosity=3)
         call_command('migrate', verbosity=3)
-        call_command('adduser', verbosity=3)
         call_command('addlang', verbosity=3)
         call_command('addsocnet', verbosity=3)
         call_command('addmenu', verbosity=3)

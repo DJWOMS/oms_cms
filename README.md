@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/DJWOMS/WomsTeam.svg?branch=master)](https://travis-ci.org/DJWOMS/WomsTeam)
+# OMS CMS
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
-
-# OMS CMS
  
 - Python => 3.6
 - Django => 2
@@ -14,6 +13,7 @@
     python -m venv venv
     
 Активировать виртуальное окружение
+
 Установить CMS ::
 
     pip install git+https://github.com/DJWOMS/oms_cms.git
@@ -82,7 +82,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
     python manage.py createsuperuser
 
-Создание БД и настройка CMS :: ::
+Создание БД и настройка CMS ::
 
     python manage.py deployOMS
 
