@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 
+from oms_cms.backend.languages.models import Lang
 from oms_cms.backend.contact.models import Contact, ContactFields, ContactSocNet
 
 
@@ -7,7 +8,7 @@ class Command(BaseCommand):
     help = 'Add contact'
 
     def handle(self, *args, **options):
-        contact = Contact.objects.create(name="Контакты", slug="contact", lang_id=1)
+        contact = Contact.objects.create(name="Header", slug="contact", lang=Lang.objects.get(is_default=True))
         ContactFields.objects.create(
             text="Адрес клуба",
             text_two="Лобачевского 74",
@@ -37,7 +38,11 @@ class Command(BaseCommand):
             link_id=2
         )
 
-        contact_footer = Contact.objects.create(name="Контакты footer", slug="contact-footer", lang_id=1)
+        contact_footer = Contact.objects.create(
+            name="Footer",
+            slug="contact-footer",
+            lang=Lang.objects.get(is_default=True)
+        )
         ContactFields.objects.create(
             text="Адрес клуба",
             text_two="Лобачевского 74",
