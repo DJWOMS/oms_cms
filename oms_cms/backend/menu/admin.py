@@ -34,7 +34,7 @@ class MenuAdmin(admin.ModelAdmin):
 class MenuItemAdmin(admin.ModelAdmin):
     """Пункты меню"""
     # form = FieldForm
-    list_display = ("name", "parent", "lang", "menu", "id")
+    list_display = ("title", "name", "parent", "lang", "menu", "id")
     mptt_level_indent = 20
     list_filter = ("menu", "parent", "lang")
     search_fields = ("name", "parent", "menu")

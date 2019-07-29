@@ -1,0 +1,15 @@
+{% load lang_tags %}
+<ul class="right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#change-language">{{lang}}</a>
+        <ul class="dropdown-menu" role="menu">
+            {% for lang in languages %}
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="{{ lang.get_absolute_url }}">{{ lang.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li><a href="authentication.html">Register</a></li>
+    <li><a href="authentication.html">Login</a></li>
+</ul>

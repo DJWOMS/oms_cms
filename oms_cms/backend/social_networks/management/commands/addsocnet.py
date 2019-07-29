@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         SocialNetworks.objects.create(
             title="Facebook",
-            icon_ui='facebook',
+            icon_ui='fa fa-facebook',
             link="https://facebook.com")
         SocialNetworks.objects.create(
             title="Instagram",
@@ -16,10 +16,10 @@ class Command(BaseCommand):
             link="https://instagram.com")
         SocialNetworks.objects.create(
             title="Twitter",
-            icon_ui='twitter',
+            icon_ui='fa fa-twitter',
             link="https://twitter.com")
         SocialNetworks.objects.create(
             title="VK",
-            icon_ui='vk',
+            icon_ui='fa fa-vk',
             link="https://vk.com")
         self.stdout.write('Success soc. networks')
