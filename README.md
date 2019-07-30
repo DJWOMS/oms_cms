@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/DJWOMS/WomsTeam.svg?branch=master)](https://travis-ci.org/DJWOMS/WomsTeam)
 # OMS CMS
+OMS - это CMS с открытым исходным кодом, основанная на фреймворке Django, разработанная для гибкости.
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
  

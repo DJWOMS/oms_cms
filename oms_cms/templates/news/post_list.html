@@ -1,34 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'news/base.html' %}
 {% load seo_tags %}
 {% block seo %}
     {% seo post_list.first.category %}
 {% endblock seo %}
-{% block content %}
-    <div class="">
-        {% if post_list.exists %}
-            {% for post in post_list %}
-                    <div class="">
-                        <div class="">
-                            <img src="{{ post.photo.image.url }}" alt="">
-                        </div>
-                        <div class="">
-                            <h3 class="">
-                                <a href="{{ post.get_absolute_url }}">
-                                    {{ post.title }}
-                                </a>
-                            </h3>
-                            <p>{{ post.mini_text | truncatewords:50 | safe }}</p>
-                        </div>
+{% block post %}
+    <div class="posts sidemeta">
+        {% for post in post_list %}
+            <div class="post format-image">
+                <div class="date-wrapper">
+                    <div class="date">
+                        <span class="month">{{post.published_date|date:"M" }}</span>
+                        <span class="day">{{post.published_date|date:"d" }}</span>
                     </div>
-            {% endfor %}
-        {% else %}
-            <h2>Еще новостей нет!</h2>
-        {% endif %}
+                </div>
+{#                <div class="format-wrapper">#}
+{#                    <a href="#"><i class="fa fa-image"></i></a>#}
+{#                </div>#}
+                <div class="post-content">
+                    {% if post.image %}
+                        <div class="post-media">
+                            <img src="{{ post.image.image.url }}" alt="{{ post.image.captions }}">
+                        </div>
+                    {% endif %}
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <ul class="meta">
+                       {% if post.author %} <li>{{ post.author }}</li>{% endif %}
+                        <li><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></li>
+                        <li><a href="#">{{ post.comments.all.count }} Comments</a></li>
+                    </ul>
+                    <p>{{ post.mini_text|safe }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="le-button huge">Читать</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
+
+    <hr/>
     <div>
         {% if is_paginated %}
             {% include 'base/includes/pagination.html' %}
         {% endif %}
     </div>
-    <hr>
-{% endblock content %}
+
+{% endblock post %}
