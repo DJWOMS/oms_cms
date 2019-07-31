@@ -1,0 +1,41 @@
+{% load contact_tags %}
+<header>
+    <div class="container no-padding">
+        <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+            <!-- ============================================================= LOGO ============================================================= -->
+            <div class="logo">
+                <a href="/">
+                    <!--<img alt="logo" src="assets/images/logo.svg" width="233" height="54"/>-->
+                </a>
+            </div>
+            <!-- ============================================================= LOGO : END ============================================================= -->
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder no-margin">
+            <div class="contact-row">
+                {% for_contact name="Header" as contact %}
+                {% for field in contact.get_contact_fields %}
+                    {% if forloop.counter == 1 %}
+                        <div class="phone inline">
+                            <i {% if field.icon_ui %} class="{{ field.icon_ui }}" {% endif %}></i> {{ field.text|safe }}
+                        </div>
+                    {% else %}
+                        <div class="contact inline">
+                            <i {% if field.icon_ui %} class="{{ field.icon_ui }}" {% endif %}></i>
+                            <span class="le-color">{{ field.text|safe }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- ============================================================= SEARCH AREA ============================================================= -->
+            <div class="search-area">
+                <form>
+                    <div class="control-group">
+                        <input class="search-field" placeholder="Поиск"/>
+                        <a class="search-button" href="#"></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,12 @@
+{% load menu_tags lang_tags %}
+<nav class="top-bar animate-dropdown">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6 no-margin">
+            {% menu_item menu="Header" template="include/menu-generic.html" %}
+        </div>
+
+        <div class="col-xs-12 col-sm-6 no-margin">
+            {% list_lang template="include/lang.html" %}
+        </div>
+    </div>
+</nav>

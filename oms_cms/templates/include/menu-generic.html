@@ -1,0 +1,23 @@
+{% load mptt_tags %}
+<ul>
+    {% recursetree items %}
+        <li {% if not node.is_leaf_node %} class="dropdown" {% endif %}>
+            {% if node.url %}
+                <a {% if not node.is_leaf_node %} class="dropdown-toggle" data-toggle="dropdown" {% endif %}
+                        href="{{ node.url }}">{{ node.title }}</a>
+            {% elif node.anchor %}
+                <a {% if not node.is_leaf_node %} class="dropdown-toggle" data-toggle="dropdown" {% endif %}
+                        href="{{ node.get_anchor }}">{{ node.title }}</a>
+            {% else %}
+                <a {% if not node.is_leaf_node %} class="dropdown-toggle" data-toggle="dropdown" {% endif %}
+                      {% if node.is_child_node %}  href="{{ node.content_object.get_absolute_url }}" {% endif %}>{{ node.title }}</a>
+            {% endif %}
+
+            {% if not node.is_leaf_node %}
+                <ul class="dropdown-menu" role="menu">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>

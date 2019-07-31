@@ -73,3 +73,6 @@ class MenuItem(MPTTModel, AbstractLang):
         verbose_name = "Пункт меню"
         verbose_name_plural = "Пункты меню"
 
+    # class MPTTMeta:
+    #     order_insertion_by = ('order', )
+

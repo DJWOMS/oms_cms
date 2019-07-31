@@ -75,6 +75,7 @@ class TagsAdmin(ActionPublish):
     list_editable = ("published",)
     prepopulated_fields = {"slug": ("name",)}
     actions = ['unpublish', 'publish']
+    search_fields = ("name", )
 
 
 class CommentsInline(admin.StackedInline):
@@ -90,35 +91,11 @@ class PostAdmin(ActionPublish):
     list_display = ('title', 'lang', 'created_date', 'category', 'published', 'id')
     list_filter = ('lang', 'created_date', 'category', 'published')
     list_editable = ("published",)
-    search_fields = ("title", "category")
+    search_fields = ["title", "category", "tag"]
     prepopulated_fields = {"slug": ("title",)}
     actions = ['unpublish', 'publish']
-    # fieldsets = (
-    #     (None, {
-    #         'fields': (
-    #             'author',
-    #             'title',
-    #             'subtitle',
-    #             'image',
-    #             'mini_text',
-    #             'text',
-    #             'edit_date',
-    #             'published_date',
-    #             'category',
-    #             'tag',
-    #         )
-    #     }),
-    #     ('Настройки', {
-    #         'classes': ('collapse',),
-    #         'fields': (
-    #             'template',
-    #             'published',
-    #             'status',
-    #             'slug',
-    #             'viewed',
-    #         )
-    #     }),
-    # )
+    save_as = True
+    autocomplete_fields = ["tag"]
     readonly_fields = ('viewed',)
 
     inlines = (SeoInlines, CommentsInline,)

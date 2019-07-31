@@ -40,6 +40,6 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     """Обратная связь"""
-    list_display = ("full_name", "email", "phone", "subject", "id")
+    list_display = ("full_name", "email", "phone", "subject", "date", "id")
     search_fields = ("subject", "full_name", "email", "phone")
     list_filter = ("id", "subject", "full_name", "email", "phone")

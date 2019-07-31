@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/DJWOMS/WomsTeam.svg?branch=master)](https://travis-ci.org/DJWOMS/WomsTeam)
 # OMS CMS
+OMS - это CMS с открытым исходным кодом, основанная на фреймворке Django, разработанная для гибкости.
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
  
@@ -8,6 +9,7 @@
 - Postgres == 10
 
 **Установка:**
+
 Создать виртуальное окружение ::
 
     python -m venv venv
@@ -21,7 +23,6 @@
 Создать стартовый проект. В "name" указать имя вашего проекта ::
     
     oms-start "name"
-
 
 **Разработка**
 - Сделать форк или клонировать репозиторий

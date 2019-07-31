@@ -1,5 +1,99 @@
-{% load contact_tags %}
-<footer class="footer">
-    {% contact template='contact/contact-footer-fields.html' %}
-    <p class="grid_item_text">OMS CMS © 2019.</p>
+{% load contact_tags menu_tags %}
+<footer id="footer" class="color-bg">
+    <div class="sub-form-row">
+        <div class="container">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
+                <form action="{% url 'feedback_gen' %}" method="post" role="form">
+                    {% csrf_token %}
+                    <input name="subject" value="Подписался" type="hidden">
+                    <input name="email" value="" placeholder="Subscribe">
+                    <button type="submit" class="le-button">Go</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="link-list-row">
+        <div class="container no-padding">
+            <div class="col-xs-12 col-md-4 ">
+                <div class="contact-info">
+                    <div class="footer-logo">
+                    {#  add logo #}
+                    </div>
+                    {% for_contact name="Footer" as contact_footer %}
+                    <p>
+                        {{ contact_footer.description }}
+                    </p>
+
+                    <div class="social-icons">
+                        <h3>Мы в соц. сетях</h3>
+                        <ul>
+                            {% for soc in contact_footer.get_contact_socnet %}
+                                <li><a href="{{ soc.get_link_contact_soc }}" class="{{ soc.link.icon_ui }}"></a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-8 no-margin">
+                <div class="link-widget">
+                    <div class="widget">
+                        <h3>Find it fast</h3>
+                        <ul>
+                            <li><a href="">Test</a></li>
+                            <li><a href="">Test</a></li>
+                            <li><a href="">Test</a></li>
+                            <li><a href="">Test</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="link-widget">
+                    <div class="widget">
+                        <h3>Information</h3>
+                        <ul>
+                            <li><a href="">Test</a></li>
+                            <li><a href="">Test</a></li>
+                            <li><a href="">Test</a></li>
+                            <li><a href="">Test</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="link-widget">
+                    <div class="widget">
+                        <h3>Инфо</h3>
+                        {% for_menu_item menu="Footer" as items %}
+                        <ul>
+                            {% for item in items %}
+                                <li>
+                                    {% if item.url %}
+                                        <a href="{{ item.url }}">{{ item.title }}</a>
+                                    {% elif item.anchor %}
+                                        <a href="{{ item.get_anchor }}">{{ item.title }}</a>
+                                    {% else %}
+                                        <a href="{{ item.content_object.get_absolute_url }}">{{ item.title }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright-bar">
+        <div class="container">
+            <div class="col-xs-12 col-sm-6 no-margin">
+                <div class="copyright">
+                    &copy; <a href="/">OMS CMS</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 no-margin">
+
+            </div>
+        </div>
+    </div>
 </footer>

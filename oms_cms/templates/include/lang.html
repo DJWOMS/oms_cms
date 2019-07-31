@@ -1,0 +1,19 @@
+{% load lang_tags %}
+<ul class="right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#change-language">{{ lang }}</a>
+        <ul class="dropdown-menu" role="menu">
+            {% for lang in languages %}
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="{{ lang.get_absolute_url }}">{{ lang.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% if context.user.is_authenticated %}
+        <li><a href="/accounts/logout/">Выход</a></li>
+    {% else %}
+        <li><a href="/accounts/signup/">Регистрация</a></li>
+        <li><a href="/accounts/login/">Вход</a></li>
+    {% endif %}
+</ul>
