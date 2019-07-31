@@ -12,7 +12,7 @@ class Command(BaseCommand):
             link="https://facebook.com")
         SocialNetworks.objects.create(
             title="Instagram",
-            icon_ui='instagram',
+            icon_ui='fa fa-instagram',
             link="https://instagram.com")
         SocialNetworks.objects.create(
             title="Twitter",
@@ -22,4 +22,8 @@ class Command(BaseCommand):
             title="VK",
             icon_ui='fa fa-vk',
             link="https://vk.com")
+        SocialNetworks.objects.create(
+            title="Github",
+            icon_ui='fa fa-github',
+            link="https://github.com")
         self.stdout.write('Success soc. networks')
