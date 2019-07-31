@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-{% load seo_tags %}
+{% load staticfiles seo_tags %}
 {% block seo %}
     {% seo post_list.first.category %}
 {% endblock seo %}
@@ -9,24 +9,24 @@
             <div class="post format-image">
                 <div class="date-wrapper">
                     <div class="date">
-                        <span class="month">{{post.published_date|date:"M" }}</span>
-                        <span class="day">{{post.published_date|date:"d" }}</span>
+                        <span class="month">{{ post.published_date|date:"M" }}</span>
+                        <span class="day">{{ post.published_date|date:"d" }}</span>
                     </div>
                 </div>
-{#                <div class="format-wrapper">#}
-{#                    <a href="#"><i class="fa fa-image"></i></a>#}
-{#                </div>#}
                 <div class="post-content">
-                    {% if post.image %}
-                        <div class="post-media">
+                    <div class="post-media">
+                        {% if post.image %}
                             <img src="{{ post.image.image.url }}" alt="{{ post.image.captions }}">
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <img src="{% static 'images/blog-post/blog-post-image.jpg' %}" alt="">
+                        {% endif %}
+                    </div>
                     <h2 class="post-title">{{ post.title }}</h2>
                     <ul class="meta">
-                       {% if post.author %} <li>{{ post.author }}</li>{% endif %}
+                        {% if post.author %}
+                            <li>{{ post.author }}</li>{% endif %}
                         <li><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></li>
-                        <li><a href="#">{{ post.comments.all.count }} Comments</a></li>
+                        <li><a href="#">{{ post.comments_set.all.count }} Комментариев</a></li>
                     </ul>
                     <p>{{ post.mini_text|safe }}</p>
                     <a href="{{ post.get_absolute_url }}" class="le-button huge">Читать</a>
