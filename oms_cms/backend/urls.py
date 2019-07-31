@@ -7,6 +7,5 @@ urlpatterns = [
     path('<slug:lang>/news/', include('oms_cms.backend.news.urls')),
     path('contact/', include('oms_cms.backend.contact.urls')),
     path('search/', include('oms_cms.backend.search.urls')),
-    path('menu/', include('oms_cms.backend.menu.urls')),
     path('', include('oms_cms.backend.pages.urls')),
 ]

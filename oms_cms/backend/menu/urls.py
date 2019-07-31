@@ -1,12 +1,8 @@
 from django.urls import path
 
-from .views import *
+# from .views import *
 
 
-urlpatterns = [
-    path(
-        'location-autocomplete/',
-        LocationAutocompleteView.as_view(),
-        name='location-autocomplete'
-    ),
-]
+# urlpatterns = [
+#
+# ]
