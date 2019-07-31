@@ -1,1 +1,10 @@
 {% extends "base.html" %}
+
+{% block content %}
+    <div class="container inner-top-xs inner-bottom-sm">
+        <div class="row">
+            {% block pages %}
+            {% endblock pages %}
+        </div>
+    </div>
+{% endblock content %}
