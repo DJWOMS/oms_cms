@@ -1,7 +1,10 @@
 <ul class="pagination blog-pagination">
     {% if page_obj.has_previous %}
-        <a href="?page=1">First</a>
-        <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        <li class="page-item"><a href="?page=1">First</a></li>
+        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+        <li class="page-item disabled"><span class="page-link">First</span></li>
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
     {% endif %}
     {% for i in paginator.page_range %}
         {% if page_obj.number == i %}
@@ -9,49 +12,14 @@
         {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
             <a href="?page={{ i }}">{{ i }}</a>
         {% endif %}
-        {#        {% else %}#}
-        {#            <li class="uk-disabled"><span>...</span></li>#}
-        {#            <li><a href="?page={{ i }}">{{ i }}</a></li>#}
-        {#    {% endif %}#}
     {% endfor %}
     {% if page_obj.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-        </li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
     {% else %}
-        <li class="page-item disabled">.
+        <li class="page-item disabled">
             <span class="page-link">Next</span>
+            <span class="page-link">Last</span>
         </li>
     {% endif %}
 </ul>
-{#<ul class="pagination">#}
-{#    {% if page_obj.has_previous %}#}
-{#        <li class="page-item">#}
-{#            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>#}
-{#        </li>#}
-{#    {% else %}#}
-{#        <li class="page-item disabled">#}
-{#            <span class="page-link">Previous</span>#}
-{#        </li>#}
-{#    {% endif %}#}
-{#    {% for i in paginator.page_range %}#}
-{#        {% if page_obj.number == i %}#}
-{#            <li class="page-item active" aria-current="page">#}
-{#                <span class="page-link">{{ i }}<span class="sr-only">(current)</span></span>#}
-{#            </li>#}
-{#        {% else %}#}
-{#            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>#}
-{#        {% endif %}#}
-{#    {% endfor %}#}
-{#    {% if page_obj.has_next %}#}
-{#        <li class="page-item">#}
-{#            <a class="page-link" href="{{ page_obj.next_page_number }}">Next</a>#}
-{#        </li>#}
-{#    {% else %}#}
-{#        <li class="page-item disabled">#}
-{#            <span class="page-link">Next</span>#}
-{#        </li>#}
-{#    {% endif %}#}
-{#</ul>#}
-{#</nav>#}
