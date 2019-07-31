@@ -1,10 +1,10 @@
 <ul class="pagination blog-pagination">
     {% if page_obj.has_previous %}
-        <li class="page-item"><a href="?page=1">First</a></li>
-        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        <li class="page-item"><a href="?page=1">первая</a></li>
+        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
     {% else %}
-        <li class="page-item disabled"><span class="page-link">First</span></li>
-        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+        <li class="page-item disabled"><span class="page-link">первая</span></li>
+        <li class="page-item disabled"><span class="page-link">Назад</span></li>
     {% endif %}
     {% for i in paginator.page_range %}
         {% if page_obj.number == i %}
@@ -14,12 +14,12 @@
         {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-        <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a></li>
+        <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}">последняя</a></li>
     {% else %}
         <li class="page-item disabled">
-            <span class="page-link">Next</span>
-            <span class="page-link">Last</span>
+            <span class="page-link">Вперед</span>
+            <span class="page-link">последняя</span>
         </li>
     {% endif %}
 </ul>
