@@ -3,7 +3,10 @@ from django.urls import path
 from .views import *
 
 
-# urlpatterns = [
-#     path('', MenuLink.as_view()),
-#     path('<path:url>', MenuLink.as_view()),
-# ]
+urlpatterns = [
+    path(
+        'location-autocomplete/',
+        LocationAutocompleteView.as_view(),
+        name='location-autocomplete'
+    ),
+]
