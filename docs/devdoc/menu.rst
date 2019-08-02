@@ -6,6 +6,8 @@
 
 Template tags
 --------------
+menu_item
+~~~~~~~~~~
 Подключение тега. Если не указать шаблон, то будет взят по умолчанию.
 
 menu
@@ -49,6 +51,27 @@ recursetree
             </li>
         {% endrecursetree %}
     </ul>
+
+for_menu_item
+~~~~~~~~~~~~~~
+Вывод списка пункот меню.
+
+.. code-block:: python
+
+    {% for_menu_item menu="Footer" as items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    {% if item.url %}
+                        <a href="{{ item.url }}">{{ item.title }}</a>
+                    {% elif item.anchor %}
+                        <a href="{{ item.get_anchor }}">{{ item.title }}</a>
+                    {% else %}
+                        <a href="{{ item.content_object.get_absolute_url }}">{{ item.title }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
 
 Поля
 -----
