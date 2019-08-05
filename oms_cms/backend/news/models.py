@@ -31,7 +31,7 @@ class Category(MPTTModel):
     published = models.BooleanField("Отображать?", default=True)
     paginated = models.PositiveIntegerField("Количество новостей на странице", default=5)
 
-    #sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
+    # sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
 
     seo = GenericRelation(Seo)
 
@@ -105,7 +105,7 @@ class Post(AbstractLang):
     viewed = models.IntegerField("Просмотрено", default=0)
     status = models.BooleanField("Для зарегистрированных", default=False)
 
-    #sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
+    # sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
 
     seo = GenericRelation(Seo)
 
@@ -157,3 +157,11 @@ class Comments(MPTTModel):
     def __str__(self):
         return "{} - {}".format(self.user, self.post)
 
+    def delete_comment(self):
+        return reverse('delete_comment', kwargs={'lang': self.post.lang.slug, 'pk': self.id})
+
+    def edit_comment(self):
+        return reverse('edit_comment', kwargs={'lang': self.post.lang.slug, 'pk': self.id})
+
+    def answer_comment(self):
+        return reverse('answer_comment', kwargs={'lang': self.post.lang.slug, 'pk': self.id})
