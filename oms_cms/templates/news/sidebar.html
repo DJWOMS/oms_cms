@@ -1,3 +1,4 @@
+{% load news_tags %}
 <div class="col-md-3">
     <aside class="sidebar blog-sidebar">
         <div class="widget clearfix">
@@ -17,24 +18,13 @@
             </div>
         </div>
         <div class="widget">
-            <h4>About Blog</h4>
-            <div class="body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt, erat in
-                    malesuada aliquam, est erat faucibus purus, eget viverra nulla sem vitae neque.
-                    Quisque id sodales libero. </p>
-            </div>
-        </div>
-        <div class="widget">
-            <h4>Categories</h4>
+            <h4>Категории</h4>
             <div class="body">
                 <ul class="le-links">
-                    <li><a href="#">Business</a></li>
-                    <li><a href="#">Company</a></li>
-                    <li><a href="#">Entertainment</a></li>
-                    <li><a href="#">Health</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Stories</a></li>
-                    <li><a href="#">Travel</a></li>
+                    {% for_category_list as categories %}
+                    {% for category in categories %}
+                        <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -44,7 +34,7 @@
                                  data-echo="assets/images/banners/banner-simple.jpg"/></a>
             </div>
         </div>
-        <!-- ========================================= RECENT POST ========================================= -->
+
         <div class="widget">
             <h4>Recent Posts</h4>
             <div class="body">
@@ -117,7 +107,7 @@
                 </ul>
             </div>
         </div>
-        <!-- ========================================= RECENT POST : END ========================================= -->
+
         <div class="widget">
             <h4>Popular Tags</h4>
             <div class="body">
@@ -127,6 +117,6 @@
                     <a style="font-size: 10pt;" href="#">Quality</a>
                 </div>
             </div>
-        </div><
+        </div>
     </aside>
 </div>

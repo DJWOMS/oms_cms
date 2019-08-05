@@ -35,6 +35,7 @@ CKEDITOR_CONFIGS = {
                 'Preview',
                 'Maximize',
                 'CodeSnippet',
+                'btgrid'
             ]},
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
@@ -62,7 +63,8 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath',
             'codesnippet',
-            'youtube'
+            'youtube',
+            'btgrid',
         ]),
     },
     'special': {

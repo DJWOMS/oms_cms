@@ -15,8 +15,7 @@ def category_list(template='base/tags/news/categories.html'):
 @register.simple_tag()
 def for_category_list():
     """template tag вывода категорий без шаблона"""
-    categories = Category.objects.filter(published=True)
-    return categories
+    return Category.objects.filter(published=True)
 
 
 @register.inclusion_tag('base/tags/base_tag.html')
