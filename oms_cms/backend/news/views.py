@@ -113,9 +113,7 @@ class AnswerComment(CreateView):
 
 class DeleteComment(View):
     """Удаление комментария"""
-
     def get(self, request, pk, lang=None, category=None, post=None):
-        comm = get_object_or_404(Comments, id=pk)
-        if comm.user == request.user:
-            comm.delete()
+        comm = get_object_or_404(Comments, id=pk, user=request.user)
+        comm.delete()
         return redirect('new-detail', lang=lang, category=category, post=post)
