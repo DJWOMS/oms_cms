@@ -6,7 +6,7 @@ class Lang(models.Model):
     """Модель языков"""
     name = models.CharField("Название", max_length=100, help_text="Пример: Русский")
     slug = models.SlugField("Сокращение названия", max_length=5, help_text="Пример: ru")
-    is_default = models.BooleanField("Язык по умолчанию", default=False)
+    is_default = models.BooleanField("Язык по умолчанию", default=False, unique=True)
 
     def __str__(self):
         return self.name

@@ -8,12 +8,12 @@
             </div>
             <div class="btn-comment-self">
                 {% if context.user.id != node.user.id %}
-                    <a href="{% url 'answer_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}"
+                    <a href="{{ node.answer_comment }}"
                        class="new-comment"> Ответить</a>
                 {% endif %}
                 {% if context.user.id == node.user.id and context.user.is_authenticated %}
-                    <a href="{% url 'edit_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Редактировать</a>
-                    <a href="{% url 'delete_comment' node.post.lang.slug node.post.category.slug node.post.slug node.id %}">Удалить</a>
+                    <a href="{{ node.edit_comment }}">Редактировать</a>
+                    <a href="{{ node.delete_comment }}">Удалить</a>
                 {% endif %}
             </div>
         </div>
