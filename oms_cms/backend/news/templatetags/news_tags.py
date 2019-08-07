@@ -38,7 +38,13 @@ def for_post_list(category=None):
     return context
 
 
-@register.inclusion_tag('news/comments.html', takes_context=True)
-def comments_show(context, pk):
+@register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
+def comments_show(context, pk, template='base/tags/news/comments.html'):
+    """Вывод комментариев к статье в шаблон"""
+    return {"template": template, "comments": Comments.objects.filter(post_id=pk, published=True), "context": context}
+
+
+@register.simple_tag
+def for_comments(pk):
     """Вывод комментариев к статье"""
-    return {"comments": Comments.objects.filter(post_id=pk, published=True), "context": context}
+    return Comments.objects.filter(post_id=pk, published=True)
