@@ -1,4 +1,4 @@
-from oms_cms.config import settings
+from django.conf import settings
 from oms_cms.backend.utils.models import EmailsFeedback
 
 from sendgrid import SendGridAPIClient
@@ -15,5 +15,8 @@ def send_mail_contact(subject, message):
     try:
         sg = SendGridAPIClient(settings.EMAIL_HOST_PASSWORD)
         response = sg.send(message)
+        print("good")
+        print(response)
     except Exception as e:
+        print("bad")
         print(e)
