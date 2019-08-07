@@ -132,5 +132,5 @@ def send_feedback_email(sender, instance, created, **kwargs):
         if instance.message is not None:
             message = 'Сообщение: <br> {} <br>'.format(instance.message)
         topic = 'Новое сообщение обратной связи {}'.format(Site.objects.get_current())
-        message = """<p>{}{}{}{}{}{}{}</p>""".format(full_name, email, phone, phone, subject, message, date)
+        message = """<p>{}{}{}{}{}{}</p>""".format(full_name, email, phone, subject, message, date)
         send_mail_contact(topic, message)
