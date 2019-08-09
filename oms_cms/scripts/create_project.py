@@ -67,38 +67,37 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
         file_read = open("{}/config/local_settings.py".format(dirs), "r")
         file = file_read.read()
         file_read.close()
-        line = file.replace("DATABASES = ", "DATABASES = {}".format(DATABASES))
+        line = file.replace("DATABASES = ", "DATABASES = {} \n#".format(DATABASES))
         file = open("{}/config/local_settings.py".format(dirs), "w")
         file.write(line)
         file.close()
-    select_demo(pr_name)
-
-
-# @cli.command()
-# @click.argument("pr_name")
-# @click.option('--lang', prompt='Language admin (en-us, ru-ru) -> ', help='Language admin', type=str)
-# def select_lang(pr_name, lang):
-#     """Select language admin"""
-#     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
-#
-#     file_read = open("{}/config/settings.py".format(dirs), "r")
-#     file = file_read.read()
-#     file_read.close()
-#     line = file.replace("LANGUAGE_CODE = 'ru-ru'", "LANGUAGE_CODE = '{}'".format(lang))
-#     file = open("{}/config/settings.py".format(dirs), "w")
-#     file.write(line)
-#     file.close()
-#
-#     select_demo(pr_name)
+    select_lang((pr_name,))
 
 
 @cli.command()
-@click.argument("pr_name")
-@click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n -> -> ',
-              help='Language admin', type=bool)
+@click.argument("pr_name", nargs=-1)
+@click.option('--lang', prompt='Language admin (en-us, ru-ru) \n -> ', help='Language admin', type=str)
+def select_lang(pr_name, lang):
+    """Select language admin"""
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
+
+    file_read = open("{}/config/settings.py".format(dirs), "r")
+    file = file_read.read()
+    file_read.close()
+    line = file.replace("LANGUAGE_CODE = 'ru-ru'", "LANGUAGE_CODE = '{}'".format(lang))
+    file = open("{}/config/settings.py".format(dirs), "w")
+    file.write(line)
+    file.close()
+
+    select_demo(pr_name)
+
+
+@cli.command()
+@click.argument("pr_name", nargs=-1)
+@click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n-> ', help='Language admin', type=bool)
 def select_demo(pr_name, demo):
     """Select database demo"""
-    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
     if demo == '0':
         os.system(f'python {dirs}/manage.py deployOMS')
     else:
