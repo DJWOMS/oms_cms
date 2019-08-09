@@ -47,35 +47,33 @@ def option_db(db, name, user, password, host, port):
 
 def update_local_settings(db, name=None, user=None, password=None, host=None, port=None):
     """Изменение БД"""
-    if db == '0':
-        engine = 'django.db.backends.sqlite3',
-        name = os.path.join(settings.BASE_DIR, 'db.sqlite3'),
-    elif db == '1':
-        engine = 'django.db.backends.postgresql_psycopg2'
-        port = '5432'
-    elif db == '2':
-        engine = 'django.db.backends.oracle'
-        port = '1540'
-    elif db == '3':
-        engine = 'django.db.backends.mysql'
+    if db != '0':
+        if db == '1':
+            engine = 'django.db.backends.postgresql_psycopg2'
+            port = '5432'
+        elif db == '2':
+            engine = 'django.db.backends.oracle'
+            port = '1540'
+        elif db == '3':
+            engine = 'django.db.backends.mysql'
 
-    DATABASES = {
-        'default': {
-            'ENGINE': engine,
-            'NAME': name,
-            'USER': user,
-            'PASSWORD': password,
-            'HOST': host,
-            'PORT': port,
+        DATABASES = {
+            'default': {
+                'ENGINE': engine,
+                'NAME': name,
+                'USER': user,
+                'PASSWORD': password,
+                'HOST': host,
+                'PORT': port,
+            }
         }
-    }
-    file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
-    file = file_read.read()
-    file_read.close()
-    line = file.replace("DATABASES = {}".format(DATABASES))
-    file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
-    file.write(line)
-    file.close()
+        file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
+        file = file_read.read()
+        file_read.close()
+        line = file.replace("DATABASES = {}".format(DATABASES))
+        file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
+        file.write(line)
+        file.close()
     select_lang()
 
 
