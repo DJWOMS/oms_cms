@@ -20,6 +20,7 @@ def cli_create(name, project):
         pass
     else:
         os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
+    data_base()
 
 
 @cli.command()
@@ -44,7 +45,7 @@ def option_db(db, name, user, password, host, port):
     update_local_settings(db, name, user, password, host, port)
 
 
-def update_local_settings(db, name, user, password, host, port):
+def update_local_settings(db, name=None, user=None, password=None, host=None, port=None):
     """Изменение БД"""
     if db == '0':
         engine = 'django.db.backends.sqlite3',
@@ -75,14 +76,34 @@ def update_local_settings(db, name, user, password, host, port):
     file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
     file.write(line)
     file.close()
+    select_lang()
 
 
-# @cli.command()
-# @click.option('--project', prompt='Max or min project \n 0) Max \n 1) Min \n -> ',
-#               help='project', type=bool)
-# def select_project(project):
-#     """Create start project"""
-#     click.echo('You %s!' % project)
+@cli.command()
+@click.option('--lang', prompt='Language admin (en-us, ru-ru) -> ',
+              help='Language admin', type=str)
+def select_lang(lang):
+    """Select language admin"""
+    file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
+    file = file_read.read()
+    file_read.close()
+    line = file.replace("LANGUAGE_CODE = '{}'".format(lang))
+    file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
+    file.write(line)
+    file.close()
+
+    select_demo()
+
+
+@cli.command()
+@click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n -> -> ',
+              help='Language admin', type=bool)
+def select_demo(demo):
+    """Select data base demo"""
+    if demo == '0':
+        os.system(f'python manage.py deployOMS')
+    else:
+        os.system(f'python manage.py deployMin')
 
 
 if __name__ == '__main__':
