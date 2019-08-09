@@ -1,8 +1,6 @@
 import os
 import click
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+import django
 
 @click.group()
 def cli():
@@ -20,6 +18,9 @@ def cli():
 def cli_create(name, project, db):
     """Name project"""
     click.echo('Project name %s' % click.style(name, fg='green'))
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"{name}.config.settings")
+    django.setup()
 
     if project:
         pass
@@ -65,12 +66,12 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
                 'PORT': port,
             }
         }
-
-        file_read = open("{}/config/local_settings.py".format(BASE_DIR), "r")
+        from django.conf import settings
+        file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
         file = file_read.read()
         file_read.close()
         line = file.replace("DATABASES = {", "DATABASES = {}".format(DATABASES))
-        file = open("/config/local_settings.py".format(BASE_DIR), "w")
+        file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
         file.write(line)
         file.close()
     select_lang()
@@ -81,11 +82,12 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
               help='Language admin', type=str)
 def select_lang(lang):
     """Select language admin"""
-    file_read = open("{}/config/local_settings.py".format(BASE_DIR), "r")
+    from django.conf import settings
+    file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
     file = file_read.read()
     file_read.close()
     line = file.replace("LANGUAGE_CODE = '{}'", "LANGUAGE_CODE = '{}'".format(lang))
-    file = open("/config/local_settings.py".format(BASE_DIR), "w")
+    file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
     file.write(line)
     file.close()
 
