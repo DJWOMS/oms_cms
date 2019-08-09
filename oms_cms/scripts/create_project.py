@@ -75,13 +75,14 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
                 'NAME': os.path.join(dirs, 'db.sqlite3'),
             }
         }
-        file_read = open("{}/config/local_settings.py".format(dirs), "r")
-        file = file_read.read()
-        file_read.close()
-        line = file.replace("DATABASES = {}", "DATABASES = {}".format(DATABASES))
-        file = open("{}/config/local_settings.py".format(dirs), "w")
-        file.write(line)
-        file.close()
+
+    file_read = open("{}/config/local_settings.py".format(dirs), "r")
+    file = file_read.read()
+    file_read.close()
+    line = file.replace("DATABASES = {}", "DATABASES = {}".format(DATABASES))
+    file = open("{}/config/local_settings.py".format(dirs), "w")
+    file.write(line)
+    file.close()
     select_lang(pr_name)
 
 
