@@ -1,5 +1,9 @@
 import os
 import click
+
+import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+django.setup()
 from django.conf import settings
 
 
@@ -19,6 +23,7 @@ def cli():
 def cli_create(name, project, db):
     """Name project"""
     click.echo('Project name %s' % click.style(name, fg='green'))
+
     if project:
         pass
     else:
@@ -63,6 +68,8 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
                 'PORT': port,
             }
         }
+
+
         file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
         file = file_read.read()
         file_read.close()
