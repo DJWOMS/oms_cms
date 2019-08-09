@@ -1,13 +1,10 @@
 import os
-import sys
-
 import click
-import django
+
 
 @click.group()
 def cli():
     pass
-# cli = click.Group()
 
 
 @cli.command()
@@ -26,7 +23,7 @@ def cli_create(name, project, db):
         os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
 
     if db == '0':
-        update_local_settings((db, name))
+        update_local_settings(db, name)
     else:
         option_db((db, name))
 
@@ -68,31 +65,23 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
                 'PORT': port,
             }
         }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': os.path.join(dirs, 'db.sqlite3'),
-            }
-        }
-
-    file_read = open("{}/config/local_settings.py".format(dirs), "r")
-    file = file_read.read()
-    file_read.close()
-    line = file.replace("DATABASES = {}", "DATABASES = {}".format(DATABASES))
-    file = open("{}/config/local_settings.py".format(dirs), "w")
-    file.write(line)
-    file.close()
+        file_read = open("{}/config/local_settings.py".format(dirs), "r")
+        file = file_read.read()
+        file_read.close()
+        line = file.replace("DATABASES = ", "DATABASES = {}".format(DATABASES))
+        file = open("{}/config/local_settings.py".format(dirs), "w")
+        file.write(line)
+        file.close()
     select_lang(pr_name)
 
 
 @cli.command()
-@click.argument("name")
+@click.argument("pr_name")
 @click.option('--lang', prompt='Language admin (en-us, ru-ru) -> ',
               help='Language admin', type=str)
-def select_lang(name, lang):
+def select_lang(pr_name, lang):
     """Select language admin"""
-    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{name}")), name)
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
 
     file_read = open("{}/config/settings.py".format(dirs), "r")
     file = file_read.read()
@@ -102,16 +91,16 @@ def select_lang(name, lang):
     file.write(line)
     file.close()
 
-    select_demo(name)
+    select_demo(pr_name)
 
 
 @cli.command()
-@click.argument("name")
+@click.argument("pr_name")
 @click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n -> -> ',
               help='Language admin', type=bool)
-def select_demo(name, demo):
+def select_demo(pr_name, demo):
     """Select database demo"""
-    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{name}")), name)
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
     if demo == '0':
         os.system(f'python {dirs}/manage.py deployOMS')
     else:
