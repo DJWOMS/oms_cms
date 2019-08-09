@@ -18,14 +18,14 @@ def cli():
 def cli_create(name, project, db):
     """Name project"""
     click.echo('Project name %s' % click.style(name, fg='green'))
-
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"{name}.config.settings")
-    django.setup()
-
     if project:
         pass
     else:
         os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"{name}.config.settings")
+    django.setup()
+
     if db == '0':
         update_local_settings(db)
     else:
