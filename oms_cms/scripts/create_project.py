@@ -24,7 +24,7 @@ def cli_create(name, project):
 
 
 @cli.command()
-@click.option('--db', prompt='Max or min project \n 0) sqlite3 \n 1) postgresql \n 2) oracle \n 3) mysql \n-> ',
+@click.option('--db', prompt='Select your database \n 0) sqlite3 \n 1) postgresql \n 2) oracle \n 3) mysql \n-> ',
               help='data base', type=click.Choice(['0', '1', '2', '3']))
 def data_base(db):
     """Выбор БД"""
@@ -49,7 +49,7 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
     """Изменение БД"""
     if db == '0':
         engine = 'django.db.backends.sqlite3',
-        name = os.path.join(BASE_DIR, 'db.sqlite3'),
+        name = os.path.join(settings.BASE_DIR, 'db.sqlite3'),
     elif db == '1':
         engine = 'django.db.backends.postgresql_psycopg2'
         port = '5432'
@@ -99,7 +99,7 @@ def select_lang(lang):
 @click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n -> -> ',
               help='Language admin', type=bool)
 def select_demo(demo):
-    """Select data base demo"""
+    """Select database demo"""
     if demo == '0':
         os.system(f'python manage.py deployOMS')
     else:
