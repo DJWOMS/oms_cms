@@ -1,10 +1,7 @@
 import os
 import click
 
-import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-django.setup()
-from django.conf import settings
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 @click.group()
@@ -69,12 +66,11 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
             }
         }
 
-
-        file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
+        file_read = open("{}/config/local_settings.py".format(BASE_DIR), "r")
         file = file_read.read()
         file_read.close()
-        line = file.replace("DATABASES = {}".format(DATABASES))
-        file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
+        line = file.replace("DATABASES = {", "DATABASES = {}".format(DATABASES))
+        file = open("/config/local_settings.py".format(BASE_DIR), "w")
         file.write(line)
         file.close()
     select_lang()
@@ -85,11 +81,11 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
               help='Language admin', type=str)
 def select_lang(lang):
     """Select language admin"""
-    file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
+    file_read = open("{}/config/local_settings.py".format(BASE_DIR), "r")
     file = file_read.read()
     file_read.close()
-    line = file.replace("LANGUAGE_CODE = '{}'".format(lang))
-    file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
+    line = file.replace("LANGUAGE_CODE = '{}'", "LANGUAGE_CODE = '{}'".format(lang))
+    file = open("/config/local_settings.py".format(BASE_DIR), "w")
     file.write(line)
     file.close()
 
