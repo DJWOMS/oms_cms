@@ -37,7 +37,6 @@ def cli_create(name, project, db):
 @click.option('--port', prompt='Port DB', help='Name data base', type=str)
 def option_db(db, name, user, password, host, port):
     """Параметры базы данных"""
-    print(db)
     database, pr_name = db
     update_local_settings(database, pr_name, name, user, password, host, port)
 
@@ -72,26 +71,25 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
         file = open("{}/config/local_settings.py".format(dirs), "w")
         file.write(line)
         file.close()
-    select_lang(pr_name)
-
-
-@cli.command()
-@click.argument("pr_name")
-@click.option('--lang', prompt='Language admin (en-us, ru-ru) -> ',
-              help='Language admin', type=str)
-def select_lang(pr_name, lang):
-    """Select language admin"""
-    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
-
-    file_read = open("{}/config/settings.py".format(dirs), "r")
-    file = file_read.read()
-    file_read.close()
-    line = file.replace("LANGUAGE_CODE = 'ru-ru'", "LANGUAGE_CODE = '{}'".format(lang))
-    file = open("{}/config/settings.py".format(dirs), "w")
-    file.write(line)
-    file.close()
-
     select_demo(pr_name)
+
+
+# @cli.command()
+# @click.argument("pr_name")
+# @click.option('--lang', prompt='Language admin (en-us, ru-ru) -> ', help='Language admin', type=str)
+# def select_lang(pr_name, lang):
+#     """Select language admin"""
+#     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
+#
+#     file_read = open("{}/config/settings.py".format(dirs), "r")
+#     file = file_read.read()
+#     file_read.close()
+#     line = file.replace("LANGUAGE_CODE = 'ru-ru'", "LANGUAGE_CODE = '{}'".format(lang))
+#     file = open("{}/config/settings.py".format(dirs), "w")
+#     file.write(line)
+#     file.close()
+#
+#     select_demo(pr_name)
 
 
 @cli.command()
