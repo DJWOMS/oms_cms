@@ -17,7 +17,7 @@
 
 - Создание БД и настройка CMS ::
 
-    python manage.py deployGFS
+    python manage.py deployOMS
 
 Разработка
 ~~~~~~~~~~
@@ -78,31 +78,10 @@
 
     python manage.py createsuperuser
 
-Создание пользователей ::
-
-    python manage.py adduser
-
-Создание языков ::
-
-    python manage.py addlang
-
-
-Создание страниц ::
-
-    python manage.py addpage
-
-Создание тестовых постов и категории ::
-
-    python manage.py addposts
-
-Создание меню ::
-
-    python manage.py addmenu
-
-Выполнение всех команд разом ::
-
-    python manage.py deploy
-
 Создание БД и настройка CMS ::
+
+    python manage.py deployMin
+
+Создание БД и настройка CMS с демо данными ::
 
     python manage.py deployOMS
