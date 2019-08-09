@@ -6,6 +6,7 @@ from django.conf import settings
 @click.group()
 def cli():
     pass
+# cli = click.Group()
 
 
 @cli.command()
@@ -13,21 +14,15 @@ def cli():
               help='project name')
 @click.option('--project', prompt='Max or min project \n 0) Max \n 1) Min \n -> ',
               help='project', type=bool)
-def cli_create(name, project):
+@click.option('--db', prompt='Select your database \n 0) sqlite3 \n 1) postgresql \n 2) oracle \n 3) mysql \n-> ',
+              help='data base', type=click.Choice(['0', '1', '2', '3']))
+def cli_create(name, project, db):
     """Name project"""
     click.echo('Project name %s' % click.style(name, fg='green'))
     if project:
         pass
     else:
         os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
-    data_base()
-
-
-@cli.command()
-@click.option('--db', prompt='Select your database \n 0) sqlite3 \n 1) postgresql \n 2) oracle \n 3) mysql \n-> ',
-              help='data base', type=click.Choice(['0', '1', '2', '3']))
-def data_base(db):
-    """Выбор БД"""
     if db == '0':
         update_local_settings(db)
     else:
@@ -35,6 +30,7 @@ def data_base(db):
 
 
 @cli.command()
+@click.argument("db")
 @click.option('--name', prompt='Name DB', help='Name data base', type=str)
 @click.option('--user', prompt='User DB', help='Name data base', type=str)
 @click.option('--password', prompt='Password DB', help='Name data base', type=str)
