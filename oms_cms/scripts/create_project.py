@@ -1,4 +1,6 @@
 import os
+import sys
+
 import click
 import django
 
@@ -23,17 +25,14 @@ def cli_create(name, project, db):
     else:
         os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
 
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"{name}.config.settings")
-    django.setup()
-
     if db == '0':
-        update_local_settings(db)
+        update_local_settings((db, name))
     else:
-        option_db(db)
+        option_db((db, name))
 
 
 @cli.command()
-@click.argument("db")
+@click.argument("db", nargs=-1)
 @click.option('--name', prompt='Name DB', help='Name data base', type=str)
 @click.option('--user', prompt='User DB', help='Name data base', type=str)
 @click.option('--password', prompt='Password DB', help='Name data base', type=str)
@@ -41,11 +40,14 @@ def cli_create(name, project, db):
 @click.option('--port', prompt='Port DB', help='Name data base', type=str)
 def option_db(db, name, user, password, host, port):
     """Параметры базы данных"""
-    update_local_settings(db, name, user, password, host, port)
+    print(db)
+    database, pr_name = db
+    update_local_settings(database, pr_name, name, user, password, host, port)
 
 
-def update_local_settings(db, name=None, user=None, password=None, host=None, port=None):
+def update_local_settings(db, pr_name, name=None, user=None, password=None, host=None, port=None):
     """Изменение БД"""
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name}")), pr_name)
     if db != '0':
         if db == '1':
             engine = 'django.db.backends.postgresql_psycopg2'
@@ -66,43 +68,53 @@ def update_local_settings(db, name=None, user=None, password=None, host=None, po
                 'PORT': port,
             }
         }
-        from django.conf import settings
-        file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(dirs, 'db.sqlite3'),
+            }
+        }
+        file_read = open("{}/config/local_settings.py".format(dirs), "r")
         file = file_read.read()
         file_read.close()
-        line = file.replace("DATABASES = {", "DATABASES = {}".format(DATABASES))
-        file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
+        line = file.replace("DATABASES = {}", "DATABASES = {}".format(DATABASES))
+        file = open("{}/config/local_settings.py".format(dirs), "w")
         file.write(line)
         file.close()
-    select_lang()
+    select_lang(pr_name)
 
 
 @cli.command()
+@click.argument("name")
 @click.option('--lang', prompt='Language admin (en-us, ru-ru) -> ',
               help='Language admin', type=str)
-def select_lang(lang):
+def select_lang(name, lang):
     """Select language admin"""
-    from django.conf import settings
-    file_read = open("{}/config/local_settings.py".format(settings.BASE_DIR), "r")
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{name}")), name)
+
+    file_read = open("{}/config/settings.py".format(dirs), "r")
     file = file_read.read()
     file_read.close()
-    line = file.replace("LANGUAGE_CODE = '{}'", "LANGUAGE_CODE = '{}'".format(lang))
-    file = open("/config/local_settings.py".format(settings.BASE_DIR), "w")
+    line = file.replace("LANGUAGE_CODE = 'ru-ru'", "LANGUAGE_CODE = '{}'".format(lang))
+    file = open("{}/config/settings.py".format(dirs), "w")
     file.write(line)
     file.close()
 
-    select_demo()
+    select_demo(name)
 
 
 @cli.command()
+@click.argument("name")
 @click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n -> -> ',
               help='Language admin', type=bool)
-def select_demo(demo):
+def select_demo(name, demo):
     """Select database demo"""
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{name}")), name)
     if demo == '0':
-        os.system(f'python manage.py deployOMS')
+        os.system(f'python {dirs}/manage.py deployOMS')
     else:
-        os.system(f'python manage.py deployMin')
+        os.system(f'python {dirs}/manage.py deployMin')
 
 
 if __name__ == '__main__':
