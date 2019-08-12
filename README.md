@@ -20,11 +20,9 @@ OMS - это CMS с открытым исходным кодом, основан
 
     pip install git+https://github.com/DJWOMS/oms_cms.git
     
-Создать стартовый проект. В "name" указать имя вашего проекта ::
+Создать стартовый проект ::
     
-    oms-start "name"
-    
-    python manage.py deployOMS
+    oms-start
 
 
 **Разработка**
@@ -86,9 +84,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
     python manage.py createsuperuser
 
-Создание БД и настройка CMS ::
+Установка cms ::
 
-    python manage.py deployOMS
+    oms-start
 
 
 

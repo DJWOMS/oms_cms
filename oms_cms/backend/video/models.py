@@ -11,9 +11,6 @@ class Video(models.Model):
     preview = models.ImageField("Превью", null=True, blank=True)
     duration = models.IntegerField("Продолжительность", default=0)
     url = models.CharField("Сгенерированная ссылка", max_length=1000, default="")
-    # img = models.ImageField("Картинка", null=True, blank=True)
-    ints_video = models.BooleanField("Для Instagram?", default=False)
-    banquet_video = models.BooleanField("Для банкета?", default=False)
 
     class Meta:
         verbose_name = "Видео"

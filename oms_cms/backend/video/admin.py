@@ -9,4 +9,4 @@ class VideoAdmin(admin.ModelAdmin):
     list_display = ("title", "id")
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ("title",)
-    fields = ("title", "link", "slug", "ints_video", "banquet_video")
+    fields = ("title", "link", "slug")
