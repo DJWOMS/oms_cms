@@ -33,8 +33,8 @@ def cli_create(name, project, db):
 @click.option('--name', prompt='Name DB', help='Name data base', type=str)
 @click.option('--user', prompt='User DB', help='Name data base', type=str)
 @click.option('--password', prompt='Password DB', help='Name data base', type=str)
-@click.option('--host', prompt='Host DB', help='Name data base', type=str)
-@click.option('--port', prompt='Port DB', help='Name data base', type=str)
+@click.option('--host', prompt='Host DB', help='Name data base', default="localhost", type=str)
+@click.option('--port', prompt='Port DB', help='Name data base', default="5432", type=str)
 def option_db(db, name, user, password, host, port):
     """Параметры базы данных"""
     database, pr_name = db
@@ -102,6 +102,17 @@ def select_demo(pr_name, demo):
         os.system(f'python {dirs}/manage.py deployOMS')
     else:
         os.system(f'python {dirs}/manage.py deployMin')
+    add_user(pr_name)
+
+
+@cli.command()
+@click.argument("pr_name", nargs=-1)
+@click.option('--user', prompt='Create superuser \n 0) Yes \n 1) No \n-> ', help='', type=bool)
+def add_user(pr_name, demo):
+    """Create superuser"""
+    dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
+    if demo == '0':
+        os.system(f'python {dirs}/manage.py createsuperuser')
 
 
 if __name__ == '__main__':
