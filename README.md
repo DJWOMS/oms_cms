@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/DJWOMS/WomsTeam.svg?branch=master)](https://travis-ci.org/DJWOMS/WomsTeam)
-# OMS CMS
+
+OMS CMS
+=======
+
 OMS - это CMS с открытым исходным кодом, основанная на фреймворке Django, разработанная для гибкости.
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
@@ -8,7 +11,8 @@ OMS - это CMS с открытым исходным кодом, основан
 - Django => 2
 - Postgres == 10
 
-**Установка:**
+Установка:
+----------
 
 Создать виртуальное окружение ::
 
@@ -18,45 +22,49 @@ OMS - это CMS с открытым исходным кодом, основан
 
 Установить CMS ::
 
-    pip install git+https://github.com/DJWOMS/oms_cms.git
+    pip install oms-cms
     
 Создать стартовый проект ::
     
     oms-start
 
 
-**Разработка**
+Разработка
+----------
+
 - Сделать форк или клонировать репозиторий
 - Создать файл oms_cms/config/local_settings.py и прописать конект к базе
-````
-# coding=utf-8
-import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+.. code-block:: python
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b0!c@b!o_#Fdsf4#%#regdh@ana6l2$n=!p1ejm@'
-
-DEBUG = True
-
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DB',
-        'USER': 'user',
-        'PASSWORD': 'pass',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    # coding=utf-8
+    import os
+    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'b0!c@b!o_#Fdsf4#%#regdh@ana6l2$n=!p1ejm@'
+    
+    DEBUG = True
+    
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'DB',
+            'USER': 'user',
+            'PASSWORD': 'pass',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
+    
+    
+    STATIC_DIR = os.path.join(BASE_DIR, 'static')
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
-
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-````
 
 Установить зависимости ::
 
@@ -70,7 +78,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
     python manage.py runserver
 
-**Команды**
+
+Команды
+--------
 
 Создание файлов миграций ::
 

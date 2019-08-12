@@ -161,16 +161,11 @@ for_post_list
     {% for_post_list as post_list %}
     {% for post in post_list %}
         <div>
-            <h2><a href="{{ node.get_absolute_url }}">{{ node.title }}</a></h2>
+            <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
             {% if post.image %}
                 <img src="{{ post.image.url }}">
             {% endif %}
             <p>{{ post.mini_text|safe }}</p>
-            {% if not node.is_leaf_node %}
-                <ul class="children">
-                    {{ children }}
-                </ul>
-            {% endif %}
         </div>
     {% endfor %}
 
