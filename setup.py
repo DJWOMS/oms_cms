@@ -47,9 +47,9 @@ setup(
     # },
     zip_safe=False,
     classifiers=[
-        'Development Status :: 0.4 - Beta',
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
-        'CMS :: Moses-CMS',
+        'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
@@ -60,11 +60,12 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Topic :: Internet :: WWW/HTTP :: WSGI',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     project_urls={
-        # 'Documentation': 'https://',
+        'Documentation': 'https://oms-cms.readthedocs.io/ru/latest/',
         'Source': 'https://github.com/DJWOMS/oms_cms',
     },
 )
