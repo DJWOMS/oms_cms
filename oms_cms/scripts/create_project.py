@@ -8,17 +8,15 @@ def cli():
 
 
 @cli.command()
-@click.option('--name', prompt='Project name',
-              help='project name')
-@click.option('--project', prompt='Max or min project \n 0) Max \n 1) Min \n -> ',
-              help='project', type=bool)
+@click.option('--name', prompt='Project name', help='project name')
+@click.option('--project', prompt='Add templates \n 0) No \n 1) Yes \n -> ', help='project', type=bool)
 @click.option('--db', prompt='Select your database \n 0) sqlite3 \n 1) postgresql \n 2) oracle \n 3) mysql \n-> ',
               help='data base', type=click.Choice(['0', '1', '2', '3']))
 def cli_create(name, project, db):
     """Name project"""
     click.echo('Project name %s' % click.style(name, fg='green'))
     if project:
-        pass
+        os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project_min/archive/master.zip')
     else:
         os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
 
@@ -76,7 +74,7 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
 
 @cli.command()
 @click.argument("pr_name", nargs=-1)
-@click.option('--lang', prompt='Language admin (en-us, ru-ru) \n -> ', help='Language admin', type=str)
+@click.option('--lang', prompt='Language admin (en-us, ru-ru) \n -> ', default="ru-ru", help='Language admin', type=str)
 def select_lang(pr_name, lang):
     """Select language admin"""
     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
@@ -94,11 +92,11 @@ def select_lang(pr_name, lang):
 
 @cli.command()
 @click.argument("pr_name", nargs=-1)
-@click.option('--demo', prompt='Add demo data \n 0) Yes \n 1) No \n-> ', help='Language admin', type=bool)
+@click.option('--demo', prompt='Add demo data \n 0) No \n 1) Yes \n-> ', help='Language admin', type=bool)
 def select_demo(pr_name, demo):
     """Select database demo"""
     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
-    if demo == '0':
+    if demo:
         os.system(f'python {dirs}/manage.py deployOMS')
     else:
         os.system(f'python {dirs}/manage.py deployMin')
@@ -107,11 +105,11 @@ def select_demo(pr_name, demo):
 
 @cli.command()
 @click.argument("pr_name", nargs=-1)
-@click.option('--user', prompt='Create superuser \n 0) Yes \n 1) No \n-> ', help='', type=bool)
+@click.option('--user', prompt='Create superuser \n 0) No \n 1) Yes \n-> ', help='', type=bool)
 def add_user(pr_name, user):
     """Create superuser"""
     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
-    if user == '0':
+    if user:
         os.system(f'python {dirs}/manage.py createsuperuser')
 
 
