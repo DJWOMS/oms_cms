@@ -108,10 +108,10 @@ def select_demo(pr_name, demo):
 @cli.command()
 @click.argument("pr_name", nargs=-1)
 @click.option('--user', prompt='Create superuser \n 0) Yes \n 1) No \n-> ', help='', type=bool)
-def add_user(pr_name, demo):
+def add_user(pr_name, user):
     """Create superuser"""
     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
-    if demo == '0':
+    if user == '0':
         os.system(f'python {dirs}/manage.py createsuperuser')
 
 
