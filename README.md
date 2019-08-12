@@ -22,7 +22,7 @@ OMS - это CMS с открытым исходным кодом, основан
 
 Установить CMS ::
 
-    pip install git+https://github.com/DJWOMS/oms_cms.git
+    pip install oms-cms
     
 Создать стартовый проект ::
     
