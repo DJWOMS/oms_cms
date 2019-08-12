@@ -1,7 +1,5 @@
 global-include *.py *.js *.rst *.html *.css *.lyx *.pdf *.png *.gif *.jpg *.txt *.bat *.html *tpl *
-global-include backend
-global-include CMS
-global-include project
+recursive-include oms_cms/*
 global-exclude *.pyc .gitignore
 global-exclude __pycache__
 global-exclude *.py[co]

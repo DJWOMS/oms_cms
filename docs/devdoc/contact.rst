@@ -30,7 +30,7 @@ Template tags
     .. code-block:: python
 
         <p>{{ contact.name }}</p>
-            '''Поля контактов'''
+        '''Поля контактов'''
         {% for field in contact.get_contact_fields %}
             <p>
                 {% if field.icon_ui %}
@@ -46,7 +46,7 @@ Template tags
                 {{ field.text_two|safe }}
             </p>
         {% endfor %}
-            '''Соц. ссылки'''
+        '''Соц. ссылки'''
         {% for link_soc in contact.get_contact_socnet %}
             <p>
                 <a href="{{ link_soc.get_link_contact_soc }}">
@@ -66,7 +66,40 @@ Template tags
 
 for_contact
 ~~~~~~~~~~~~
-    not doc
+Вывод полей контактов и соц. сетей.
+
+.. code-block:: python
+
+    {% for_contact name='Footer' as contact %}
+    <p>{{ contact.name }}</p>
+        '''Поля контактов'''
+    {% for field in contact.get_contact_fields %}
+        <p>
+            {% if field.icon_ui %}
+                    '''Иконка'''
+                <span class="{{ field.icon_ui }}"></span>
+            {% elif field.icon %}
+                    '''Загруженая иконка'''
+                <img src="{{ field.icon.image.url }}">
+            {% endif %}
+                '''Поле 1'''
+            {{ field.text|safe }}
+                '''Поле 2'''
+            {{ field.text_two|safe }}
+        </p>
+    {% endfor %}
+    '''Соц. ссылки'''
+    {% for link_soc in contact.get_contact_socnet %}
+        <a href="{{ link_soc.get_link_contact_soc }}">
+            {% if link_soc.link.icon_ui %}
+                <span class="{{ link_soc.link.icon_ui }}"></span>
+            {% elif link_soc.link.icon %}
+                <img src="{{ link_soc.link.icon.image.url }}">
+            {% else %}
+                {{ link_soc.link }}
+            {% endif %}
+        </a>
+    {% endfor %}
 
 Генерация формы обратной связи:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
