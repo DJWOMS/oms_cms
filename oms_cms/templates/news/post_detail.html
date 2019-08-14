@@ -43,7 +43,7 @@
                     <div class="inline">
                         <label>tag:</label>
                         {% for tag in post.tag.all %}
-                            <span><a href="#">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}</span>
+                            <span><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}</span>
                         {% endfor %}
                     </div>
                 </div>
