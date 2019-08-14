@@ -11,7 +11,7 @@
 
     pip install oms-cms
 
-- Создать стартовый проект ::
+- Создать проект ::
 
     oms-start
 
@@ -62,6 +62,10 @@
 
 Команды
 ~~~~~~~
+Запуск установщика ::
+
+    oms-start
+
 Создание файлов миграций ::
 
     python manage.py makemigrations
