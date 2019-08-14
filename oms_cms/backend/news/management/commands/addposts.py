@@ -8,14 +8,20 @@ class Command(BaseCommand):
     help = 'Add post'
 
     def handle(self, *args, **options):
+        mini = """<p>OMS CMS написана на языке python3 и основана на framework django2. 
+        Что позволяет вам без проблем расширить ее функционал.</p>"""
+        text = """<p>OMS CMS написана на языке python3 и основана на framework django2. 
+                Что позволяет вам без проблем расширить ее функционал.</p>
+                <p>Данная cms позволяет сделать сайт за считанные минуту. Вы можете использовать базовый шаблон или 
+                скачать с официального сайта.</p>"""
         category = Category.objects.create(name="Блог", slug="blog", lang=Lang.objects.get(is_default=True))
         i = 10
         while i > 0:
             Post.objects.create(
-                title="title-{}".format(i),
-                mini_text="mini_text",
-                text="text",
-                slug="title-{}".format(i),
+                title="Новость-{}".format(i),
+                mini_text=mini,
+                text=text,
+                slug="post-{}".format(i),
                 category=category,
                 lang=Lang.objects.get(is_default=True)
             )
