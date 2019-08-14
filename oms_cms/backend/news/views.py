@@ -12,27 +12,27 @@ from .forms import CommentsForm
 
 
 class PostView(ListView):
-    """Вывод всех статей или из категории"""
+    """Вывод всех статей из категории или тега"""
 
-    def get_queryset(self):
+    def get_posts(self):
         if self.kwargs.get('lang', None) is None:
             self.kwargs["lang"] = Lang.objects.get(is_default=True).slug
-        if self.kwargs.get('slug') is not None:
-            post_list = Post.objects.filter(
+        return Post.objects.filter(
                 lang__slug__icontains=self.kwargs.get('lang'),
-                category__slug=self.kwargs.get('slug'),
                 category__published=True,
                 published=True,
                 published_date__lte=datetime.now())
+
+    def get_queryset(self):
+        if self.kwargs.get('slug') is not None:
+            post_list = self.get_posts().filter(category__slug=self.kwargs.get('slug'))
             if post_list.exists():
                 self.paginate_by = post_list.first().get_category_paginated()
                 self.template_name = post_list.first().get_category_template()
+        if self.kwargs.get('tag') is not None:
+            post_list = self.get_posts().filter(tag__slug=self.kwargs.get('tag'))
         else:
-            post_list = Post.objects.filter(
-                lang__slug__icontains=self.kwargs.get('lang'),
-                category__published=True,
-                published=True,
-                published_date__lte=datetime.now())
+            post_list = self.get_posts()
 
         if post_list.exists():
             if not self.request.user.is_authenticated:

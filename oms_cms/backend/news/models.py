@@ -56,6 +56,9 @@ class Tags(models.Model):
         verbose_name = "Тег"
         verbose_name_plural = "Теги"
 
+    def get_absolute_url(self):
+        return reverse('tag-news', kwargs={'lang': Post.objects.filter(tag=self).first().lang.slug, 'tag': self.slug})
+
     def __str__(self):
         return self.name
 

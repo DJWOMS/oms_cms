@@ -1,5 +1,5 @@
 {% extends 'pages/base.html' %}
-{% load seo_tags partners_tags %}
+{% load seo_tags partners_tags news_tags %}
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
@@ -12,9 +12,32 @@
             <ul class="list-unstyled row list-clients">
                 {% all_partners as partners %}
                 {% for partner in partners %}
-                    <li class="col-md-2"><a href="{{ partner.link }}"><img alt="" src="{{ partner.picture.url }}"/></a></li>
+                    <li class="col-md-2"><a href="{{ partner.link }}"><img alt="" src="{{ partner.picture.url }}"/></a>
+                    </li>
                 {% endfor %}
             </ul>
+        </div>
+    </section>
+    <section id="our-clients" class="row inner-sm">
+        <div class="container">
+            {% for_post_list category="Акция" order="-id" as post_list %}
+            {% for post in post_list %}
+                <div class="col-lg-4">
+                    <div class="l_news_item">
+                        <span class="date">{{ post.published_date|date:"d M, Y" }}</span>
+                        <a href="{{ post.get_absolute_url }}">
+                            <h4>{{ post.title }}</h4>
+                        </a>
+                        <p>{{ post.mini_text|safe }}</p>
+                        <div class="post_view">
+                            <a href="#"><i class="fa fa-eye" aria-hidden="true"></i>{{ post.viewed }}</a>
+                            <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i>
+                                {{ post.comments_set.all.count }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </section>
 {% endblock pages %}
