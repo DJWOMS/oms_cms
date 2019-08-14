@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from oms_cms.backend.languages.models import Lang
-from oms_cms.backend.news.models import Post, Category
+from oms_cms.backend.news.models import Post, Category, Tags
 
 
 class Command(BaseCommand):
@@ -15,9 +15,10 @@ class Command(BaseCommand):
                 <p>Данная cms позволяет сделать сайт за считанные минуту. Вы можете использовать базовый шаблон или 
                 скачать с официального сайта.</p>"""
         category = Category.objects.create(name="Блог", slug="blog", lang=Lang.objects.get(is_default=True))
+        tag = Tags.objects.create(name="oms", slug="oms")
         i = 10
         while i > 0:
-            Post.objects.create(
+            post = Post.objects.create(
                 title="Новость-{}".format(i),
                 mini_text=mini,
                 text=text,
@@ -25,5 +26,6 @@ class Command(BaseCommand):
                 category=category,
                 lang=Lang.objects.get(is_default=True)
             )
+            post.tag.add(tag)
             i -= 1
         self.stdout.write('Success add posts')
