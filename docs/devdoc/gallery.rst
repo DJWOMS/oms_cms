@@ -40,4 +40,4 @@ name=имя фото или pk=id фото, без указания аргуме
 
    {% load gallery_tags %}
 
-   {% for_photo name="My photo" as photos %}
+   {% get_photo name="My photo" as photos %}
