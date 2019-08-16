@@ -23,6 +23,7 @@ OMS - это CMS с открытым исходным кодом, основан
    devdoc/menu
    devdoc/soc_networks
    devdoc/partners
+   devdoc/gallery
 
 
 Indices and tables

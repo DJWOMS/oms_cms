@@ -19,7 +19,7 @@ itypes==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 oauthlib==3.0.2
-oms-gallery==0.2.8
+oms-gallery==0.3
 Pillow==6.1.0
 psycopg2==2.7.7
 python-http-client==3.1.0
