@@ -28,7 +28,10 @@ gallery=None, без указания аргументов выведет все
 
    {% load gallery_tags %}
 
-   {% for_photo as photos %}
+   {% for_photo gallery="Test" as photos %}
+    {% for photo in photos %}
+        <img src="{{ photo.image.url }}">
+    {% endfor %}
 
 Одна фотография
 ~~~~~~~~~~~~~~~~~
