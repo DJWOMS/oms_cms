@@ -42,6 +42,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 
     # 'corsheaders.middleware.CorsMiddleware',
 
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'oms_cms.backend.languages.middleware.LanguagesMiddleware'
+    'oms_cms.backend.pages.middleware.OmsPageFallbackMiddleware',
 ]
 
 
@@ -67,7 +68,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'oms_cms.backend.languages.context_processors.set_lang',
             ],
         },
     },
@@ -105,6 +105,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 MY_INFO = 80
 MESSAGE_LEVEL = MY_INFO
+
+APPEND_SLASH = True
 
 try:
     from .local_settings import *

@@ -11,9 +11,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # if options["lang"]:
         #     for i in options["lang"]:
-        #         Lang.objects.create(name=i.get("name"), slug=i.get("slug"), is_default=i.get("is_default"))
+        #         Lang.objects.create(name=i.get("name"), slug=i.get("slug"))
         # else:
-        Lang.objects.create(name="Русский", slug="ru", is_default=True)
+        Lang.objects.create(name="Русский", slug="ru")
         #Lang.objects.create(name="English", slug="en")
         self.stdout.write('Success add lang')
 

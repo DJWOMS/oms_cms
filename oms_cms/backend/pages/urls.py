@@ -1,9 +1,8 @@
 from django.urls import path
 
-from .views import *
+from .views import get_page
 
+app_name = "pages"
 urlpatterns = [
-    path('<slug:lang>/<slug:slug>/', Page.as_view(), name="page_slug_lang"),
-    path('<slug:slug>/', Page.as_view(), name="page_slug"),
-    path('', Page.as_view(), name="page"),
+    path('<path:url>', get_page, name="page"),
 ]

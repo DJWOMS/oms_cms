@@ -1,20 +1,38 @@
+from django.conf import settings
+from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic.base import View
-from oms_cms.backend.languages.models import Lang
+from django.views.decorators.csrf import csrf_protect
 
 from .models import Pages
 
 
-class Page(View):
-    """Вывод страницы"""
-    def get(self, request, lang=None, slug=None):
-        if lang is None:
-            lang = Lang.objects.get(is_default=True).slug
-        if slug is not None:
-            if Lang.objects.filter(slug=slug).exists():
-                page = get_object_or_404(Pages, slug__isnull=True, lang__slug=slug, published=True)
-            else:
-                page = get_object_or_404(Pages, slug=slug, lang__slug=lang, published=True)
+def get_page(request, url):
+    """Получение страницы по url"""
+    if not url.startswith('/'):
+        url = '/' + url
+
+    language_prefix = '/%s' % request.LANGUAGE_CODE
+
+    if url.startswith(language_prefix):
+        url = url[len(language_prefix):]
+
+    try:
+        page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
+    except Http404:
+        if not url.endswith('/') and settings.APPEND_SLASH:
+            url += '/'
+            page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
+            return HttpResponsePermanentRedirect('%s/' % request.path)
         else:
-            page = get_object_or_404(Pages, slug__isnull=True, lang__slug=lang, published=True)
-        return render(request, page.template, {"page": page})
+            raise
+
+    return render_page(request, page)
+
+
+@csrf_protect
+def render_page(request, page):
+    """Рендер страницы"""
+    if page.registration_required and not request.user.is_authenticated:
+        from django.contrib.auth.views import redirect_to_login
+        return redirect_to_login(request.path)
+    return render(request, page.template, {"page": page})

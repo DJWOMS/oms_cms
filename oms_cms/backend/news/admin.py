@@ -4,63 +4,29 @@ from mptt.admin import MPTTModelAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from oms_cms.backend.oms_seo.admin import SeoInlines
-from .models import Post, Category, Tags, Comments
+from oms_cms.backend.comments.admin import CommentsInlines
+from oms_cms.backend.utils.admin import ActionPublish
 
-
-class ActionPublish(admin.ModelAdmin):
-    """Action для публикации и снятия с публикации"""
-
-    def unpublish(self, request, queryset):
-        """Снять с публикации"""
-        rows_updated = queryset.update(published=False)
-        if rows_updated == 1:
-            message_bit = "1 story was"
-        else:
-            message_bit = "%s stories were" % rows_updated
-        self.message_user(request, "%s successfully marked as published." % message_bit)
-
-    unpublish.short_description = "Снять с публикации"
-    unpublish.allowed_permissions = ('change',)
-
-    def publish(self, request, queryset):
-        """Опубликовать"""
-        rows_updated = queryset.update(published=True)
-        if rows_updated == 1:
-            message_bit = "1 story was"
-        else:
-            message_bit = "%s stories were" % rows_updated
-        self.message_user(request, "%s successfully marked as published." % message_bit)
-
-    publish.short_description = "Опубликовать"
-    publish.allowed_permissions = ('change',)
+from .models import Post, Category, Tags
 
 
 class PostAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    mini_text = forms.CharField(widget=CKEditorUploadingWidget())
-    text = forms.CharField(widget=CKEditorUploadingWidget())
+    mini_text = forms.CharField(label="Превью статьи", widget=CKEditorUploadingWidget())
+    text = forms.CharField(label="Полная статья", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Post
         fields = '__all__'
 
 
-class CommentAdminForm(forms.ModelForm):
-    """Виджет редактора ckeditor"""
-    text = forms.CharField(widget=CKEditorUploadingWidget())
-
-    class Meta:
-        model = Comments
-        fields = '__all__'
-
-
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     """Категории"""
-    list_display = ("name", "slug", "published", "id")
+    list_display = ("name", "slug", "published", "sort", "id")
     list_display_links = ("name",)
     list_filter = ("name", "published")
-    list_editable = ("published",)
+    list_editable = ("published", "sort")
     prepopulated_fields = {"slug": ("name",)}
     mptt_level_indent = 20
     actions = ['unpublish', 'publish']
@@ -78,19 +44,13 @@ class TagsAdmin(ActionPublish):
     search_fields = ("name", )
 
 
-class CommentsInline(admin.StackedInline):
-    model = Comments
-    extra = 1
-    show_change_link = True
-
-
 @admin.register(Post)
 class PostAdmin(ActionPublish):
     """Статьи"""
     form = PostAdminForm
-    list_display = ('title', 'lang', 'created_date', 'category', 'published', 'id')
+    list_display = ('title', 'lang', 'created_date', 'category', 'published', "sort", 'id')
     list_filter = ('lang', 'created_date', 'category', 'published')
-    list_editable = ("published",)
+    list_editable = ("published", "sort")
     search_fields = ["title", "category", "tag"]
     prepopulated_fields = {"slug": ("title",)}
     actions = ['unpublish', 'publish']
@@ -98,14 +58,4 @@ class PostAdmin(ActionPublish):
     autocomplete_fields = ["tag"]
     readonly_fields = ('viewed',)
 
-    inlines = (SeoInlines, CommentsInline,)
-
-
-@admin.register(Comments)
-class CommentsAdmin(ActionPublish):
-    """Коментарии к статьям"""
-    list_display = ("user", "post", "date", "update", "published")
-    list_filter = ("user", "post", "date", "update", "published")
-    list_editable = ("published",)
-    form = CommentAdminForm
-    actions = ['unpublish', 'publish']
+    inlines = (SeoInlines, CommentsInlines,)

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from oms_cms.backend.languages.models import Lang
@@ -14,7 +15,7 @@ class Command(BaseCommand):
                 Что позволяет вам без проблем расширить ее функционал.</p>
                 <p>Данная cms позволяет сделать сайт за считанные минуту. Вы можете использовать базовый шаблон или 
                 скачать с официального сайта.</p>"""
-        category = Category.objects.create(name="Блог", slug="blog", lang=Lang.objects.get(is_default=True))
+        category = Category.objects.create(name="Блог", slug="blog", lang=Lang.objects.get(slug=settings.LANGUAGE_CODE))
         tag = Tags.objects.create(name="oms", slug="oms")
         i = 10
         while i > 0:
@@ -24,7 +25,7 @@ class Command(BaseCommand):
                 text=text,
                 slug="post-{}".format(i),
                 category=category,
-                lang=Lang.objects.get(is_default=True)
+                lang=Lang.objects.get(slug=settings.LANGUAGE_CODE)
             )
             post.tag.add(tag)
             i -= 1

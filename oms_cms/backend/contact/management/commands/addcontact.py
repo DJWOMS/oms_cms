@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from oms_cms.backend.social_networks.models import SocialNetworks
@@ -10,7 +11,11 @@ class Command(BaseCommand):
     help = 'Add contact'
 
     def handle(self, *args, **options):
-        contact = Contact.objects.create(name="Header", slug="contact", lang=Lang.objects.get(is_default=True))
+        contact = Contact.objects.create(
+            name="Header",
+            slug="contact",
+            lang=Lang.objects.get(slug=settings.LANGUAGE_CODE)
+        )
         ContactFields.objects.create(
             text="info@oms-cms.site",
             text_two="",
@@ -28,7 +33,7 @@ class Command(BaseCommand):
             name="Footer",
             description="OMS CMS django 2",
             slug="contact-footer",
-            lang=Lang.objects.get(is_default=True)
+            lang=Lang.objects.get(slug=settings.LANGUAGE_CODE)
         )
         ContactSocNet.objects.create(
             contact_soc=contact_footer,
