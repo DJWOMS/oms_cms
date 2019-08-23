@@ -1,15 +1,28 @@
+from django.conf import settings
+from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic.base import View
-from oms_cms.backend.languages.models import Lang
 
 from .models import Pages
 
 
-class Page(View):
+def page(request, url):
     """Вывод страницы"""
-    def get(self, request, slug=None):
-        if slug is not None:
-            page = get_object_or_404(Pages, slug=slug, lang__slug=request.LANGUAGE_CODE, published=True)
+    if not url.startswith('/'):
+        url = '/' + url
+
+    language_prefix = '/%s' % request.LANGUAGE_CODE
+
+    if url.startswith(language_prefix):
+        url = url[len(language_prefix):]
+
+    try:
+        page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
+    except Http404:
+        if not url.endswith('/') and settings.APPEND_SLASH:
+            url += '/'
+            print("what?")
+            page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
+            return HttpResponsePermanentRedirect('%s/' % request.path)
         else:
-            page = get_object_or_404(Pages, slug__isnull=True, lang__slug=request.LANGUAGE_CODE, published=True)
-        return render(request, page.template, {"page": page})
+            raise
+    return render(request, page.template, {"page": page})

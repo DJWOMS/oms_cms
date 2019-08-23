@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'oms_cms.backend.pages.middleware.OmsPageFallbackMiddleware',
 ]
 
 
@@ -104,6 +105,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 MY_INFO = 80
 MESSAGE_LEVEL = MY_INFO
+
+APPEND_SLASH = True
 
 try:
     from .local_settings import *

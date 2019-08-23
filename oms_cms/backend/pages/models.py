@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
-from django.urls import reverse
+from django.urls import get_script_prefix
+from django.utils.encoding import iri_to_uri
 
 from oms_cms.backend.oms_seo.models import Seo
 
@@ -20,7 +21,7 @@ class Pages(AbstractLang):
     published_date = models.DateTimeField("Дата публикации", blank=True, null=True)
     published = models.BooleanField("Опубликовать?", default=True)
     template = models.CharField("Шаблон", max_length=500, default="pages/home.html")
-    slug = models.SlugField(
+    slug = models.CharField(
         "URL",
         max_length=500,
         default="",
@@ -34,11 +35,17 @@ class Pages(AbstractLang):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if self.slug is None:
+            self.slug = "/"
+        if not f"{self.slug}".startswith("/"):
+            self.slug = "/" + self.slug
+        if not self.slug.endswith("/"):
+            self.slug += "/"
+        super().save(*args, **kwargs)
+        
     def get_absolute_url(self):
-        if self.slug:
-            return reverse('pages:page_slug', kwargs={'slug': self.slug})
-        else:
-            return reverse('pages:page')
+        return iri_to_uri(get_script_prefix().rstrip('/') + self.slug)
 
     class Meta:
         verbose_name = "Страница"
