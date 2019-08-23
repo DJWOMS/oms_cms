@@ -13,7 +13,7 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 6)
 
 BUILD = 0
-VERSION = "0.4.10"
+VERSION = "0.4.11"
 RELEASE = VERSION
 
 
@@ -29,7 +29,7 @@ setup(
     name='oms-cms',
     version=VERSION,
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
-    url='https://djangochannel.com',
+    url='https://github.com/DJWOMS/oms_cms',
     author='DJWOMS - Omelchenko Michael',
     author_email='socanime@gmail.com',
     description=('A high-level Python Web CMS'),
