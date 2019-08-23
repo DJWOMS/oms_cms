@@ -6,9 +6,6 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 
-from oms_cms.backend.languages.models import Lang
-from oms_cms.backend.comments.views import AddCommentMixin
-
 from .models import Post
 
 
