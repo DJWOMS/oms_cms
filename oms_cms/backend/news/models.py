@@ -8,6 +8,7 @@ from oms_gallery.models import Photo
 
 from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_lang
 from oms_cms.backend.oms_seo.models import Seo
+from oms_cms.backend.comments.models import Comments
 
 
 class Category(MPTTModel):
@@ -31,16 +32,17 @@ class Category(MPTTModel):
     published = models.BooleanField("Отображать?", default=True)
     paginated = models.PositiveIntegerField("Количество новостей на странице", default=5)
 
-    # sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
+    sort = models.PositiveIntegerField('Порядок', default=0)
 
     seo = GenericRelation(Seo)
 
     class Meta:
         verbose_name = "Категория новостей"
         verbose_name_plural = "Категории новостей"
+        ordering = ["-sort", "-name"]
 
     def get_absolute_url(self):
-        return reverse('list-news', kwargs={'lang': self.lang.slug, 'slug': self.slug})
+        return reverse('news:list-news', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.name
@@ -57,7 +59,7 @@ class Tags(models.Model):
         verbose_name_plural = "Теги"
 
     def get_absolute_url(self):
-        return reverse('tag-news', kwargs={'lang': Post.objects.filter(tag=self).first().lang.slug, 'tag': self.slug})
+        return reverse('news:tag-news', kwargs={'tag': self.slug})
 
     def __str__(self):
         return self.name
@@ -108,18 +110,18 @@ class Post(AbstractLang):
     viewed = models.IntegerField("Просмотрено", default=0)
     status = models.BooleanField("Для зарегистрированных", default=False)
 
-    # sort = models.PositiveIntegerField('Порядок', default=0, unique=True)
+    sort = models.PositiveIntegerField('Порядок', default=0)
 
     seo = GenericRelation(Seo)
 
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
-        ordering = ["-published_date"]
+        ordering = ["-sort", "-published_date"]
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
+    # def publish(self):
+    #     self.published_date = timezone.now()
+    #     self.save()
 
     def get_category_slug(self):
         return self.category.slug
@@ -131,40 +133,7 @@ class Post(AbstractLang):
         return self.category.paginated
 
     def get_absolute_url(self):
-        return reverse('new-detail', kwargs={'lang': self.lang.slug, 'category': self.category.slug, 'post': self.slug})
+        return reverse('news:new-detail', kwargs={'category': self.category.slug, 'post': self.slug})
 
     def __str__(self):
         return "{}".format(self.title)
-
-
-class Comments(MPTTModel):
-    """Модель коментариев к новостям"""
-    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, verbose_name="Новость", on_delete=models.CASCADE)
-    text = models.TextField("Сообщение", max_length=2000)
-    date = models.DateTimeField("Дата", auto_now_add=True)
-    update = models.DateTimeField("Изменен", auto_now=True)
-    parent = TreeForeignKey(
-        "self",
-        verbose_name="Родительский комментарий",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children')
-    published = models.BooleanField("Опубликовать?", default=True)
-
-    class Meta:
-        verbose_name = "Комментарий"
-        verbose_name_plural = "Комментарии"
-
-    def __str__(self):
-        return "{} - {}".format(self.user, self.post)
-
-    def delete_comment(self):
-        return reverse('delete_comment', kwargs={'lang': self.post.lang.slug, 'pk': self.id})
-
-    def edit_comment(self):
-        return reverse('edit_comment', kwargs={'lang': self.post.lang.slug, 'pk': self.id})
-
-    def answer_comment(self):
-        return reverse('answer_comment', kwargs={'lang': self.post.lang.slug, 'pk': self.id})
