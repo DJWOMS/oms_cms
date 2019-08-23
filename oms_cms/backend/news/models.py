@@ -8,7 +8,7 @@ from oms_gallery.models import Photo
 
 from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_lang
 from oms_cms.backend.oms_seo.models import Seo
-from oms_cms.backend.comments.models import Comments
+
 
 
 class Category(MPTTModel):
