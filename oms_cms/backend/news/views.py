@@ -38,7 +38,7 @@ class PostView(ListView):
             raise Http404()
 
 
-class PostDetail(AddCommentMixin, View):
+class PostDetail(View):
     """Вывод полной новости"""
 
     def get(self, request, **kwargs):
