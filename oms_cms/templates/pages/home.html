@@ -1,5 +1,5 @@
 {% extends 'pages/base.html' %}
-{% load seo_tags partners_tags news_tags %}
+{% load seo_tags partners_tags news_tags gallery_tags %}
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
@@ -20,7 +20,7 @@
     </section>
     <section id="our-clients" class="row inner-sm">
         <div class="container">
-            {% for_post_list category="Акция" order="-id" as post_list %}
+            {% for_post_list category="Блог" order="-id" as post_list %}
             {% for post in post_list %}
                 <div class="col-lg-4">
                     <div class="l_news_item">
@@ -39,5 +39,13 @@
                 </div>
             {% endfor %}
         </div>
+    </section>
+    <section>
+    <div class="container">
+        {% for_photo gallery="Test" as photos %}
+        {% for photo in photos %}
+            <img src="{{ photo.image.url }}">
+        {% endfor %}
+    </div>
     </section>
 {% endblock pages %}

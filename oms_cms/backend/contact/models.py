@@ -109,7 +109,7 @@ class Feedback(models.Model):
             return "{}".format(self.phone)
 
     def get_absolute_url(self):
-        return reverse('feedback')
+        return reverse('contact:feedback')
 
     class Meta:
         verbose_name = "Обратная связь"

@@ -25,7 +25,6 @@ class Pages(AbstractLang):
         max_length=500,
         default="",
         help_text="Укажите url",
-        unique=True,
         blank=True,
         null=True
     )
@@ -37,9 +36,9 @@ class Pages(AbstractLang):
 
     def get_absolute_url(self):
         if self.slug:
-            return reverse('page_slug', kwargs={'slug': self.slug})
+            return reverse('pages:page_slug', kwargs={'slug': self.slug})
         else:
-            return reverse('page')
+            return reverse('pages:page')
 
     class Meta:
         verbose_name = "Страница"

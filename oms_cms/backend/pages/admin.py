@@ -3,14 +3,14 @@ from django.contrib import admin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from oms_cms.backend.oms_seo.admin import SeoInlines
-from oms_cms.backend.news.admin import ActionPublish
+from oms_cms.backend.utils.admin import ActionPublish
 
 from .models import Pages
 
 
 class PagesAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    text = forms.CharField(widget=CKEditorUploadingWidget())
+    text = forms.CharField(label="Контент страницы", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Pages

@@ -3,7 +3,7 @@
     <div class="sub-form-row">
         <div class="container">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-                <form action="{% url 'feedback_gen' %}" method="post" role="form">
+                <form action="{% url 'contact:feedback_gen' %}" method="post" role="form">
                     {% csrf_token %}
                     <input name="subject" value="Подписался" type="hidden">
                     <input name="email" value="" placeholder="Subscribe">

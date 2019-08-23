@@ -6,6 +6,5 @@ from .models import Lang
 @admin.register(Lang)
 class LangAdmin(admin.ModelAdmin):
     """Языки"""
-    list_display = ("name", "slug", "is_default")
-    list_editable = ("is_default", )
+    list_display = ("name", "slug")
     # prepopulated_fields = {"slug": ("name",)}

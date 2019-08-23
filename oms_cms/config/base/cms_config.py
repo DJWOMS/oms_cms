@@ -1,3 +1,5 @@
+from django.utils.translation import gettext_lazy as _
+
 # CMS app
 CMS_APP = [
     # Auth
@@ -24,6 +26,7 @@ CMS_APP = [
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
     'oms_cms.backend.oms_seo',
+    'oms_cms.backend.comments',
     # Editor
     'ckeditor',
     'ckeditor_uploader',
@@ -43,6 +46,13 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_L10N = True
+
+LANGUAGE_CODE = 'ru'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('ru', _('Russia')),
+)
 
 USE_TZ = True
 
@@ -65,7 +75,7 @@ ACCOUNT_EMAIL_UNIQUE = True
 # ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_VERIFICATION = "optional" #"mandatory"
-ACCOUNT_USERNAME_BLACKLIST = ["admin", "administrator", "moderator",]
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "administrator", "moderator"]
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'

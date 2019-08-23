@@ -34,7 +34,7 @@ class FeedbackFormView(View):
         # form = self._get_form(request, gen_form, 'aform_pre')
         if form.is_valid():
             form.save()
-        return redirect("/")
+        return redirect(request.POST.get("next", "/"))
 
     # def _get_form(self, request, formcls, prefix):
     #     data = request.POST if prefix in request.POST else None

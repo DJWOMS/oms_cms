@@ -10,26 +10,24 @@ def search_contact(context, name=None):
     """Queryset контактов по имени и языку"""
     if name is not None:
         try:
-            context = Contact.objects.get(name__icontains=name, lang__slug=context["request"].session.get("lang"))
+            contacts = Contact.objects.get(name__icontains=name, lang__slug=context["request"].LANGUAGE_CODE)
         except Contact.DoesNotExist:
-            return {'template': template}
+            return None
     else:
-        context = Contact.objects.filter(lang__slug=context["request"].session.get("lang")).first()
-    return context
+        contacts = Contact.objects.filter(lang__slug=context["request"].LANGUAGE_CODE).first()
+    return contacts
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
 def contact(context, name=None, template='base/tags/contact/contact_block_tag.html'):
     """Вывод контактов по имени"""
-    context = search_contact(context, name)
-    return {'template': template, "contact": context}
+    return {'template': template, "contact": search_contact(context, name)}
 
 
 @register.simple_tag(takes_context=True)
 def for_contact(context, name=None):
     """Вывод контактов по имени без шаблона"""
-    context = search_contact(context, name)
-    return context
+    return search_contact(context, name)
 
 
 @register.simple_tag()
