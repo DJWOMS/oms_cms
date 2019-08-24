@@ -4,15 +4,19 @@
     <div class="block-comment">
         <div class="grid-two-col">
             <div>
-                {{ node.user }}
+                {% if node.user %}
+                    {{ node.user }}
+                {% endif %}
             </div>
             <div class="btn-comment-self">
                 {% if context.user.id != node.user.id %}
-                    <a href="{{ node.answer_comment }}"
+{#                    <a href="{{ node.answer_comment }}"#}
+                    <a href="#"
                        class="new-comment"> Ответить</a>
                 {% endif %}
                 {% if context.user.id == node.user.id and context.user.is_authenticated %}
-                    <a href="{{ node.edit_comment }}">Редактировать</a>
+{#                    <a href="{{ node.edit_comment }}">Редактировать</a>#}
+                    <a href="{{node.edit_comment}}">Редактировать</a>
                     <a href="{{ node.delete_comment }}">Удалить</a>
                 {% endif %}
             </div>
