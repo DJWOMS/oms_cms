@@ -26,7 +26,7 @@ CMS_APP = [
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
     'oms_cms.backend.oms_seo',
-    # 'oms_cms.backend.comments',
+
     # Editor
     'ckeditor',
     'ckeditor_uploader',
@@ -36,7 +36,12 @@ CMS_APP = [
     # plugins
     'oms_gallery',
 
+    'django_comments',
+    'oms_cms.backend.comments',
+
 ]
+
+COMMENTS_APP = 'oms_cms.backend.comments'
 
 LANGUAGE_CODE = 'ru-ru'
 

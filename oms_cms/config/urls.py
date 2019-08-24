@@ -25,7 +25,8 @@ urlpatterns += [
 ]
 urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),
-    # path('lang/', include('oms_cms.backend.languages.urls')),
+    path('comments/', include('django_comments.urls')),
+    path('lang/', include('oms_cms.backend.languages.urls', namespace="languages")),
     path('news/', include('oms_cms.backend.news.urls', namespace='news')),
     path('contact/', include('oms_cms.backend.contact.urls', namespace='contact')),
     path('search/', include('oms_cms.backend.search.urls', namespace='search')),
