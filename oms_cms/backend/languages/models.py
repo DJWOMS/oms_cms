@@ -11,7 +11,7 @@ class Lang(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("name_lang", kwargs={"name": self.slug})
+        return reverse("languages:name_lang")
 
     class Meta:
         verbose_name = "Язык"

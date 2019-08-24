@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n lang_tags %}
 
 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
     <input name="next" type="hidden" value="{{ redirect_to }}">
@@ -14,18 +14,17 @@
     </select>
     <input type="submit" value="Go">
 </form>
-{#{% load lang_tags %}#}
 <ul class="right">
-{#    <li class="dropdown">#}
-{#        <a class="dropdown-toggle" data-toggle="dropdown" href="#change-language">{{ lang }}</a>#}
-{#        <ul class="dropdown-menu" role="menu">#}
-{#            {% for lang in languages %}#}
-{#                <li role="presentation">#}
-{#                    <a role="menuitem" tabindex="-1" href="{{ lang.get_absolute_url }}">{{ lang.name }}</a>#}
-{#                </li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    </li>#}
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#change-language">{{ lang.name }}{{ redirect_to }}</a>
+        <ul class="dropdown-menu" role="menu">
+            {% for lang in languages %}
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="{% change_lang lang=lang.slug %}">{{ lang.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
     {% if context.user.is_authenticated %}
         <li><a href="/accounts/logout/">Выход</a></li>
     {% else %}

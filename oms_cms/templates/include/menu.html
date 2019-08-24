@@ -1,12 +1,48 @@
-{% load menu_tags lang_tags %}
+{% load i18n menu_tags lang_tags %}
 <nav class="top-bar animate-dropdown">
     <div class="container">
         <div class="col-xs-12 col-sm-6 no-margin">
-            {% menu_item menu="Header" template="include/menu-generic.html" %}
+            {% menu_item menu="Main" template="include/menu-generic.html" %}
         </div>
 
         <div class="col-xs-12 col-sm-6 no-margin">
-            {% list_lang template="include/lang.html" %}
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go">
+            </form>
+            {% for_list_lang as languages %}
+            {% get_lang_code as lang_code %}
+            <ul class="right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#change-language">
+                        {{ lang_code }}</a>
+                    <ul class="dropdown-menu" role="menu">
+                        {% for lang in languages %}
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+{#                                   href="{% change_lang lang=lang.slug %}">{{ lang.name }}</a>#}
+                                    href="{% url 'languages:set_lang' %}?language={{lang.slug}}">{{ lang.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% if user.is_authenticated %}
+                    <li><a href="/accounts/logout/">Выход</a></li>
+                {% else %}
+                    <li><a href="/accounts/signup/">Регистрация</a></li>
+                    <li><a href="/accounts/login/">Вход</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>

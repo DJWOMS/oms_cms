@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-{% load staticfiles seo_tags news_tags %}
+{% load staticfiles seo_tags news_tags comments %}
 {% block seo %}
     {% seo post %}
 {% endblock seo %}
@@ -33,7 +33,7 @@
                             <li>{{ post.published_date|date:'M d Y' }}</li>
                             <li>Просмотров {{ post.viewed }}</li>
                             <li><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></li>
-                            <li>{{ post.comments_set.all.count }} Comments</li>
+                            <li>{% get_comment_count for post as comment_count %} {{ comment_count }} Comments</li>
                         </ul>
                         <p class="highlight">{{ post.text|safe }}</p>
                     </div>
@@ -43,7 +43,8 @@
                     <div class="inline">
                         <label>tag:</label>
                         {% for tag in post.tag.all %}
-                            <span><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}</span>
+                            <span><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %}
+                                ,{% endif %}</span>
                         {% endfor %}
                     </div>
                 </div>
@@ -62,7 +63,7 @@
                 {#        </div>#}
 
                 <section id="comments" class="inner-bottom-xs">
-                    <h3>{{ post.comments_set.all.count }} Comments</h3>
+                    <h3>{{ comment_count }} Comments</h3>
                     <div class="comment-item">
                         <div class="row no-margin">
                             <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
@@ -128,22 +129,48 @@
                     </div>
                 </section>
                 <section id="reply-block" class="leave-reply">
-                    <form role="form" class="reply-form cf-style-1" action="" method="post">
-                        {% csrf_token %}
-                        <div class="row field-row">
-                            <div class="col-xs-12">
-                                <label>Комментарий</label>
-                                <textarea name="text" rows="10" id="inputComment" class="form-control le-input"></textarea>
-                            </div>
-                        </div>
-
-                        <button class="le-button big post-comment-button" type="submit">Отправить</button>
-                    </form>
+                    {% get_comment_form for post as form %}
+                    {% if user.is_authenticated %}
+{#                        {% get_comment_form for object as form %}#}
+                        <form action="{% comment_form_target %}" method="POST">
+                            {% csrf_token %}
+                            {{ form.comment }}
+                            {{ form.honeypot }}
+                            {{ form.content_type }}
+                            {{ form.object_pk }}
+                            {{ form.timestamp }}
+                            {{ form.security_hash }}
+                            <input type="hidden" name="next" value="{{ post.get_absolute_url }}"/>
+                            <input type="submit" value="Add comment" id="id_submit"/>
+                        </form>
+                    {% else %}
+                        <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+                    {% endif %}
+                    {#                    <form role="form" class="reply-form cf-style-1" action="" method="post">#}
+                    {#                        {% csrf_token %}#}
+                    {#                        {% if user.is_authenticated %}#}
+                    {#                            <div class="row field-row">#}
+                    {#                                <div class="col-xs-12">#}
+                    {#                                    <label>Комментарий</label>#}
+                    {#                                    <textarea name="text" rows="10" id="inputComment" class="form-control le-input"></textarea>#}
+                    {#                                    {% comment_form "post" post.id "email" "text" as form %}#}
+                    {#                                    {{ form }}#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        {% else %}#}
+                    {#                            {% comment_form "email" "text" as form %}#}
+                    {#                            {{ form }}#}
+                    {#                        {% endif %}#}
+                    {#                        <button class="le-button big post-comment-button" type="submit">Отправить</button>#}
+                    {#                    </form>#}
 
                 </section>
             </div>
         </div>
     </section>
 
-    {% comments_show post.id %}
+    {% get_comment_list for post as comment_list %}
+    {% for comment in comment_list %}
+        ...
+    {% endfor %}
 {% endblock post %}
