@@ -7,6 +7,8 @@
                     {% csrf_token %}
                     <input name="subject" value="Подписался" type="hidden">
                     <input name="email" value="" placeholder="Subscribe">
+                    <input name="next" hidden value="/news/">
+                    <input name="honeypot" hidden value="">
                     <button type="submit" class="le-button">Go</button>
                 </form>
             </div>

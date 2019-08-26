@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.forms import modelform_factory
+from django.http import Http404
 from django.shortcuts import redirect
 from django.views.generic import CreateView, View
 
@@ -27,6 +28,9 @@ class FeedbackView(CreateView):
 class FeedbackFormView(View):
     """Обработка сгенирированной формы обратной связи"""
     def post(self, request):
+        value = request.POST.get("honeypot")
+        if value:
+            raise Http404
         fields = FeedbackFullForm().fields
         result_fields = list(set(fields) & set(request.POST.keys()))
         gen_form = modelform_factory(Feedback, fields=(result_fields))
