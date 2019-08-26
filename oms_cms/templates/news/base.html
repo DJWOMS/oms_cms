@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% block seo %}
-
 {% endblock seo %}
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                {% block post %}
 
-                {% endblock post %}
+{% block content %}
+    {% include 'news/categories.html' %}
+    <section class="blog_area">
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-8">
+                {% block posts %}
+
+                {% endblock posts %}
             </div>
-            {% include 'news/sidebar.html' %}
+                {% block sidebar %}
+                    {% include "news/sidebar.html" %}
+                {% endblock sidebar %}
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}

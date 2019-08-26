@@ -1,51 +1,117 @@
-{% extends 'pages/base.html' %}
-{% load seo_tags partners_tags news_tags gallery_tags %}
+{% extends 'news/base.html' %}
+{% load staticfiles seo_tags news_tags %}
+
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
 
-{% block pages %}
-    {{ page.text|safe }}
-    <section id="our-clients" class="row inner-sm">
-        <div class="container">
-            <h2 class="sr-only">Клиенты</h2>
-            <ul class="list-unstyled row list-clients">
-                {% all_partners as partners %}
-                {% for partner in partners %}
-                    <li class="col-md-2"><a href="{{ partner.link }}"><img alt="" src="{{ partner.picture.url }}"/></a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </section>
-    <section id="our-clients" class="row inner-sm">
-        <div class="container">
-            {% for_post_list category="Блог" order="-id" as post_list %}
-            {% for post in post_list %}
-                <div class="col-lg-4">
-                    <div class="l_news_item">
-                        <span class="date">{{ post.published_date|date:"d M, Y" }}</span>
-                        <a href="{{ post.get_absolute_url }}">
-                            <h4>{{ post.title }}</h4>
-                        </a>
-                        <p>{{ post.mini_text|safe }}</p>
-                        <div class="post_view">
-                            <a href="#"><i class="fa fa-eye" aria-hidden="true"></i>{{ post.viewed }}</a>
-                            <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i>
-                                {{ post.comments_set.all.count }}
+{% block content %}
+    <section class="home_banner_area" id="home">
+        <div class="banner_inner">
+            <div class="container">
+                <div class="row banner_content">
+                    <div class="col-lg-6">
+                        <h2>OMS CMS<br/></h2>
+                        <p>Бесплатная CMS с открытым исходным кодом
+                        </p>
+                        <a class="banner_btn" href="#">Скачать</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="video_area" id="video">
+                            <img class="img-fluid" src="{% static 'img/video-1.png' %}" alt="">
+                            <a class="popup-youtube" href="https://www.youtube.com/watch?v=VufDd-QL1c0">
+                                <img src="{% static 'img/icon/video-icon-1.png' %}" alt="">
                             </a>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </section>
-    <section>
-    <div class="container">
-        {% for_photo gallery="Test" as photos %}
-        {% for photo in photos %}
-            <img src="{{ photo.image.url }}">
-        {% endfor %}
-    </div>
+    <section class="feature_area p_120" id="feature">
+        <div class="container">
+            <div class="main_title">
+                <h2>OMS</h2>
+                <p>CMS с открытым исходным кодом разработанная на Django</p>
+            </div>
+            <div class="feature_inner row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature_item">
+                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">
+                        <h4>Язык</h4>
+                        <p>OMS написана на Python, самом быстрорастущем языке программирования.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature_item">
+                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">
+                        <h4>Сайты</h4>
+                        <p>Сайты на OMS сразу готовы к работе после установки и легко расширяются.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature_item">
+                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">
+                        <h4>Безопасность</h4>
+                        <p>OMS разработана на Django который включает безопасность</p>
+                    </div>
+                </div>
+                {#                <div class="col-lg-3 col-md-6">#}
+                {#                    <div class="feature_item">#}
+                {#                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">#}
+                {#                        <h4>Maintenance</h4>#}
+                {#                        <p>inappropriate behavior is often laughed off as boys will be boys,” women face higher conduct#}
+                {#                            standards especially in the workplace. That’s why.</p>#}
+                {#                    </div>#}
+                {#                </div>#}
+            </div>
+        </div>
     </section>
-{% endblock pages %}
+    <section class="interior_area">
+        <div class="container">
+            <div class="interior_inner row">
+                <div class="col-lg-5 offset-lg-1">
+                    <div class="interior_text">
+                        <h4>Установите OMS CMS всего за 4 шага</h4>
+
+                        {#                        <a class="main_btn" href="#">See Details</a>#}
+                    </div>
+                </div>
+                <div class="col-lg-6 install-code">
+                    <p><b>pip install oms-cms</b></p>
+                    <p><b>oms-start</b></p>
+                    <p><b>cd mysite</b></p>
+                    <p><b>python manage.py runserver</b></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="latest_news_area p_120">
+        <div class="container">
+            <div class="main_title">
+                <h2>Последние новости</h2>
+            </div>
+            <div class="latest_news_inner row">
+                {% for_post_list category="Блог" count=3 as post_list %}
+                {% for post in post_list %}
+                    <div class="col-lg-4">
+                        <div class="l_news_item">
+                            <span class="date">{{ post.published_date|date:"d M, Y" }}</span>
+                            <a href="{{ post.get_absolute_url }}">
+                                <h4>{{ post.title }}</h4>
+                            </a>
+                            <p>{{ post.mini_text|safe }}</p>
+                            <div class="post_view">
+                                <a href="#"><i class="fa fa-eye" aria-hidden="true"></i>{{ post.viewed }}</a>
+                                <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i>
+                                    {{ post.comments_set.all.count }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}
