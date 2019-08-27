@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-{% load staticfiles seo_tags %}
+{% load i18n staticfiles seo_tags comments %}
 
 {% block seo %}
     {% seo post %}
@@ -46,7 +46,9 @@
         </div>
         <div class="col-lg-9 col-md-9 blog_details">
             <h2>{{ post.title }}</h2>
-            <p class="excert">{{ post.subtitle }}</p>
+            {% if post.subtitle %}
+                <p class="excert">{{ post.subtitle }}</p>
+            {% endif %}
         </div>
 
         <div class="col-lg-12">
@@ -56,92 +58,136 @@
         </div>
     </div>
 
-    <div class="navigation-area">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                <div class="thumb">
-                    <a href="#"><img class="img-fluid" src="img/blog/prev.jpg" alt=""></a>
-                </div>
-                <div class="arrow">
-                    <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
-                </div>
-                <div class="detials">
-                    <p>Prev Post</p>
-                    <a href="#"><h4>Space The Final Frontier</h4></a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                <div class="detials">
-                    <p>Next Post</p>
-                    <a href="#"><h4>Telescopes 101</h4></a>
-                </div>
-                <div class="arrow">
-                    <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
-                </div>
-                <div class="thumb">
-                    <a href="#"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    {#    <div class="navigation-area">#}
+    {#        <div class="row">#}
+    {#            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">#}
+    {#                <div class="thumb">#}
+    {#                    <a href="#"><img class="img-fluid" src="img/blog/prev.jpg" alt=""></a>#}
+    {#                </div>#}
+    {#                <div class="arrow">#}
+    {#                    <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>#}
+    {#                </div>#}
+    {#                <div class="detials">#}
+    {#                    <p>Prev Post</p>#}
+    {#                    <a href="#"><h4>Space The Final Frontier</h4></a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">#}
+    {#                <div class="detials">#}
+    {#                    <p>Next Post</p>#}
+    {#                    <a href="#"><h4>Telescopes 101</h4></a>#}
+    {#                </div>#}
+    {#                <div class="arrow">#}
+    {#                    <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>#}
+    {#                </div>#}
+    {#                <div class="thumb">#}
+    {#                    <a href="#"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 
     <div class="comments-area">
-        <h4>{{ post.comments_set.all.count }} Comments</h4>
-        <div class="comment-list">
-            <div class="single-comment justify-content-between d-flex">
-                <div class="user justify-content-between d-flex">
-                    <div class="thumb">
-                        <img src="img/blog/c1.jpg" alt="">
+        <h4>{% get_comment_count for post as comment_count %} {{ comment_count }} Коментарии</h4>
+        {% get_comment_list for post as comment_list %}
+        {% for comment in comment_list %}
+            <div class="comment-list">
+                <div class="single-comment justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                        <div class="thumb">
+                            <img src="img/blog/c1.jpg" alt="">
+                        </div>
+                        <div class="desc">
+                            <h5><a href="#">{{ comment.user_name }}</a></h5>
+                            <p class="date">{{ comment.submit_date|date:"d M Y f" }}</p>
+                            <p class="comment">
+                                {{ comment.comment }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="desc">
-                        <h5><a href="#">Emilly Blunt</a></h5>
-                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                        <p class="comment">
-                            Never say goodbye till the end comes!
-                        </p>
+                    <div class="reply-btn">
+                        <a href="" class="btn-reply text-uppercase">reply</a>
                     </div>
-                </div>
-                <div class="reply-btn">
-                    <a href="" class="btn-reply text-uppercase">reply</a>
                 </div>
             </div>
-        </div>
-        <div class="comment-list left-padding">
-            <div class="single-comment justify-content-between d-flex">
-                <div class="user justify-content-between d-flex">
-                    <div class="thumb">
-                        <img src="img/blog/c3.jpg" alt="">
-                    </div>
-                    <div class="desc">
-                        <h5><a href="#">Annie Stephens</a></h5>
-                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                        <p class="comment">
-                            Never say goodbye till the end comes!
-                        </p>
-                    </div>
-                </div>
-                <div class="reply-btn">
-                    <a href="" class="btn-reply text-uppercase">reply</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
+        {#        <div class="comment-list left-padding">#}
+        {#            <div class="single-comment justify-content-between d-flex">#}
+        {#                <div class="user justify-content-between d-flex">#}
+        {#                    <div class="thumb">#}
+        {#                        <img src="img/blog/c3.jpg" alt="">#}
+        {#                    </div>#}
+        {#                    <div class="desc">#}
+        {#                        <h5><a href="#">Annie Stephens</a></h5>#}
+        {#                        <p class="date">December 4, 2017 at 3:12 pm </p>#}
+        {#                        <p class="comment">#}
+        {#                            Never say goodbye till the end comes!#}
+        {#                        </p>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#                <div class="reply-btn">#}
+        {#                    <a href="" class="btn-reply text-uppercase">reply</a>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
 
     <div class="comment-form">
-        <h4>Leave a Reply</h4>
-        <form action="" method="post">
-            <div class="form-group form-inline">
-                <div class="form-group col-lg-6 col-md-6 name">
-                    <input type="text" class="form-control" id="name" placeholder="Ваше имя">
-                </div>
-                <div class="form-group col-lg-6 col-md-6 email">
-                    <input type="email" class="form-control" id="email" placeholder="Ваш email">
-                </div>
-            </div>
-            <div class="form-group">
-                    <textarea class="form-control mb-10" rows="5" name="message" placeholder="Сообщение" required=""></textarea>
-            </div>
-            <button href="#" class="primary-btn submit_btn">Отправить сообщение</button>
+        <h4>Оставить комментарий</h4>
+        {% get_comment_form for post as form %}
+        <form action="{% comment_form_target %}" method="post">
+            {% csrf_token %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    {{ field }}
+                {% else %}
+
+                    {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                    {% ifequal field.name "honeypot" %}
+                        <span style="display:none;">{{ field }}</span>
+                    {% endifequal %}
+
+                    <div class="form-group form-inline">
+                        {% ifequal field.name "name" %}
+                            <div class="form-group col-lg-6 col-md-6 name">
+                                <input class="form-control" id="id_name" name="name"
+                                        {% if user.is_authenticated %} type="hidden" {% else %} type="text" {% endif %}
+                                       placeholder="Ваше имя" value="{{ user.username }}">
+                            </div>
+                        {% endifequal %}
+                        {% ifequal field.name "email" %}
+                            <div class="form-group col-lg-6 col-md-6 email">
+                                <input class="form-control" id="id_email" name="email"
+                                        {% if user.is_authenticated %} type="hidden" {% else %} type="email" {% endif %}
+                                       value="{{ user.email }}" placeholder="Ваш email">
+                            </div>
+                        {% endifequal %}
+                    </div>
+                    {% ifequal field.name "comment" %}
+                        <div class="form-group">
+                            <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Сообщение"
+                                      required="true">
+                            </textarea>
+                        </div>
+                    {% endifequal %}
+                {% endif %}
+            {% endfor %}
+            <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">
         </form>
+        <hr>
+        {#        <div class="form-group form-inline">#}
+        {#            <div class="form-group col-lg-6 col-md-6 name">#}
+        {#                <input type="text" class="form-control" id="name" placeholder="Ваше имя">#}
+        {#            </div>#}
+        {#            <div class="form-group col-lg-6 col-md-6 email">#}
+        {#                <input type="email" class="form-control" id="email" placeholder="Ваш email">#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#                <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Сообщение"#}
+        {#                          required=""></textarea>#}
+        {#        </div>#}
+        {#        <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">#}
     </div>
 {% endblock posts %}
