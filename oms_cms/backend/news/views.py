@@ -11,6 +11,7 @@ from .models import Post
 
 class PostView(ListView):
     """Вывод всех статей из категории или тега"""
+    paginate_by = 5
 
     def get_posts(self):
         return Post.objects.filter(
@@ -55,3 +56,5 @@ class PostDetail(View):
             return render(request, new.template, {"post": new})
         else:
             raise Http404
+
+

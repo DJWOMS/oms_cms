@@ -20,6 +20,15 @@ class PostAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+class CategoryAdminForm(forms.ModelForm):
+    """Виджет редактора ckeditor"""
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget(), required=False)
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     """Категории"""
@@ -31,6 +40,7 @@ class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     mptt_level_indent = 20
     actions = ['unpublish', 'publish']
     inlines = (SeoInlines,)
+    form = CategoryAdminForm
 
 
 @admin.register(Tags)
