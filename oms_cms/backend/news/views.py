@@ -26,11 +26,12 @@ class PostView(ListView):
             if post_list.exists():
                 self.paginate_by = post_list.first().get_category_paginated()
                 self.template_name = post_list.first().get_category_template()
-        if self.kwargs.get('tag') is not None:
+            else:
+                raise Http404()
+        elif self.kwargs.get('tag') is not None:
             post_list = self.get_posts().filter(tag__slug=self.kwargs.get('tag'))
         else:
             post_list = self.get_posts()
-
         if post_list.exists():
             if not self.request.user.is_authenticated:
                 post_list = post_list.filter(status=False)

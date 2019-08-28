@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="reply-btn">
-                        <a href="" class="btn-reply text-uppercase">reply</a>
+{#                        <a href="" class="btn-reply text-uppercase">reply</a>#}
                     </div>
                 </div>
             </div>
@@ -138,17 +138,18 @@
         <form action="{% comment_form_target %}" method="post">
             {% csrf_token %}
             {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
-            {% for field in form %}
-                {% if field.is_hidden %}
-                    {{ field }}
-                {% else %}
+            <div class="form-group form-inline">
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% else %}
 
-                    {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
-                    {% ifequal field.name "honeypot" %}
-                        <span style="display:none;">{{ field }}</span>
-                    {% endifequal %}
+                        {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                        {% ifequal field.name "honeypot" %}
+                            <span style="display:none;">{{ field }}</span>
+                        {% endifequal %}
 
-                    <div class="form-group form-inline">
+
                         {% ifequal field.name "name" %}
                             <div class="form-group col-lg-6 col-md-6 name">
                                 <input class="form-control" id="id_name" name="name"
@@ -163,16 +164,18 @@
                                        value="{{ user.email }}" placeholder="Ваш email">
                             </div>
                         {% endifequal %}
-                    </div>
-                    {% ifequal field.name "comment" %}
-                        <div class="form-group">
-                            <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Сообщение"
+
+                        {% ifequal field.name "comment" %}
+                            <div class="form-group col-md-12">
+                            <br>
+                            <textarea class="form-control mb-12" rows="5" name="comment" placeholder="Сообщение"
                                       required="true">
                             </textarea>
-                        </div>
-                    {% endifequal %}
-                {% endif %}
-            {% endfor %}
+                            </div>
+                        {% endifequal %}
+                    {% endif %}
+                {% endfor %}
+            </div>
             <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">
         </form>
         <hr>
