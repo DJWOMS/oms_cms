@@ -16,7 +16,6 @@ def get_page(request, url):
 
     if url.startswith(language_prefix):
         url = url[len(language_prefix):]
-
     try:
         page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
     except Http404:

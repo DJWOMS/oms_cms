@@ -1,4 +1,4 @@
-{% load staticfiles mptt_tags menu_tags %}
+{% load staticfiles mptt_tags menu_tags lang_tags %}
 <header class="header_area">
     <div class="main_menu" id="mainNav">
         <nav class="mainmenu navbar navbar-expand-lg navbar-light">
@@ -34,57 +34,13 @@
                                 {% endif %}
                             </li>
                         {% endrecursetree %}
+                        {% for_list_lang as langs %}
+                        {% for lang in langs %}
+                            <li><a href="{% url 'languages:set_lang' %}?language={{ lang.slug }}">{{ lang.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
 </header>
-{#<header class="header_area">#}
-{#    <div class="main_menu" id="mainNav">#}
-{#        <nav class="navbar navbar-expand-lg navbar-light">#}
-{#            <div class="container">#}
-{#                <!-- Brand and toggle get grouped for better mobile display -->#}
-{#                <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/oms-cms2.svg' %}" alt=""></a>#}
-{#                <button class="navbar-toggler" type="button" data-toggle="collapse"#}
-{#                        data-target="#navbarSupportedContent"#}
-{#                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-{#                    <span class="icon-bar"></span>#}
-{#                    <span class="icon-bar"></span>#}
-{#                    <span class="icon-bar"></span>#}
-{#                </button>#}
-{#                <!-- Collect the nav links, forms, and other content for toggling -->#}
-{#                {% for_menu_item menu="Main" as items %}#}
-{#                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">#}
-{#                    <ul class="nav navbar-nav menu_nav ml-auto">#}
-{#                        {% recursetree items %}#}
-{#                            <li class="nav-item {% if not node.is_leaf_node %} submenu dropdown {% endif %}">#}
-{#                                {% if node.url %}#}
-{#                                    <a class="nav-link" href="{{ node.url }}">{{ node.title }}</a>#}
-{#                                {% elif node.anchor %}#}
-{#                                    <a class="nav-link" href="{{ node.get_anchor }}">{{ node.title }}</a>#}
-{#                                {% else %}#}
-{#                                    <a class="nav-link {% if not node.is_leaf_node %} dropdown-toggle {% endif %}"#}
-{#                                        {% if not node.is_leaf_node %}#}
-{#                                           data-toggle="dropdown"#}
-{#                                           role="button"#}
-{#                                           aria-haspopup="true"#}
-{#                                           aria-expanded="false"#}
-{#                                        {% endif %}#}
-{#                                       href="{{ node.content_object.get_absolute_url }}">#}
-{#                                        {{ node.title }}#}
-{#                                    </a>#}
-{#                                {% endif %}#}
-{#                                {% if not node.is_leaf_node %}#}
-{#                                    <ul class="dropdown-menu">#}
-{#                                        {{ children }}#}
-{#                                    </ul>#}
-{#                                {% endif %}#}
-{#                            </li>#}
-{#                        {% endrecursetree %}#}
-{#                    </ul>#}
-{#                </div>#}
-{#            </div>#}
-{#        </nav>#}
-{#    </div>#}
-{#</header>#}
