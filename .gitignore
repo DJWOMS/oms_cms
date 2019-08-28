@@ -13,6 +13,10 @@ prod_settings.py
 !/oms_cms/static/css
 !/oms_cms/static/ckeditor
 !/oms_cms/static/mptt
+!/oms_cms/static/img
+!/oms_cms/static/fonts
+!/oms_cms/static/scss2
+!/oms_cms/static/vendors
 
 
 **/migrations/**
