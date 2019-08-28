@@ -10,10 +10,10 @@ from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_la
 from oms_cms.backend.oms_seo.models import Seo
 
 
-
 class Category(MPTTModel):
     """Класс модели категорий сетей"""
     name = models.CharField("Название", max_length=50)
+    description = models.TextField("Описание", max_length=1000, default="", blank=True)
     lang = models.ForeignKey(
         Lang,
         verbose_name="Язык",

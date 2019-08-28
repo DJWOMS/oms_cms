@@ -1,41 +1,46 @@
-{% load contact_tags %}
-<header>
-    <div class="container no-padding">
-        <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
-            <!-- ============================================================= LOGO ============================================================= -->
-            <div class="logo">
-                <a href="/">
-                    <!--<img alt="logo" src="assets/images/logo.svg" width="233" height="54"/>-->
-                </a>
-            </div>
-            <!-- ============================================================= LOGO : END ============================================================= -->
-        </div>
+{% load staticfiles mptt_tags menu_tags lang_tags %}
+<header class="header_area">
+    <div class="main_menu" id="mainNav">
+        <nav class="mainmenu navbar navbar-expand-lg navbar-light">
+            <div class="container">
 
-        <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder no-margin">
-            <div class="contact-row">
-                {% for_contact name="Header" as contact %}
-                {% for field in contact.get_contact_fields %}
-                    {% if forloop.counter == 1 %}
-                        <div class="phone inline">
-                            <i {% if field.icon_ui %} class="{{ field.icon_ui }}" {% endif %}></i> {{ field.text|safe }}
-                        </div>
-                    {% else %}
-                        <div class="contact inline">
-                            <i {% if field.icon_ui %} class="{{ field.icon_ui }}" {% endif %}></i>
-                            <span class="le-color">{{ field.text|safe }}</span>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/oms-cms2.svg' %}" alt=""></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                {% for_menu_item menu="Main" as items %}
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul>
+                        {% recursetree items %}
+                            <li>
+                                {% if node.url %}
+                                    <a class="" href="{{ node.url }}">{{ node.name }}</a>
+                                {% elif node.anchor %}
+                                    <a class="" href="{{ node.get_anchor }}">{{ node.name }}</a>
+                                {% else %}
+                                    <a class=""
+                                       href="{{ node.content_object.get_absolute_url }}">{{ node.title }}</a>
+                                {% endif %}
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                        {% for_list_lang as langs %}
+                        {% for lang in langs %}
+                            <li><a href="{% url 'languages:set_lang' %}?language={{ lang.slug }}">{{ lang.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-            <!-- ============================================================= SEARCH AREA ============================================================= -->
-            <div class="search-area">
-                <form>
-                    <div class="control-group">
-                        <input class="search-field" placeholder="Поиск"/>
-                        <a class="search-button" href="#"></a>
-                    </div>
-                </form>
-            </div>
-        </div>
+        </nav>
     </div>
 </header>

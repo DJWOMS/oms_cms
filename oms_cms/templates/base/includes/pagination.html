@@ -1,25 +1,55 @@
-<ul class="pagination blog-pagination">
-    {% if page_obj.has_previous %}
-        <li class="page-item"><a href="?page=1">первая</a></li>
-        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
-    {% else %}
-        <li class="page-item disabled"><span class="page-link">первая</span></li>
-        <li class="page-item disabled"><span class="page-link">Назад</span></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-        {% if page_obj.number == i %}
-            <li><a href="#">{{ i }}</a></li>
-        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
-            <a href="?page={{ i }}">{{ i }}</a>
+<nav class="blog-pagination justify-content-center d-flex">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a href="?page=1" class="page-link" aria-label="Previous">
+                    <span>первая</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                    <span aria-hidden="true"><span class="lnr lnr-chevron-left"></span></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">
+                    <span>первая</span>
+                </a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">
+                    <span aria-hidden="true"><span class="lnr lnr-chevron-left"></span></span>
+                </a>
+            </li>
         {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a></li>
-        <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}">последняя</a></li>
-    {% else %}
-        <li class="page-item disabled">
-            <span class="page-link">Вперед</span>
-            <span class="page-link">последняя</span>
-        </li>
-    {% endif %}
-</ul>
+
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                    <span aria-hidden="true"><span class="lnr lnr-chevron-right"></span></span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">последняя</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">
+                    <span aria-hidden="true"><span class="lnr lnr-chevron-right"></span></span>
+                </a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="#"><span>последняя</span></a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

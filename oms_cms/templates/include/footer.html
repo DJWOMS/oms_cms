@@ -1,98 +1,54 @@
-{% load contact_tags menu_tags %}
-<footer id="footer" class="color-bg">
-    <div class="sub-form-row">
-        <div class="container">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-                <form action="{% url 'contact:feedback_gen' %}" method="post" role="form">
-                    {% csrf_token %}
-                    <input name="subject" value="Подписался" type="hidden">
-                    <input name="email" value="" placeholder="Subscribe">
-                    <button type="submit" class="le-button">Go</button>
-                </form>
+{% load staticfiles menu_tags contact_tags %}
+<footer class="footer-area p_120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3  col-md-6 col-sm-6">
+                <div class="single-footer-widget tp_widgets">
+                    <h6 class="footer_title">Разработчикам</h6>
+                    {% for_menu_item menu="developers" as items %}
+                    <ul class="list">
+                        {% for item in items %}
+                            <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
+            <div class="col-lg-5 col-md-6 col-sm-6">
+
+            </div>
+            {#            <div class="col-lg-3 col-md-6 col-sm-6 offset-lg-1">#}
+            {#                <div class="single-footer-widget instafeed">#}
+            {#                    <h6 class="footer_title">Instagram Feed</h6>#}
+            {#                    <ul class="list instafeed d-flex flex-wrap">#}
+            {#                        <li><img src="img/instagram/Image-01.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-02.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-03.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-04.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-05.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-06.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-07.jpg" alt=""></li>#}
+            {#                        <li><img src="img/instagram/Image-08.jpg" alt=""></li>#}
+            {#                    </ul>#}
+            {#                </div>#}
+            {#            </div>#}
         </div>
-    </div>
-
-    <div class="link-list-row">
-        <div class="container no-padding">
-            <div class="col-xs-12 col-md-4 ">
-                <div class="contact-info">
-                    <div class="footer-logo">
-                    {#  add logo #}
-                    </div>
-                    {% for_contact name="Footer" as contact_footer %}
-                    <p>
-                        {{ contact_footer.description }}
-                    </p>
-
-                    <div class="social-icons">
-                        <h3>Мы в соц. сетях</h3>
-                        <ul>
-                            {% for soc in contact_footer.get_contact_socnet %}
-                                <li><a href="{{ soc.get_link_contact_soc }}" class="{{ soc.link.icon_ui }}"></a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-md-8 no-margin">
-                <div class="link-widget">
-                    <div class="widget">
-                        <h3>Find it fast</h3>
-                        <ul>
-                            <li><a href="">Test</a></li>
-                            <li><a href="">Test</a></li>
-                            <li><a href="">Test</a></li>
-                            <li><a href="">Test</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="link-widget">
-                    <div class="widget">
-                        <h3>Information</h3>
-                        <ul>
-                            <li><a href="">Test</a></li>
-                            <li><a href="">Test</a></li>
-                            <li><a href="">Test</a></li>
-                            <li><a href="">Test</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="link-widget">
-                    <div class="widget">
-                        <h3>Инфо</h3>
-                        {% for_menu_item menu="Footer" as items %}
-                        <ul>
-                            {% for item in items %}
-                                <li>
-                                    {% if item.url %}
-                                        <a href="{{ item.url }}">{{ item.title }}</a>
-                                    {% elif item.anchor %}
-                                        <a href="{{ item.get_anchor }}">{{ item.title }}</a>
-                                    {% else %}
-                                        <a href="{{ item.content_object.get_absolute_url }}">{{ item.title }}</a>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="copyright-bar">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 no-margin">
-                <div class="copyright">
-                    &copy; <a href="/">OMS CMS</a>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 no-margin">
-
+        <div class="row footer-bottom d-flex justify-content-between align-items-center">
+            <p class="col-lg-8 col-md-8 footer-text m-0">
+                Copyright &copy; All rights reserved <a href="" target="_blank">WOMS Team</a>
+            </p>
+            <div class="col-lg-4 col-md-4 footer-social">
+                {% for_contact name='Footer' as contact %}
+                {% for link_soc in contact.get_contact_socnet %}
+                    <a href="{{ link_soc.get_link_contact_soc }}">
+                        {% if link_soc.link.icon_ui %}
+                            <span class="{{ link_soc.link.icon_ui }}"></span>
+                        {% elif link_soc.link.icon %}
+                            <img src="{{ link_soc.link.icon.image.url }}">
+                        {% else %}
+                            {{ link_soc.link }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>

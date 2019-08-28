@@ -4,7 +4,7 @@ from mptt.admin import MPTTModelAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from oms_cms.backend.oms_seo.admin import SeoInlines
-#from oms_cms.backend.comments.admin import CommentsInlines
+from oms_cms.backend.comments.admin import CommentsInlines
 from oms_cms.backend.utils.admin import ActionPublish
 
 from .models import Post, Category, Tags
@@ -20,6 +20,15 @@ class PostAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+class CategoryAdminForm(forms.ModelForm):
+    """Виджет редактора ckeditor"""
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget(), required=False)
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     """Категории"""
@@ -31,6 +40,7 @@ class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     mptt_level_indent = 20
     actions = ['unpublish', 'publish']
     inlines = (SeoInlines,)
+    form = CategoryAdminForm
 
 
 @admin.register(Tags)
@@ -58,4 +68,4 @@ class PostAdmin(ActionPublish):
     autocomplete_fields = ["tag"]
     readonly_fields = ('viewed',)
 
-    inlines = (SeoInlines,)# CommentsInlines,)
+    inlines = (SeoInlines, CommentsInlines,)

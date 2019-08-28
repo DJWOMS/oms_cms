@@ -1,6 +1,6 @@
 from django import template
 
-from oms_cms.backend.news.models import Category, Post
+from oms_cms.backend.news.models import Category, Post, Tags
 
 register = template.Library()
 
@@ -18,7 +18,7 @@ def get_posts(context, category, order, count):
     return posts
 
 
-def get_categories(context, order, count):
+def get_categories(context, count, order):
     """Получаю список категорий"""
     categories = Category.objects.filter(published=True, lang__slug=context["request"].LANGUAGE_CODE).order_by(order)
     if count is not None:
@@ -27,16 +27,16 @@ def get_categories(context, order, count):
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
-def category_list(context, order="-name", count=None, template='base/tags/news/categories.html'):
+def category_list(context, order='-name', count=None, template='base/tags/news/categories.html'):
     """template tag вывода категорий"""
     categories = get_categories(context, order, count)
     return {'template': template, "category_list": categories}
 
 
 @register.simple_tag(takes_context=True)
-def for_category_list(context, order="-name", count=None):
+def for_category_list(context, count=None, order='-name'):
     """template tag вывода категорий без шаблона"""
-    return get_categories(context, order, count)
+    return get_categories(context, count, order)
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
@@ -50,3 +50,12 @@ def post_list(context, category=None, order="-published_date", count=None, templ
 def for_post_list(context, category=None, order="-published_date", count=None):
     """Вывод списка статей из категории или всех"""
     return get_posts(context, category, order, count)
+
+
+@register.simple_tag(takes_context=True)
+def for_tags_list(context, order="name", count=None):
+    """Вывод списка тегов"""
+    tags = Tags.objects.filter(published=True).order_by(order)
+    if count is not None:
+        tags = tags[:count]
+    return tags

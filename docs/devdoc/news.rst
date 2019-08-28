@@ -39,7 +39,7 @@ Template tags
 
 .. code-block:: python
 
-    {% load mptt_tags %}
+    {% load mptt_tags news_tags %}
     <ul>
         {% for_category_list as categories %}
         {% recursetree categories %}
@@ -171,6 +171,19 @@ for_post_list
 
 Теги
 ---------
+for_tags_list
+~~~~~~~~~~~~~
+Вывод списка всег тегов статей.
+
+.. code-block:: python
+
+    {% load news_tags %}
+    <ul>
+        {% for_tags_list as tags %}
+        {% for tag in tags %}
+            <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
 
 Поля модели тегов
 ~~~~~~~~~~~~~~~~~~~~~

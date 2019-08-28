@@ -106,12 +106,20 @@ for_contact
 В теге {% gen_form %} укажите поля которые хоите рендерить.
 Если не указвать поля, отредерятся все.
 
+Для редиректа после отправки формы вставьте скрытое поле <input name="next" hidden value="адрес редиректа">
+
+Для защиты от спама используйте поле <input name="honeypot" hidden value="">
+Форма включает поле «honeypot».
+Это ловушка: если в это поле будут введены какие-либо данные, форма будет считаться спамом
+(спаммеры часто автоматически заполняют все поля, пытаясь сделать правильные представления).
+
 .. code-block:: python
 
      <form action="{% url 'feedback_gen' %}" method="post">
          {% csrf_token %}
          {% gen_form "full_name" "phone" as form %}
          {{ form }}
+         <input name="next" hidden value="/news/">
          <input type="submit" name="" value="Submit" />
     </form>
 

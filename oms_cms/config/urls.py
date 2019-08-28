@@ -23,9 +23,18 @@ urlpatterns = [
 urlpatterns += [
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
 urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),
-    # path('lang/', include('oms_cms.backend.languages.urls')),
+    path('comments/', include('django_comments.urls')),
+    path('lang/', include('oms_cms.backend.languages.urls', namespace="languages")),
     path('news/', include('oms_cms.backend.news.urls', namespace='news')),
     path('contact/', include('oms_cms.backend.contact.urls', namespace='contact')),
     path('search/', include('oms_cms.backend.search.urls', namespace='search')),
@@ -37,9 +46,4 @@ urlpatterns += i18n_patterns(
 admin.site.site_title = "OMS CMS"
 admin.site.site_header = "OMS CMS"
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    import debug_toolbar
-    urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+

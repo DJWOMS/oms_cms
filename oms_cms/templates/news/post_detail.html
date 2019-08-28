@@ -1,149 +1,196 @@
 {% extends 'news/base.html' %}
-{% load staticfiles seo_tags news_tags %}
+{% load i18n staticfiles seo_tags comments %}
+
 {% block seo %}
     {% seo post %}
 {% endblock seo %}
-{% block post %}
-    <section id="blog-single">
-        <div class="container">
-            <!-- ========================================= CONTENT ========================================= -->
-            <div class="posts col-md-9">
-                <div class="post-entry">
-                    <div class="clearfix">
-                        <!-- ========================================== SECTION – HERO ========================================= -->
-                        <div id="hero">
-                            <div id="owl-main" class="owl-carousel owl-carousel-blog owl-inner-nav owl-ui-sm">
-                                <div class="item">
-                                    {% if post.image %}
-                                        <img src="{{ post.image.image.url }}" alt="{{ post.image.image.captions }}">
-                                    {% else %}
-                                        <img src="{% static 'images/blog-post/slider-1.jpg' %}" alt="">
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ========================================= SECTION – HERO : END ========================================= -->
-                    </div>
 
-                    <div class="post-content">
-                        <h2 class="post-title">{{ post.title }}</h2>
-                        <ul class="meta">
-                            {% if post.author %}
-                                <li>{{ post.author }}</li>{% endif %}
-                            <li>{{ post.published_date|date:'M d Y' }}</li>
-                            <li>Просмотров {{ post.viewed }}</li>
-                            <li><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></li>
-                            <li>{{ post.comments_set.all.count }} Comments</li>
-                        </ul>
-                        <p class="highlight">{{ post.text|safe }}</p>
-                    </div>
-                </div>
-
-                <div class="meta-row">
-                    <div class="inline">
-                        <label>tag:</label>
-                        {% for tag in post.tag.all %}
-                            <span><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}</span>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                {#        <div class="blog-post-author">#}
-                {#            <div class="media">#}
-                {#                <a href="#" class="pull-left"><img src="assets/images/blog-post/blog-author.jpg" alt=""></a>#}
-                {#                <div class="media-body">#}
-                {#                    <h4 class="media-heading"><a href="#">Jane Smith</a></h4>#}
-                {#                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod#}
-                {#                        tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi enim ad minim veniam,#}
-                {#                        quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo#}
-                {#                        consequat. </p>#}
-                {#                </div>#}
-                {#            </div>#}
-                {#        </div>#}
-
-                <section id="comments" class="inner-bottom-xs">
-                    <h3>{{ post.comments_set.all.count }} Comments</h3>
-                    <div class="comment-item">
-                        <div class="row no-margin">
-                            <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
-                                <div class="avatar">
-                                    <img src="assets/images/default-avatar.jpg" alt="avatar">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-lg-11 col-sm-10 no-margin-right">
-                                <div class="comment-body">
-                                    <div class="meta-info">
-                                        <header class="row no-margin">
-                                            <div class="pull-left">
-                                                <h4 class="author"><a href="#">Angela</a></h4>
-                                                <span class="date">- 21 hours ago</span>
-                                                <span class="likes"><a href="#"><span class="likes-count">22</span><i
-                                                        class="icon fa fa-thumbs-up"></i></a></span>
-                                                <span class="dislikes"><a href="#"><i
-                                                        class="icon fa fa-thumbs-down"></i></a></span>
-                                            </div>
-                                            <div class="pull-right">
-                                                <a class="comment-reply" href="#">Reply</a>
-                                            </div>
-                                        </header>
-                                    </div>
-                                    <p class="comment-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                                        volutpat. </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="comment-item">
-                        <div class="row no-margin">
-                            <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
-                                <div class="avatar">
-                                    <img src="assets/images/default-avatar.jpg" alt="avatar">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-lg-11 col-sm-10 no-margin-right">
-                                <div class="comment-body">
-                                    <div class="meta-info">
-                                        <header class="row no-margin">
-                                            <div class="pull-left">
-                                                <h4 class="author"><a href="#">Angela</a></h4>
-                                                <span class="date">- 21 hours ago</span>
-                                                <span class="likes"><a href="#"><span class="likes-count">22</span><i
-                                                        class="icon fa fa-thumbs-up"></i></a></span>
-                                                <span class="dislikes"><a href="#"><i
-                                                        class="icon fa fa-thumbs-down"></i></a></span>
-                                            </div>
-                                            <div class="pull-right">
-                                                <a class="comment-reply" href="#">Reply</a>
-                                            </div>
-                                        </header>
-                                    </div>
-                                    <p class="comment-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                                        volutpat. </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section id="reply-block" class="leave-reply">
-                    <form role="form" class="reply-form cf-style-1" action="" method="post">
-                        {% csrf_token %}
-                        <div class="row field-row">
-                            <div class="col-xs-12">
-                                <label>Комментарий</label>
-                                <textarea name="text" rows="10" id="inputComment" class="form-control le-input"></textarea>
-                            </div>
-                        </div>
-
-                        <button class="le-button big post-comment-button" type="submit">Отправить</button>
-                    </form>
-
-                </section>
+{% block posts %}
+    <div class="single-post row">
+        <div class="col-lg-12">
+            <div class="feature-img">
+                {% if post.image %}
+                    <img class="img-fluid" src="{{ post.image.image.url }}" alt="{{ post.image.captions }}">
+                {% else %}
+                    <img class="img-fluid" src="{% static 'img/blog/main-blog/feature-img1.jpg' %}" alt="">
+                {% endif %}
             </div>
         </div>
-    </section>
+        <div class="col-lg-3  col-md-3">
+            <div class="blog_info text-right">
+                <div class="post_tag">
+                    {% for tag in post.tag.all %}
+                        <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </div>
+                <ul class="blog_meta list">
+                    {% if post.author %}
+                        <li><a href="#">{{ post.author }}<i class="lnr lnr-user"></i></a></li>
+                    {% endif %}
+                    <li><span>{{ post.published_date|date:"d M, Y" }}
+                                <i class="lnr lnr-calendar-full"></i></span></li>
+                    <li><span>{{ post.viewed }} Просмотров<i class="lnr lnr-eye"></i></span></li>
+                    <li>
+                        <span>
+                            {{ post.comments_set.all.count }} Комментариев<i class="lnr lnr-bubble"></i>
+                        </span>
+                    </li>
+                </ul>
+                {#                <ul class="social-links">#}
+                {#                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>#}
+                {#                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>#}
+                {#                    <li><a href="#"><i class="fa fa-github"></i></a></li>#}
+                {#                    <li><a href="#"><i class="fa fa-behance"></i></a></li>#}
+                {#                </ul>#}
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 blog_details">
+            <h2>{{ post.title }}</h2>
+            {% if post.subtitle %}
+                <p class="excert">{{ post.subtitle }}</p>
+            {% endif %}
+        </div>
 
-    {% comments_show post.id %}
-{% endblock post %}
+        <div class="col-lg-12">
+            <div class="quotes">
+                {{ post.text|safe }}
+            </div>
+        </div>
+    </div>
+
+    {#    <div class="navigation-area">#}
+    {#        <div class="row">#}
+    {#            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">#}
+    {#                <div class="thumb">#}
+    {#                    <a href="#"><img class="img-fluid" src="img/blog/prev.jpg" alt=""></a>#}
+    {#                </div>#}
+    {#                <div class="arrow">#}
+    {#                    <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>#}
+    {#                </div>#}
+    {#                <div class="detials">#}
+    {#                    <p>Prev Post</p>#}
+    {#                    <a href="#"><h4>Space The Final Frontier</h4></a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">#}
+    {#                <div class="detials">#}
+    {#                    <p>Next Post</p>#}
+    {#                    <a href="#"><h4>Telescopes 101</h4></a>#}
+    {#                </div>#}
+    {#                <div class="arrow">#}
+    {#                    <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>#}
+    {#                </div>#}
+    {#                <div class="thumb">#}
+    {#                    <a href="#"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+    <div class="comments-area">
+        <h4>{% get_comment_count for post as comment_count %} {{ comment_count }} Коментарии</h4>
+        {% get_comment_list for post as comment_list %}
+        {% for comment in comment_list %}
+            <div class="comment-list">
+                <div class="single-comment justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                        <div class="thumb">
+                            <img src="img/blog/c1.jpg" alt="">
+                        </div>
+                        <div class="desc">
+                            <h5><a href="#">{{ comment.user_name }}</a></h5>
+                            <p class="date">{{ comment.submit_date|date:"d M Y f" }}</p>
+                            <p class="comment">
+                                {{ comment.comment }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="reply-btn">
+{#                        <a href="" class="btn-reply text-uppercase">reply</a>#}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {#        <div class="comment-list left-padding">#}
+        {#            <div class="single-comment justify-content-between d-flex">#}
+        {#                <div class="user justify-content-between d-flex">#}
+        {#                    <div class="thumb">#}
+        {#                        <img src="img/blog/c3.jpg" alt="">#}
+        {#                    </div>#}
+        {#                    <div class="desc">#}
+        {#                        <h5><a href="#">Annie Stephens</a></h5>#}
+        {#                        <p class="date">December 4, 2017 at 3:12 pm </p>#}
+        {#                        <p class="comment">#}
+        {#                            Never say goodbye till the end comes!#}
+        {#                        </p>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#                <div class="reply-btn">#}
+        {#                    <a href="" class="btn-reply text-uppercase">reply</a>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+    </div>
+
+    <div class="comment-form">
+        <h4>Оставить комментарий</h4>
+        {% get_comment_form for post as form %}
+        <form action="{% comment_form_target %}" method="post">
+            {% csrf_token %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+            <div class="form-group form-inline">
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% else %}
+
+                        {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                        {% ifequal field.name "honeypot" %}
+                            <span style="display:none;">{{ field }}</span>
+                        {% endifequal %}
+
+
+                        {% ifequal field.name "name" %}
+                            <div class="form-group col-lg-6 col-md-6 name">
+                                <input class="form-control" id="id_name" name="name"
+                                        {% if user.is_authenticated %} type="hidden" {% else %} type="text" {% endif %}
+                                       placeholder="Ваше имя" value="{{ user.username }}">
+                            </div>
+                        {% endifequal %}
+                        {% ifequal field.name "email" %}
+                            <div class="form-group col-lg-6 col-md-6 email">
+                                <input class="form-control" id="id_email" name="email"
+                                        {% if user.is_authenticated %} type="hidden" {% else %} type="email" {% endif %}
+                                       value="{{ user.email }}" placeholder="Ваш email">
+                            </div>
+                        {% endifequal %}
+
+                        {% ifequal field.name "comment" %}
+                            <div class="form-group col-md-12">
+                            <br>
+                            <textarea class="form-control mb-12" rows="5" name="comment" placeholder="Сообщение"
+                                      required="true">
+                            </textarea>
+                            </div>
+                        {% endifequal %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">
+        </form>
+        <hr>
+        {#        <div class="form-group form-inline">#}
+        {#            <div class="form-group col-lg-6 col-md-6 name">#}
+        {#                <input type="text" class="form-control" id="name" placeholder="Ваше имя">#}
+        {#            </div>#}
+        {#            <div class="form-group col-lg-6 col-md-6 email">#}
+        {#                <input type="email" class="form-control" id="email" placeholder="Ваш email">#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#                <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Сообщение"#}
+        {#                          required=""></textarea>#}
+        {#        </div>#}
+        {#        <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">#}
+    </div>
+{% endblock posts %}

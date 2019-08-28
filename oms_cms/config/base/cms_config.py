@@ -1,5 +1,3 @@
-from django.utils.translation import gettext_lazy as _
-
 # CMS app
 CMS_APP = [
     # Auth
@@ -26,7 +24,7 @@ CMS_APP = [
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
     'oms_cms.backend.oms_seo',
-    # 'oms_cms.backend.comments',
+
     # Editor
     'ckeditor',
     'ckeditor_uploader',
@@ -36,9 +34,12 @@ CMS_APP = [
     # plugins
     'oms_gallery',
 
+    'django_comments',
+    'oms_cms.backend.comments',
+
 ]
 
-LANGUAGE_CODE = 'ru-ru'
+COMMENTS_APP = 'oms_cms.backend.comments'
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Europe/Moscow'
@@ -46,13 +47,6 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_L10N = True
-
-LANGUAGE_CODE = 'ru'
-
-LANGUAGES = (
-    ('en', _('English')),
-    ('ru', _('Russia')),
-)
 
 USE_TZ = True
 

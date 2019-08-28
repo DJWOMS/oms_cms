@@ -1,30 +1,29 @@
-<!-- Для подключение деректории static -->
 {% load staticfiles seo_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta данные -->
     {% block meta %}
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="google-site-verification" content="{% search_system 'google' %}"/>
         <meta name="yandex-verification" content="{% search_system 'yandex' %}"/>
-        <!-- Title старницы -->
         {#        <meta name="description" content="{% block description %} {% endblock description %}">#}
         {#        <title>{% block title %}aa{% endblock title %}</title>#}
         {% block seo %}
         {% endblock seo %}
     {% endblock meta %}
-    <!-- Подключение стилей -->
     {% block style %}
+
     {% endblock style %}
 </head>
-<body>
-<!-- Тег body -->
+<body data-spy="scroll" data-target="#mainNav" data-offset="70">
+
 {% block body %}
+
 {% endblock body %}
-<!-- Подключение js и т.д. -->
+
 {% block scripts %}
 
 {% endblock scripts %}
