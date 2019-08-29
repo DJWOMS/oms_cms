@@ -58,13 +58,14 @@ class TagsAdmin(ActionPublish):
 class PostAdmin(ActionPublish):
     """Статьи"""
     form = PostAdminForm
-    list_display = ('title', 'lang', 'created_date', 'category', 'published', "sort", 'id')
+    list_display = ('title', 'lang', 'created_date', 'published_date', 'category', 'published', "sort", 'id')
     list_filter = ('lang', 'created_date', 'category', 'published')
     list_editable = ("published", "sort")
     search_fields = ["title", "category", "tag"]
     prepopulated_fields = {"slug": ("title",)}
     actions = ['unpublish', 'publish']
     save_as = True
+    save_on_top = True
     autocomplete_fields = ["tag"]
     readonly_fields = ('viewed',)
 

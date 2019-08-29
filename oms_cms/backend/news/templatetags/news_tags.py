@@ -18,7 +18,7 @@ def get_posts(context, category, order, count):
     return posts
 
 
-def get_categories(context, count, order):
+def get_categories(context, order, count):
     """Получаю список категорий"""
     categories = Category.objects.filter(published=True, lang__slug=context["request"].LANGUAGE_CODE).order_by(order)
     if count is not None:
@@ -36,7 +36,7 @@ def category_list(context, order='-name', count=None, template='base/tags/news/c
 @register.simple_tag(takes_context=True)
 def for_category_list(context, count=None, order='-name'):
     """template tag вывода категорий без шаблона"""
-    return get_categories(context, count, order)
+    return get_categories(context, order, count)
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)

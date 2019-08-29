@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
+from django.conf import settings
 from django.db import models
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
@@ -42,21 +43,16 @@ class MenuItem(MPTTModel, AbstractLang):
     url = models.CharField("url на внешний ресурс", max_length=255, null=True, blank=True)
     anchor = models.CharField("Якорь", max_length=255, null=True, blank=True)
 
-    # limit = models.Q(app_label='pages', model='pages') | \
-    #         models.Q(app_label='news', model='post') | \
-    #         models.Q(app_label='news', model='category') | \
-    #         models.Q(app_label='contact', model='contact') | \
-    #         models.Q(app_label='oms-gallery', model='gallery')
-
     content_type = models.ForeignKey(
         ContentType,
         verbose_name="Ссылка на",
-        # limit_choices_to=limit,
+        limit_choices_to=settings.MENU_APPS,
         on_delete=models.CASCADE,
         null=True,
         blank=True)
     object_id = models.PositiveIntegerField(verbose_name='Id записи', default=1, null=True)
     content_object = GenericForeignKey('content_type', 'object_id')
+    sort = models.PositiveIntegerField('Порядок', default=0)
 
     def get_anchor(self):
         if self.anchor:
@@ -73,6 +69,6 @@ class MenuItem(MPTTModel, AbstractLang):
         verbose_name = "Пункт меню"
         verbose_name_plural = "Пункты меню"
 
-    # class MPTTMeta:
-    #     order_insertion_by = ('order', )
+    class MPTTMeta:
+        order_insertion_by = ('sort',)
 
