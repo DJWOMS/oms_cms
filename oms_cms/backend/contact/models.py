@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -12,14 +12,14 @@ from oms_cms.backend.social_networks.models import SocialNetworks
 
 class Contact(AbstractLang):
     """Контакты"""
-    name = models.CharField("Название", max_length=100, default="Контакты")
-    description = models.TextField("Описание", max_length=5000, blank=True, null=True)
-    map = models.CharField("Карта", max_length=10000, blank=True, null=True)
-    slug = models.SlugField("URL", max_length=100, unique=True)
+    name = models.CharField(_("Название"), max_length=100, default=_("Контакты"))
+    description = models.TextField(_("Описание"), max_length=5000, blank=True, null=True)
+    map = models.CharField(_("Карта"), max_length=10000, blank=True, null=True)
+    slug = models.SlugField(_("URL"), max_length=100, unique=True)
 
     class Meta:
-        verbose_name = "Контакт"
-        verbose_name_plural = "Контакты"
+        verbose_name = _("Контакт")
+        verbose_name_plural = _("Контакты")
 
     def __str__(self):
         return "{}".format(self.name)
@@ -36,25 +36,25 @@ class Contact(AbstractLang):
 
 class ContactFields(models.Model):
     """Поля контактов"""
-    text = models.CharField("Поле 1", max_length=1000, blank=True)
-    text_two = models.CharField("Поле 2", max_length=1000, blank=True)
-    icon_ui = models.CharField("Класс иконки", max_length=500, blank=True)
+    text = models.CharField(_("Поле 1"), max_length=1000, blank=True)
+    text_two = models.CharField(_("Поле 2"), max_length=1000, blank=True)
+    icon_ui = models.CharField(_("Класс иконки"), max_length=500, blank=True)
     icon = models.FileField(
         upload_to="icon/",
-        verbose_name="Иконка",
+        verbose_name=_("Иконка"),
         null=True,
         blank=True
     )
     contact = models.ForeignKey(
         Contact,
         related_name="contact_field",
-        verbose_name="Контакты",
+        verbose_name=_("Контакты"),
         on_delete=models.CASCADE
     )
 
     class Meta:
-        verbose_name = "Контакт поле"
-        verbose_name_plural = "Контакты поля"
+        verbose_name = _("Поле контактов")
+        verbose_name_plural = _("Поля контактов")
         ordering = ["id"]
 
     def __str__(self):
@@ -65,24 +65,24 @@ class ContactSocNet(models.Model):
     """Модель соц. сетей"""
     contact_soc = models.ForeignKey(
         Contact,
-        verbose_name="Контакт",
+        verbose_name=_("Контакт"),
         related_name="soc_net",
         on_delete=models.CASCADE,
         null=True,
         blank=True
     )
-    your_id = models.CharField("Ваша ссылка", max_length=100, null=True, blank=True)
+    your_id = models.CharField(_("Ваша ссылка"), max_length=100, null=True, blank=True)
     link = models.ForeignKey(
         SocialNetworks,
-        verbose_name="Соц. сеть",
+        verbose_name=_("Соц. сеть"),
         on_delete=models.CASCADE,
         null=True,
         blank=True
     )
 
     class Meta:
-        verbose_name = "Соц. сеть"
-        verbose_name_plural = "Соц. сети"
+        verbose_name = _("Соц. сеть")
+        verbose_name_plural = _("Соц. сети")
 
     def __str__(self):
         return "{}".format(self.link)
@@ -93,12 +93,12 @@ class ContactSocNet(models.Model):
 
 class Feedback(models.Model):
     """Модель формы обратной связи"""
-    full_name = models.CharField('ФИО', max_length=100)
-    email = models.EmailField('Почта', max_length=150)
-    phone = models.CharField('Телефон', max_length=14)
-    subject = models.CharField("Тема", max_length=150)
-    message = models.TextField('Сообщение', max_length=1000)
-    date = models.DateTimeField("Дата", auto_now_add=True)
+    full_name = models.CharField(_('ФИО'), max_length=100)
+    email = models.EmailField(_('Почта'), max_length=150)
+    phone = models.CharField(_('Телефон'), max_length=14)
+    subject = models.CharField(_("Тема"), max_length=150)
+    message = models.TextField(_('Сообщение'), max_length=1000)
+    date = models.DateTimeField(_("Дата"), auto_now_add=True)
 
     def __str__(self):
         if self.full_name:
@@ -112,8 +112,8 @@ class Feedback(models.Model):
         return reverse('contact:feedback')
 
     class Meta:
-        verbose_name = "Обратная связь"
-        verbose_name_plural = "Обратные связи"
+        verbose_name = _("Обратная связь")
+        verbose_name_plural = _("Обратные связи")
 
 
 @receiver(post_save, sender=Feedback)

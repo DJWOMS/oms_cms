@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class EmailsFeedback(models.Model):
@@ -9,5 +10,5 @@ class EmailsFeedback(models.Model):
         return self.email
 
     class Meta:
-        verbose_name = "Email администратора"
-        verbose_name_plural = "Emails администраторов"
+        verbose_name = _("Email администратора")
+        verbose_name_plural = _("Emails администраторов")
