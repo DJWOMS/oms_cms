@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from oms_gallery.models import Photo
 
@@ -12,33 +13,33 @@ from oms_cms.backend.oms_seo.models import Seo
 
 class Category(MPTTModel):
     """Класс модели категорий сетей"""
-    name = models.CharField("Название", max_length=50)
-    description = models.TextField("Описание", max_length=1000, default="", blank=True)
+    name = models.CharField(_("Название"), max_length=50)
+    description = models.TextField(_("Описание"), max_length=1000, default="", blank=True)
     lang = models.ForeignKey(
         Lang,
-        verbose_name="Язык",
+        verbose_name=_("Язык"),
         on_delete=models.SET(get_sentinel_lang),
     )
     parent = TreeForeignKey(
         'self',
-        verbose_name="Родительская категория",
+        verbose_name=_("Родительская категория"),
         on_delete=models.CASCADE,
         null=True,
         blank=True,
         related_name='children'
     )
-    template = models.CharField("Шаблон", max_length=500, default="news/post_list.html")
-    slug = models.SlugField("url", unique=True, max_length=100, blank=True, null=True)
-    published = models.BooleanField("Отображать?", default=True)
-    paginated = models.PositiveIntegerField("Количество новостей на странице", default=5)
+    template = models.CharField(_("Шаблон"), max_length=500, default="news/post_list.html")
+    slug = models.SlugField(_("url"), unique=True, max_length=100, blank=True, null=True)
+    published = models.BooleanField(_("Отображать?"), default=True)
+    paginated = models.PositiveIntegerField(_("Количество новостей на странице"), default=5)
 
-    sort = models.PositiveIntegerField('Порядок', default=0)
+    sort = models.PositiveIntegerField(_('Порядок'), default=0)
 
     seo = GenericRelation(Seo)
 
     class Meta:
-        verbose_name = "Категория новостей"
-        verbose_name_plural = "Категории новостей"
+        verbose_name = _("Категория новостей")
+        verbose_name_plural = _("Категории новостей")
 
     class MPTTMeta:
         order_insertion_by = ('sort',)
@@ -52,13 +53,13 @@ class Category(MPTTModel):
 
 class Tags(models.Model):
     """Класс модели тегов"""
-    name = models.CharField("Тег", max_length=50, unique=True)
-    slug = models.SlugField("url", unique=True, max_length=100, blank=True, null=True)
-    published = models.BooleanField("Отображать?", default=True)
+    name = models.CharField(_("Тег"), max_length=50, unique=True)
+    slug = models.SlugField(_("url"), unique=True, max_length=100, blank=True, null=True)
+    published = models.BooleanField(_("Отображать?"), default=True)
 
     class Meta:
-        verbose_name = "Тег"
-        verbose_name_plural = "Теги"
+        verbose_name = _("Тег")
+        verbose_name_plural = _("Теги")
 
     def get_absolute_url(self):
         return reverse('news:tag-news', kwargs={'tag': self.slug})
@@ -71,54 +72,54 @@ class Post(AbstractLang):
     """Класс модели поста"""
     author = models.ForeignKey(
         User,
-        verbose_name="Автор",
+        verbose_name=_("Автор"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
-    title = models.CharField("Заголовок", max_length=500)
-    subtitle = models.CharField("Под заголовок", max_length=500, blank=True, null=True)
-    mini_text = models.TextField("Краткое содержание", max_length=5000)
-    text = models.TextField("Полное содержание", max_length=10000000)
-    created_date = models.DateTimeField("Дата создания", auto_now_add=True)
+    title = models.CharField(_("Заголовок"), max_length=500)
+    subtitle = models.CharField(_("Под заголовок"), max_length=500, blank=True, null=True)
+    mini_text = models.TextField(_("Краткое содержание"), max_length=5000)
+    text = models.TextField(_("Полное содержание"), max_length=10000000)
+    created_date = models.DateTimeField(_("Дата создания"), auto_now_add=True)
     edit_date = models.DateTimeField(
-        "Дата редактирования",
+        _("Дата редактирования"),
         default=timezone.now,
         blank=True,
         null=True
     )
     published_date = models.DateTimeField(
-        "Дата публикации",
+        _("Дата публикации"),
         default=timezone.now,
         blank=True,
         null=True
     )
     image = models.ForeignKey(
         Photo,
-        verbose_name="Главная фотография",
+        verbose_name=_("Главная фотография"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True)
-    tag = models.ManyToManyField(Tags, verbose_name="Тег", blank=True)
+    tag = models.ManyToManyField(Tags, verbose_name=_("Тег"), blank=True)
     category = models.ForeignKey(
         Category,
-        verbose_name="Категория",
+        verbose_name=_("Категория"),
         on_delete=models.CASCADE,
     )
-    template = models.CharField("Шаблон", max_length=500, default="news/post_detail.html")
-    slug = models.SlugField("url", max_length=500, unique=True)
+    template = models.CharField(_("Шаблон"), max_length=500, default="news/post_detail.html")
+    slug = models.SlugField(_("url"), max_length=500, unique=True)
 
-    published = models.BooleanField("Опубликовать?", default=True)
-    viewed = models.IntegerField("Просмотрено", default=0)
-    status = models.BooleanField("Для зарегистрированных", default=False)
+    published = models.BooleanField(_("Опубликовать?"), default=True)
+    viewed = models.IntegerField(_("Просмотрено"), default=0)
+    status = models.BooleanField(_("Для зарегистрированных"), default=False)
 
-    sort = models.PositiveIntegerField('Порядок', default=0)
+    sort = models.PositiveIntegerField(_('Порядок'), default=0)
 
     seo = GenericRelation(Seo)
 
     class Meta:
-        verbose_name = "Новость"
-        verbose_name_plural = "Новости"
+        verbose_name = _("Новость")
+        verbose_name_plural = _("Новости")
         ordering = ["sort", "-published_date"]
 
     # def publish(self):

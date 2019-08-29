@@ -2,15 +2,16 @@
 
 OMS CMS
 =======
+
 OMS is an open source CMS based on the Django framework, designed for flexibility. 
 That allows you to easily expand its functionality. This cms allows you to make a website in minutes. 
 You can use the basic template or download from the official site.
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
 
-Python => 3.6
-Django => 2
-Postgres == 10
+- Python => 3.6
+- Django => 2
+- Postgres == 10
 
 Installation:
 -------------
@@ -24,6 +25,7 @@ Activate virtual environment
 Install CMS ::
 
     pip install oms-cms
+    
 Create Project ::
 
     oms-start
@@ -31,8 +33,8 @@ Create Project ::
 Development
 -----------
 
-Fork or clone the repository
-Create the file oms_cms / config / local_settings.py and register the connection to the database
+Fork or clone the repository. 
+Create the file oms_cms/config/local_settings.py and register the connection to the database.
 
 .. code-block :: python
 
@@ -67,22 +69,29 @@ Create the file oms_cms / config / local_settings.py and register the connection
 Install Dependencies ::
 
     pip install -r req.txt
+    
 Creating a database and setting up CMS ::
 
-python manage.py deployOMS
+    python manage.py deployOMS
+    
 Run dev server ::
 
     python manage.py runserver
-Teams
+    
+Commands
+
 Launching the installer ::
 
     oms-start
+    
 Creating Migration Files ::
 
     python manage.py makemigrations
+    
 Application of migrations ::
 
     python manage.py migrate
+    
 Create Super User ::
 
     python manage.py createsuperuser

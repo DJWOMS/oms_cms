@@ -34,10 +34,19 @@
                                 {% endif %}
                             </li>
                         {% endrecursetree %}
-                        {% for_list_lang as langs %}
-                        {% for lang in langs %}
-                            <li><a href="{% url 'languages:set_lang' %}?language={{ lang.slug }}">{{ lang.name }}</a></li>
-                        {% endfor %}
+                        {% for_list_lang as languages %}
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#change-language">
+                                {% get_lang_code as lang_code %}{{ lang_code }}</a>
+                            <ul class="dropdown-menu" role="menu">
+                                {% for lang in languages %}
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1"
+                                           href="{% url 'languages:set_lang' %}?language={{ lang.slug }}">{{ lang.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
