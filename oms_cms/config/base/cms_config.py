@@ -1,4 +1,6 @@
 # CMS app
+from django.db.models import Q
+
 CMS_APP = [
     # Auth
     'allauth',
@@ -74,3 +76,12 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+
+MENU_APPS = (
+        Q(app_label='pages', model='pages') |
+        Q(app_label='news', model='post') |
+        Q(app_label='news', model='category') |
+        Q(app_label='contact', model='contact') |
+        Q(app_label='oms-gallery', model='gallery')
+)

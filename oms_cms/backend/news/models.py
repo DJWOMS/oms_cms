@@ -39,7 +39,9 @@ class Category(MPTTModel):
     class Meta:
         verbose_name = "Категория новостей"
         verbose_name_plural = "Категории новостей"
-        ordering = ["-sort", "-name"]
+
+    class MPTTMeta:
+        order_insertion_by = ('sort',)
 
     def get_absolute_url(self):
         return reverse('news:list-news', kwargs={'slug': self.slug})
@@ -117,7 +119,7 @@ class Post(AbstractLang):
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
-        ordering = ["-sort", "-published_date"]
+        ordering = ["sort", "-published_date"]
 
     # def publish(self):
     #     self.published_date = timezone.now()

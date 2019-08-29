@@ -14,9 +14,10 @@ class MenuAdmin(admin.ModelAdmin):
 class MenuItemAdmin(MPTTModelAdmin):
     """Пункты меню"""
     form = MenuItemAdminForm
-    list_display = ("title", "name", "parent", "lang", "menu", "id")
+    list_display = ("title", "name", "parent", "lang", "menu", "sort", "id")
     list_filter = ("menu", "parent", "lang")
     search_fields = ("name", "parent", "menu")
     save_as = True
+    list_editable = ("sort", )
     mptt_level_indent = 20
 
