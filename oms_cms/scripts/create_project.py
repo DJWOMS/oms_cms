@@ -16,9 +16,11 @@ def cli_create(name, project, db):
     """Name project"""
     click.echo('Project name %s' % click.style(name, fg='green'))
     if project:
-        os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project_min/archive/master.zip')
+        os.system(
+            f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
     else:
-        os.system(f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project/archive/master.zip')
+        os.system(
+            f'django-admin startproject {name} --template=https://github.com/DJWOMS/oms_project_min/archive/master.zip')
 
     if db == '0':
         update_local_settings(db, name)
@@ -78,11 +80,15 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
 def select_lang(pr_name, lang):
     """Select language admin"""
     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
-
+    langs = {
+        "en": ('en', 'English'),
+        "ru": ('ru', 'Russian'),
+    }
     file_read = open("{}/config/settings.py".format(dirs), "r")
     file = file_read.read()
     file_read.close()
     line = file.replace("LANGUAGE_CODE = 'ru'", "LANGUAGE_CODE = '{}'".format(lang))
+    line = line.replace("LANGUAGES = ()", "LANGUAGES = ({})".format(langs[lang]))
     file = open("{}/config/settings.py".format(dirs), "w")
     file.write(line)
     file.close()

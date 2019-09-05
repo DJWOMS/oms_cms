@@ -16,21 +16,19 @@
             <div class="col-lg-5 col-md-6 col-sm-6">
 
             </div>
-            {#            <div class="col-lg-3 col-md-6 col-sm-6 offset-lg-1">#}
-            {#                <div class="single-footer-widget instafeed">#}
-            {#                    <h6 class="footer_title">Instagram Feed</h6>#}
-            {#                    <ul class="list instafeed d-flex flex-wrap">#}
-            {#                        <li><img src="img/instagram/Image-01.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-02.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-03.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-04.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-05.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-06.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-07.jpg" alt=""></li>#}
-            {#                        <li><img src="img/instagram/Image-08.jpg" alt=""></li>#}
-            {#                    </ul>#}
-            {#                </div>#}
-            {#            </div>#}
+            <div class="col-lg-3 col-md-6 col-sm-6 offset-lg-1">
+                <div class="single-footer-widget instafeed">
+                    <h6 class="footer_title"></h6>
+                    <form action="{% url 'contact:feedback_gen' %}" method="post">
+                        {% csrf_token %}
+                        {% gen_form "full_name" "email" as form %}
+                        {{ form }}
+                        <input name="next" hidden value="{{request.path}}">
+                        <input name="honeypot" hidden value="">
+                        <input type="submit" name="" value="Submit"/>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="row footer-bottom d-flex justify-content-between align-items-center">
             <p class="col-lg-8 col-md-8 footer-text m-0">

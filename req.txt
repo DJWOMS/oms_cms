@@ -4,7 +4,7 @@ coreapi==2.3.3
 coreschema==0.0.4
 defusedxml==0.6.0
 Click==7.0
-Django==2.2.4
+Django==2.2.5
 django-allauth==0.39.1
 django-ckeditor==5.7.1
 django-contrib-comments==1.9.1
