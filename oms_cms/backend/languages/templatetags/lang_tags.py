@@ -20,6 +20,7 @@ def for_list_lang(context):
 
 @register.simple_tag(takes_context=True)
 def change_lang(context, lang):
+    """Получение url для перевода"""
     return translate_url(context['request'].path, lang)
 
 

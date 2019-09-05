@@ -40,7 +40,7 @@ urlpatterns += i18n_patterns(
     path('search/', include('oms_cms.backend.search.urls', namespace='search')),
     # path('comments/', include('oms_cms.backend.comments.urls', namespace='news')),
     path('', include('oms_cms.backend.pages.urls', namespace='pages')),
-    prefix_default_language=False
+    prefix_default_language=True
 )
 
 admin.site.site_title = "OMS CMS"

@@ -115,11 +115,12 @@ for_contact
 
 .. code-block:: python
 
-     <form action="{% url 'feedback_gen' %}" method="post">
+     <form action="{% url 'contact:feedback_gen' %}" method="post">
          {% csrf_token %}
          {% gen_form "full_name" "phone" as form %}
          {{ form }}
-         <input name="next" hidden value="/news/">
+         <input name="next" hidden value="{{request.path}}">
+         <input name="honeypot" hidden value="">
          <input type="submit" name="" value="Submit" />
     </form>
 
