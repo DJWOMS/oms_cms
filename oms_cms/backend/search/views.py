@@ -7,7 +7,7 @@ from .models import SpySearch
 class SearchPost(ListView):
     """Поиск на сайте"""
     paginate_by = 5
-    template_name = "blog/post-list.html"
+    template_name = "news/post_list.html"
 
     def get_queryset(self):
         # query = Post.objects.filter(title__icontains=self.request.GET.get('q'))
