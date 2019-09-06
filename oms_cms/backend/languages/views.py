@@ -33,7 +33,6 @@ class GetLang(View):
                 if next:
                     next_trans = translate_url(next, lang_code)
                     if next_trans != next:
-                        print("next != next_trans")
                         response = HttpResponseRedirect(next_trans)
 
                 if hasattr(request, 'session'):
