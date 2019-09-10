@@ -54,6 +54,8 @@ USE_TZ = True
 
 SITE_ID = 1
 
+
+# Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 DEFAULT_FROM_EMAIL = ''
@@ -63,8 +65,9 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+# ---------------------
 
-# All auth
+# Allauth
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_UNIQUE = True
 # ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
@@ -76,8 +79,9 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+# -------------------------------------------
 
-
+# Menu config
 MENU_APPS = (
         Q(app_label='pages', model='pages') |
         Q(app_label='news', model='post') |
@@ -85,3 +89,16 @@ MENU_APPS = (
         Q(app_label='contact', model='contact') |
         Q(app_label='oms-gallery', model='gallery')
 )
+# --------------------------------------------
+
+"""Search config
+    ("app_label", "model", "field", "field"),
+"""
+SEARCH_PAGINATE = 5
+SEARCH_TEMPLATE = "search/search_list.html"
+SEARCH_MODELS = {
+    ("pages", "pages", "title"),
+    ("news", "category", "name"),
+    ("news", "post", "title", "slug"),
+}
+# --------------------------------------------
