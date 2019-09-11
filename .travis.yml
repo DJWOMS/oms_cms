@@ -5,7 +5,7 @@ python:
 env:
   - DJANGO=2.2.5 DB=sqlite3
 before_install:
-  - export DJANGO_SETTINGS_MODULE=config.test_settings
+  - export DJANGO_SETTINGS_MODULE=oms_cms.config.test_settings
 install:
   - pip install -r req.txt
 script:
