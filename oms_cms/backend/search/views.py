@@ -29,9 +29,8 @@ class SearchView(ListView):
 
                     results = model.objects.filter(q_object)
                     search_results.append(results)
-            return search_results
-        else:
-            return []
+
+        return search_results
 
     def get_search_form(self):
         """Проверка данных поиска"""
