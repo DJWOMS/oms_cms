@@ -11,4 +11,4 @@ install:
 #before_script:
 #  python manage.py
 script:
- - python manage.py test
+ - python oms_cms/manage.py test
