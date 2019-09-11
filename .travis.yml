@@ -4,9 +4,11 @@ python:
   - "3.7-dev"
 env:
   - DJANGO=2.2.5 DB=sqlite3
-before_install:
-  - export DJANGO_SETTINGS_MODULE=settings.test_settings
+#before_install:
+#  - export DJANGO_SETTINGS_MODULE=settings.test_settings
 install:
   - pip install -r req.txt
 script:
- - python manage.py test
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - python manage.py test
