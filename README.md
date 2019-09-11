@@ -1,5 +1,6 @@
 OMS CMS
 =======
+[![Build Status](https://travis-ci.org/DJWOMS/oms_cms.svg?branch=master)](https://travis-ci.org/DJWOMS/oms_cms)
 [![Coverage Status](https://coveralls.io/repos/github/DJWOMS/oms_cms/badge.svg?branch=master)](https://coveralls.io/github/DJWOMS/oms_cms?branch=master)
 [![License](https://img.shields.io/pypi/l/oms-cms)](https://opensource.org/licenses/BSD-3-Clause)
 [![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/) 
