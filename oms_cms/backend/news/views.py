@@ -3,6 +3,7 @@ from datetime import datetime
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.utils.translation import get_language
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 
@@ -15,7 +16,7 @@ class PostView(ListView):
 
     def get_posts(self):
         return Post.objects.filter(
-                lang__slug__icontains=self.request.LANGUAGE_CODE,
+                lang__slug__icontains=get_language(),
                 category__published=True,
                 published=True,
                 published_date__lte=datetime.now())
@@ -46,7 +47,7 @@ class PostDetail(View):
     def get(self, request, **kwargs):
         new = get_object_or_404(
             Post,
-            lang__slug=request.LANGUAGE_CODE,
+            lang__slug=get_language(),
             slug=kwargs.get("post"),
             category__published=True,
             published=True,
