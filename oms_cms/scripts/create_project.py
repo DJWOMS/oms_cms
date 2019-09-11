@@ -76,7 +76,7 @@ def update_local_settings(db, pr_name, name=None, user=None, password=None, host
 
 @cli.command()
 @click.argument("pr_name", nargs=-1)
-@click.option('--lang', prompt='Language admin (en-us, ru-ru) \n -> ', default="ru", help='Language admin', type=str)
+@click.option('--lang', prompt='Language admin (en, ru) \n -> ', default="ru", help='Language admin', type=str)
 def select_lang(pr_name, lang):
     """Select language admin"""
     dirs = os.path.join(os.path.dirname(os.path.abspath(f"{pr_name[0]}")), pr_name[0])
@@ -87,8 +87,8 @@ def select_lang(pr_name, lang):
     file_read = open("{}/config/settings.py".format(dirs), "r")
     file = file_read.read()
     file_read.close()
-    line = file.replace("LANGUAGE_CODE = 'ru'", "LANGUAGE_CODE = '{}'".format(lang))
-    line = line.replace("LANGUAGES = ()", "LANGUAGES = ({})".format(langs[lang]))
+    line = file.replace("LANGUAGE_CODE = 'en'", "LANGUAGE_CODE = '{}'".format(lang))
+    line = line.replace("LANGUAGES = ()", "LANGUAGES = ({},)".format(langs[lang]))
     file = open("{}/config/settings.py".format(dirs), "w")
     file.write(line)
     file.close()
