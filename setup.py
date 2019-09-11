@@ -13,12 +13,12 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 6)
 
 BUILD = 0
-VERSION = "0.5"
+VERSION = "0.5.1"
 RELEASE = VERSION
 
 
 def read(fname):
-    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+    with open(os.path.join(os.path.dirname(__file__), fname), encoding='utf-8') as f:
         return f.read()
 
 
