@@ -1,9 +1,13 @@
 OMS CMS
 =======
+[![License](https://img.shields.io/pypi/l/oms-cms)](https://opensource.org/licenses/BSD-3-Clause)
+[![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/) 
+[![Slack](https://img.shields.io/badge/Slack-chat-green)](https://join.slack.com/t/oms-cms/) 
+
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
 
-- Python => 3.6
-- Django => 2
+* Python => 3.6
+* Django => 2
 
 OMS CMS is designed for a wide range of developers.
 
@@ -17,16 +21,16 @@ This cms allows you to make a website in minutes.
 You can use the basic template or download from the official site.
 
 Modules
-------
+-------
 * Pages
 * News
-    * Categories
-    * Articles
-    * Tags
+   * Categories
+   * Articles
+   * Tags
 * Comments
 * Contacts
 * Info block
-* Languages \ multilingualism
+* Languages, multilingualism
 * Menu
 * SEO
 * Partners
@@ -93,11 +97,12 @@ Creating a database and setting up CMS ::
 
     python manage.py deployOMS
 
--------------------------------------------------------------------------------
+__________________________________________________________
+
 [Документация](https://oms-cms.readthedocs.io/ru/latest/)
  
-- Python => 3.6
-- Django => 2
+* Python => 3.6
+* Django => 2
 
 OMS CMS создана для широкого круга разработчиков. 
 
@@ -112,12 +117,11 @@ OMS позволяет без трудностей интегрироватьс�
 
 Модули
 ------
-
 * Страницы
 * Новости
-    * Категории
-    * Статьи
-    * Теги
+   * Категории
+   * Статьи
+   * Теги
 * Комментарии
 * Контакты
 * Инфо блк
@@ -193,6 +197,3 @@ OMS позволяет без трудностей интегрироватьс�
 Запустить dev сервер ::
 
     python manage.py runserver
-
-
-

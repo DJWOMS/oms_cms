@@ -6,9 +6,9 @@ global-exclude *.py[co]
 global-exclude local_settings
 global-exclude prod_settings
 global-exclude manage.py
-global-exclude oms_cms/static/admin/*
-global-exclude oms_cms/templates/admin/*
 
+prune oms_cms/static/admin
+prune oms_cms/templates/admin
 prune .git
 prune __target__
 prune dist
