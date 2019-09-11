@@ -6,6 +6,7 @@
 
 get_search_form
 ---------------
+Вывод формы посика
 
 .. code-block:: python
 
