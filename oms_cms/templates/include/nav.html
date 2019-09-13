@@ -1,6 +1,6 @@
 {% load static mptt_tags menu_tags lang_tags %}
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-shrink" id="mainNav">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand js-scroll-trigger" href="/">
             <img class="logo-oms" src="{% static 'img/oms-cms2.svg' %}" alt="oms cms">
         </a>
@@ -16,10 +16,10 @@
                     <li class="nav-item">
                         {% if node.url %}
                             <a class="nav-link js-scroll-trigger"
-                               href="{{ node.url }}">{{ node.name }}</a>
+                               href="{{ node.url }}">{{ node.title }}</a>
                         {% elif node.anchor %}
                             <a class="nav-link js-scroll-trigger"
-                               href="{{ node.get_anchor }}">{{ node.name }}</a>
+                               href="{{ node.get_anchor }}">{{ node.title }}</a>
                         {% else %}
                             <a class="nav-link js-scroll-trigger"
                                href="{{ node.content_object.get_absolute_url }}">{{ node.title }}</a>

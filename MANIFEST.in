@@ -6,6 +6,8 @@ global-exclude *.py[co]
 global-exclude local_settings
 global-exclude prod_settings
 global-exclude manage.py
+global-exclude oms_cms/templates/base.html
+global-exclude oms_cms/templates/super-base.html
 
 prune oms_cms/static/admin
 prune oms_cms/static/css
@@ -19,8 +21,6 @@ prune oms_cms/templates/include
 prune oms_cms/templates/news
 prune oms_cms/templates/pages
 prune oms_cms/templates/search
-prune oms_cms/templates/base
-prune oms_cms/templates/super-base
 
 prune .git
 prune __target__

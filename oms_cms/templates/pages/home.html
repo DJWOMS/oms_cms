@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-{% load static seo_tags news_tags pages_tags %}
+{% load static i18n seo_tags news_tags pages_tags %}
 
 {% block seo %}
     {% seo page %}
@@ -11,12 +11,9 @@
             <div class="row h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-10 align-self-end">
                     <h1 class="text-uppercase text-white font-weight-bold">OMS CMS</h1>
-                    <hr class="divider my-4">
                 </div>
                 <div class="col-lg-8 align-self-baseline">
                     <p class="text-white-75 font-weight-light mb-5">{{ page.text|safe }}</p>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out
-                        More</a>
                 </div>
             </div>
         </div>
@@ -30,16 +27,17 @@
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading text-uppercase">{{ blockpage.1.title }}</h2>
                     <h3 class="section-subheading text-muted">{{ blockpage.1.sub_title }}</h3>
+                    <p class="text-muted">{{ blockpage.1.description|safe }}</p>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
                   <span class="fa-stack fa-4x">
                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    <i class="fas fa fa-code fa-stack-1x fa-inverse"></i>
                   </span>
                     <h4 class="service-heading">{{ blockpage.2.title }}</h4>
-                    <p class="text-muted">{{ blockpage.2.description }}</p>
+                    <p class="text-muted">{{ blockpage.2.description|safe }}</p>
                 </div>
                 <div class="col-md-4">
           <span class="fa-stack fa-4x">
@@ -47,7 +45,7 @@
             <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
           </span>
                     <h4 class="service-heading">{{ blockpage.3.title }}</h4>
-                    <p class="text-muted">{{ blockpage.3.description }}.</p>
+                    <p class="text-muted">{{ blockpage.3.description|safe }}.</p>
                 </div>
                 <div class="col-md-4">
           <span class="fa-stack fa-4x">
@@ -55,25 +53,26 @@
             <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
           </span>
                     <h4 class="service-heading">{{ blockpage.4.title }}</h4>
-                    <p class="text-muted">{{ blockpage.4.description }}</p>
+                    <p class="text-muted">{{ blockpage.4.description|safe }}</p>
                 </div>
             </div>
         </div>
     </section>
-    <section class="bg-light page-section interior_area">
+    <section class="bg-light page-section interior_area" id="install">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 offset-lg-1">
+                <div class="col-lg-6">
                     <div class="interior_text">
                         <h4>{{ blockpage.install.title }}</h4>
                     </div>
                 </div>
                 <div class="col-lg-6 install-code">
-                    {{ blockpage.install.description }}
-                    {#                    <p><b>pip install oms-cms</b></p>#}
-                    {#                    <p><b>oms-start</b></p>#}
-                    {#                    <p><b>cd mysite</b></p>#}
-                    {#                    <p><b>python manage.py runserver</b></p>#}
+                    {{ blockpage.install.description|safe }}
+                    {{ blockpage.commands.description|safe }}
+{#                                        <p><b>pip install oms-cms</b></p>#}
+{#                                        <p><b>oms-start</b></p>#}
+{#                                        <p><b>cd mysite</b></p>#}
+{#                                        <p><b>python manage.py runserver</b></p>#}
                 </div>
             </div>
 
@@ -101,7 +100,7 @@
                                     <h4 class="subheading">{{ blockpage.6.sub_title }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">{{ blockpage.6.descriprion }}</p>
+                                    <p class="text-muted">{{ blockpage.6.description|safe }}</p>
                                 </div>
                             </div>
                         </li>
@@ -116,7 +115,7 @@
                                     <h4 class="subheading">{{ blockpage.7.sub_title }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">{{ blockpage.7.descriprion }}</p>
+                                    <p class="text-muted">{{ blockpage.7.description|safe }}</p>
                                 </div>
                             </div>
                         </li>
@@ -131,7 +130,7 @@
                                     <h4 class="subheading">{{ blockpage.8.sub_title }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">{{ blockpage.8.descriprion }}</p>
+                                    <p class="text-muted">{{ blockpage.8.description|safe }}</p>
                                 </div>
                             </div>
                         </li>
@@ -142,11 +141,11 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>{{ blockpage.9.sub_title }}</h4>
+                                    <h4>{{ blockpage.9.title }}</h4>
                                     <h4 class="subheading">{{ blockpage.9.sub_title }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">{{ blockpage.9.descriprion }}</p>
+                                    <p class="text-muted">{{ blockpage.9.description|safe }}</p>
                                 </div>
                             </div>
                         </li>
@@ -168,7 +167,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Последние новости</h2>
+                    <h2>{{ blockpage.10.title }}</h2>
                 </div>
             </div>
             <div class="latest_news_inner row">
