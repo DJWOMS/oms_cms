@@ -6,7 +6,7 @@ OMS CMS
 [![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/) 
 [![Slack](https://img.shields.io/badge/Slack-chat-green)](https://join.slack.com/t/oms-cms/) 
 
-[Website](https://oms-cms.site)
+[Website](https://oms-cms.site/en/)
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
 
