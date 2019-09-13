@@ -1,11 +1,11 @@
-{% load staticfiles seo_tags %}
+{% load static seo_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% block meta %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <link rel="icon" href="{% static 'img/oms-cms2.svg' %}" type="image/png">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="google-site-verification" content="{% search_system 'google' %}"/>
         <meta name="yandex-verification" content="{% search_system 'yandex' %}"/>
@@ -18,7 +18,7 @@
 
     {% endblock style %}
 </head>
-<body data-spy="scroll" data-target="#mainNav" data-offset="70">
+<body id="page-top">
 
 {% block body %}
 

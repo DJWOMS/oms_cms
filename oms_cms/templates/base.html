@@ -1,7 +1,7 @@
 <!-- Подключение базового шаблона -->
 {% extends 'super-base.html' %}
 <!-- Для подключение деректории static -->
-{% load staticfiles %}
+{% load static %}
 <!-- Meta данные -->
 {% block seo %}
 {% endblock seo %}
@@ -11,42 +11,50 @@
 <meta name="author" content="">
 <!-- Подключение стилей -->
 {% block style %}
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/popup/magnific-popup.css' %}">
-    <!-- main css -->
-{#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"
+          type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+          rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/agency.css' %}" rel="stylesheet">
 {% endblock style %}
 
 {% block body %}
-    {% include 'include/header.html' %}
+
+    {% include 'include/nav.html' %}
+
+    {% block header %}
+        <header class="header-masthead">
+        </header>
+    {% endblock header %}
+
     {% block content %}
 
     {% endblock content %}
+
     {% include 'include/footer.html' %}
+
 {% endblock body %}
 
 {% block scripts %}
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'js/popper.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/stellar.js' %}"></script>
-    <script src="{% static 'vendors/lightbox/simpleLightbox.min.js' %}"></script>
-    <script src="{% static 'vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
-    <script src="{% static 'vendors/isotope/isotope-min.js' %}"></script>
-    <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
-    <script src="{% static 'vendors/counter-up/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'vendors/counter-up/jquery.counterup.js' %}"></script>
-    <script src="{% static 'vendors/popup/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
+    <script src="{% static 'js/contact_me.js' %}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'js/agency.min.js' %}"></script>
 {% endblock scripts %}

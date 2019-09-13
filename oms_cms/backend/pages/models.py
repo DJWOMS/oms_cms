@@ -57,3 +57,21 @@ class Pages(AbstractLang):
         verbose_name_plural = _("Страницы")
 
 
+class BlockPage(models.Model):
+    """Блок информации для старницы"""
+    page = models.ForeignKey(Pages, on_delete=models.CASCADE)
+    name = models.CharField(_("Имя"), max_length=100, help_text=_("Для обращения в шаблоне"))
+    title = models.CharField(_("Заголовок"), max_length=100, blank=True, null=True)
+    sub_title = models.CharField(_("Под заголовок"), max_length=100, blank=True, null=True)
+    description = models.TextField(_("Описание"), blank=True, null=True)
+    sort = models.PositiveIntegerField(_('Порядок'), default=0)
+
+    def __str__(self):
+        return f"{self.title} - {self.page}"
+
+    class Meta:
+        verbose_name = _("Блок страницы")
+        verbose_name_plural = _("Блоки страницы")
+        ordering = ["sort"]
+
+

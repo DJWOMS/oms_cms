@@ -2,8 +2,14 @@
 {% block seo %}
 {% endblock seo %}
 
+{% block header %}
+    <header class="header-masthead">
+        {% include 'news/categories.html' %}
+    </header>
+{% endblock header %}
+
 {% block content %}
-    {% include 'news/categories.html' %}
+
     <section class="blog_area">
         <div class="container">
             <div class="row">

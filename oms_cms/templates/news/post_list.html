@@ -36,10 +36,10 @@
                         {% if post.image %}
                             <img src="{{ post.image.image.url }}" alt="{{ post.image.captions }}">
                         {% else %}
-                            <img src="{% static 'img/blog/main-blog/m-blog-1.jpg' %}" alt="">
+                            <img src="{% static 'img/blog/m-blog-1.jpg' %}" alt="">
                         {% endif %}
                         <div class="blog_details">
-                            <a href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a>
+                            <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
                             <p>{{ post.mini_text|safe }}</p>
                             <a href="{{ post.get_absolute_url }}" class="blog_btn">Читать</a>
                         </div>

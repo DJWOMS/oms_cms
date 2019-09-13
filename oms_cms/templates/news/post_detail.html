@@ -12,7 +12,7 @@
                 {% if post.image %}
                     <img class="img-fluid" src="{{ post.image.image.url }}" alt="{{ post.image.captions }}">
                 {% else %}
-                    <img class="img-fluid" src="{% static 'img/blog/main-blog/feature-img1.jpg' %}" alt="">
+                    <img class="img-fluid" src="{% static 'img/blog/m-blog-1.jpg' %}" alt="">
                 {% endif %}
             </div>
         </div>
@@ -168,9 +168,8 @@
                         {% ifequal field.name "comment" %}
                             <div class="form-group col-md-12">
                             <br>
-                            <textarea class="form-control mb-12" rows="5" name="comment" placeholder="Сообщение"
-                                      required="true">
-                            </textarea>
+                            <textarea class="form-control mb-12" rows="5" cols="15" name="comment"
+                                      required="true">Сообщение</textarea>
                             </div>
                         {% endifequal %}
                     {% endif %}
