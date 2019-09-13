@@ -8,7 +8,20 @@ global-exclude prod_settings
 global-exclude manage.py
 
 prune oms_cms/static/admin
+prune oms_cms/static/css
+prune oms_cms/static/js
+prune oms_cms/static/vendor
+prune oms_cms/static/img
+prune oms_cms/static/fonts
+
 prune oms_cms/templates/admin
+prune oms_cms/templates/include
+prune oms_cms/templates/news
+prune oms_cms/templates/pages
+prune oms_cms/templates/search
+prune oms_cms/templates/base
+prune oms_cms/templates/super-base
+
 prune .git
 prune __target__
 prune dist

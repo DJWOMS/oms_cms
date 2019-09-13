@@ -11,8 +11,10 @@
 <meta name="author" content="">
 <!-- Подключение стилей -->
 {% block style %}
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom fonts for this template -->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet"
+          type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"
           type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet'
@@ -26,11 +28,20 @@
 {% endblock style %}
 
 {% block body %}
-    {% include 'include/header.html' %}
+
+    {% include 'include/nav.html' %}
+
+    {% block header %}
+        <header class="header-masthead">
+        </header>
+    {% endblock header %}
+
     {% block content %}
 
     {% endblock content %}
+
     {% include 'include/footer.html' %}
+
 {% endblock body %}
 
 {% block scripts %}

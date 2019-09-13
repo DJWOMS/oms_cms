@@ -1,95 +1,175 @@
 {% extends 'news/base.html' %}
-{% load staticfiles seo_tags news_tags %}
+{% load static seo_tags news_tags pages_tags %}
 
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
 
+{% block header %}
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center text-center">
+                <div class="col-lg-10 align-self-end">
+                    <h1 class="text-uppercase text-white font-weight-bold">OMS CMS</h1>
+                    <hr class="divider my-4">
+                </div>
+                <div class="col-lg-8 align-self-baseline">
+                    <p class="text-white-75 font-weight-light mb-5">{{ page.text|safe }}</p>
+                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out
+                        More</a>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
 {% block content %}
-    <section class="home_banner_area" id="home">
-        <div class="banner_inner">
-            <div class="container">
-                <div class="row banner_content">
-                    <div class="col-lg-6">
-                        <h2>OMS CMS<br/></h2>
-                        <p>{{ page.text|safe }}</p>
-                        <a class="banner_btn" href="#">Скачать</a>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="video_area" id="video">
-                            <img class="img-fluid" src="{% static 'img/video-1.png' %}" alt="">
-                            <a class="popup-youtube" href="https://youtu.be/RqT9rdZwCTk">
-                                <img src="{% static 'img/icon/video-icon-1.png' %}" alt="">
-                            </a>
-                        </div>
-                    </div>
+    {% get_block_page page as blockpage %}
+    <section class="page-section" id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">{{ blockpage.1.title }}</h2>
+                    <h3 class="section-subheading text-muted">{{ blockpage.1.sub_title }}</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                  <span class="fa-stack fa-4x">
+                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                  </span>
+                    <h4 class="service-heading">{{ blockpage.2.title }}</h4>
+                    <p class="text-muted">{{ blockpage.2.description }}</p>
+                </div>
+                <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+          </span>
+                    <h4 class="service-heading">{{ blockpage.3.title }}</h4>
+                    <p class="text-muted">{{ blockpage.3.description }}.</p>
+                </div>
+                <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+          </span>
+                    <h4 class="service-heading">{{ blockpage.4.title }}</h4>
+                    <p class="text-muted">{{ blockpage.4.description }}</p>
                 </div>
             </div>
         </div>
     </section>
-    <section class="feature_area p_120" id="feature">
+    <section class="bg-light page-section interior_area">
         <div class="container">
-            <div class="main_title">
-                <h2>OMS</h2>
-                <p>CMS с открытым исходным кодом разработанная на Django</p>
-            </div>
-            <div class="feature_inner row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="feature_item">
-                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">
-                        <h4>Язык</h4>
-                        <p>OMS написана на Python, самом быстрорастущем языке программирования.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="feature_item">
-                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">
-                        <h4>Сайты</h4>
-                        <p>Сайты на OMS сразу готовы к работе после установки и легко расширяются.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="feature_item">
-                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">
-                        <h4>Безопасность</h4>
-                        <p>OMS разработана на Django который включает безопасность</p>
-                    </div>
-                </div>
-                {#                <div class="col-lg-3 col-md-6">#}
-                {#                    <div class="feature_item">#}
-                {#                        <img src="{% static 'img/icon/f-icon-1.png' %}" alt="">#}
-                {#                        <h4>Maintenance</h4>#}
-                {#                        <p>inappropriate behavior is often laughed off as boys will be boys,” women face higher conduct#}
-                {#                            standards especially in the workplace. That’s why.</p>#}
-                {#                    </div>#}
-                {#                </div>#}
-            </div>
-        </div>
-    </section>
-    <section class="interior_area">
-        <div class="container">
-            <div class="interior_inner row">
+            <div class="row">
                 <div class="col-lg-5 offset-lg-1">
                     <div class="interior_text">
-                        <h4>Установите OMS CMS всего за 4 шага</h4>
-
-                        {#                        <a class="main_btn" href="#">See Details</a>#}
+                        <h4>{{ blockpage.install.title }}</h4>
                     </div>
                 </div>
                 <div class="col-lg-6 install-code">
-                    <p><b>pip install oms-cms</b></p>
-                    <p><b>oms-start</b></p>
-                    <p><b>cd mysite</b></p>
-                    <p><b>python manage.py runserver</b></p>
+                    {{ blockpage.install.description }}
+                    {#                    <p><b>pip install oms-cms</b></p>#}
+                    {#                    <p><b>oms-start</b></p>#}
+                    {#                    <p><b>cd mysite</b></p>#}
+                    {#                    <p><b>python manage.py runserver</b></p>#}
                 </div>
             </div>
 
         </div>
     </section>
-    <section class="latest_news_area p_120">
+    <section class="page-section" id="about">
         <div class="container">
-            <div class="main_title">
-                <h2>Последние новости</h2>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">{{ blockpage.5.title }}</h2>
+                    <h3 class="section-subheading text-muted">{{ blockpage.5.sub_title }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="rounded-circle img-fluid"
+                                     src="{% static 'img/about/1.jpg' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{{ blockpage.6.title }}</h4>
+                                    <h4 class="subheading">{{ blockpage.6.sub_title }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ blockpage.6.descriprion }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="rounded-circle img-fluid"
+                                     src="{% static 'img/about/2.jpg' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{{ blockpage.7.title }}</h4>
+                                    <h4 class="subheading">{{ blockpage.7.sub_title }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ blockpage.7.descriprion }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="rounded-circle img-fluid"
+                                     src="{% static 'img/about/3.jpg' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{{ blockpage.8.title }}</h4>
+                                    <h4 class="subheading">{{ blockpage.8.sub_title }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ blockpage.8.descriprion }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="rounded-circle img-fluid"
+                                     src="{% static 'img/about/4.jpg' %}" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{{ blockpage.9.sub_title }}</h4>
+                                    <h4 class="subheading">{{ blockpage.9.sub_title }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ blockpage.9.descriprion }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>Be Part
+                                    <br>Of Our
+                                    <br>Story!</h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-light page-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Последние новости</h2>
+                </div>
             </div>
             <div class="latest_news_inner row">
                 {% for_post_list category="Блог" count=3 as post_list %}
@@ -100,9 +180,10 @@
                             <a href="{{ post.get_absolute_url }}">
                                 <h4>{{ post.title }}</h4>
                             </a>
-                            <p>{{ post.mini_text|safe }}</p>
+                            <p class="text-muted">{{ post.mini_text|safe }}</p>
                             <div class="post_view">
-                                <a href="#"><i class="fa fa-eye" aria-hidden="true"></i>{{ post.viewed }}</a>
+                                <a href="#"><i class="fa fa-eye"
+                                               aria-hidden="true"></i>{{ post.viewed }}</a>
                                 <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i>
                                     {{ post.comments_set.all.count }}
                                 </a>
