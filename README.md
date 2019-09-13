@@ -6,6 +6,8 @@ OMS CMS
 [![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/) 
 [![Slack](https://img.shields.io/badge/Slack-chat-green)](https://join.slack.com/t/oms-cms/) 
 
+[Website](https://oms-cms.site)
+
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
 
 * Python => 3.6
@@ -60,6 +62,8 @@ Create Project ::
 [Development](https://github.com/DJWOMS/oms_cms/wiki/Development)
 
 __________________________________________________________
+
+[Сайт](https://oms-cms.site)
 
 [Документация](https://oms-cms.readthedocs.io/ru/latest/)
  
