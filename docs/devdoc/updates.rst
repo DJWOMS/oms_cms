@@ -1,6 +1,7 @@
 Версии
 ======
 
-0.4.10
+0.5.5
 -------
 
+Added translation into English for the admin panel
