@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-15 10:32+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:9
+msgid "Заголовок"
+msgstr "Title"
+
+#: models.py:10
+msgid "Ссылка"
+msgstr "Link"
+
+#: models.py:11
+msgid "slug"
+msgstr "slug"
+
+#: models.py:12
+msgid "Id видео"
+msgstr "Id video"
+
+#: models.py:13
+msgid "Превью"
+msgstr "Preview"
+
+#: models.py:14
+msgid "Продолжительность"
+msgstr "Duration"
+
+#: models.py:15
+msgid "Сгенерированная ссылка"
+msgstr "Generated link"
+
+#: models.py:18 models.py:19
+msgid "Видео"
+msgstr "Video"
