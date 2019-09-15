@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-15 10:17+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps.py:7 models.py:15 models.py:22 models.py:51
+msgid "Контакты"
+msgstr "Contacts"
+
+#: models.py:15
+msgid "Название"
+msgstr "Title"
+
+#: models.py:16
+msgid "Описание"
+msgstr "Description"
+
+#: models.py:17
+msgid "Карта"
+msgstr "Map"
+
+#: models.py:18
+msgid "URL"
+msgstr "URL"
+
+#: models.py:21 models.py:68
+msgid "Контакт"
+msgstr "Contact"
+
+#: models.py:39
+msgid "Поле 1"
+msgstr "Field 1"
+
+#: models.py:40
+msgid "Поле 2"
+msgstr "Field 2"
+
+#: models.py:41
+msgid "Класс иконки"
+msgstr "Class icons"
+
+#: models.py:44
+msgid "Иконка"
+msgstr "Icon"
+
+#: models.py:56
+msgid "Поле контактов"
+msgstr "Contact field"
+
+#: models.py:57
+msgid "Поля контактов"
+msgstr "Contact fields"
+
+#: models.py:74
+msgid "Ваша ссылка"
+msgstr "Your link"
+
+#: models.py:77 models.py:84
+msgid "Соц. сеть"
+msgstr "Social network"
+
+#: models.py:85
+msgid "Соц. сети"
+msgstr "Social the network"
+
+#: models.py:96
+msgid "ФИО"
+msgstr "Full name"
+
+#: models.py:97
+msgid "Почта"
+msgstr "Email"
+
+#: models.py:98
+msgid "Телефон"
+msgstr "Phone"
+
+#: models.py:99
+msgid "Тема"
+msgstr "Subject"
+
+#: models.py:100
+msgid "Сообщение"
+msgstr "Message"
+
+#: models.py:101
+msgid "Дата"
+msgstr "Date"
+
+#: models.py:115
+msgid "Обратная связь"
+msgstr "Feedback"
+
+#: models.py:116
+msgid "Обратные связи"
+msgstr "Feedback"

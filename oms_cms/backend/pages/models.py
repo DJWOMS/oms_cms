@@ -32,7 +32,8 @@ class Pages(AbstractLang):
     )
     registration_required = models.BooleanField(
         _('Требуется регистрация'),
-        help_text=_("Если флажок установлен, только зарегистрированные пользователи смогут просматривать страницу."),
+        help_text=_("Если флажок установлен, только зарегистрированные пользователи могут "
+                    "просматривать страницу."),
         default=False,
     )
     seo = GenericRelation(Seo)
