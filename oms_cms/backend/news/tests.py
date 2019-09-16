@@ -1,9 +1,10 @@
 from datetime import timedelta
+
+from django.conf import settings
 from django.utils import timezone
 from django.test import TestCase
 from django.urls import reverse
 
-from oms_cms.backend.languages.models import get_sentinel_lang
 from .models import Category, Post, Tags
 
 
@@ -13,7 +14,7 @@ class ViewsTestCase(TestCase):
         self.now = timezone.now()
         self.yesterday = self.now - timedelta(days=1)
         self.tomorrow = self.now + timedelta(days=1)
-        lang = get_sentinel_lang()
+        lang = settings.LANGUAGE_CODE
 
         tag = Tags.objects.create(name="TestTag", slug='tag_test')
 

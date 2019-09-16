@@ -43,6 +43,7 @@ class PagesAdmin(ActionPublish):
     form = PagesAdminForm
     actions = ['unpublish', 'publish']
     inlines = [SeoInlines, BlockPageAdmin]
+    save_on_top = True
 
 
 

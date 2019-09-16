@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
@@ -7,19 +8,15 @@ from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from oms_gallery.models import Photo
 
-from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_lang
+from oms_cms.backend.languages.models import AbstractLang
 from oms_cms.backend.oms_seo.models import Seo
 
 
-class Category(MPTTModel):
+class Category(MPTTModel, AbstractLang):
     """Класс модели категорий сетей"""
     name = models.CharField(_("Название"), max_length=50)
     description = models.TextField(_("Описание"), max_length=1000, default="", blank=True)
-    lang = models.ForeignKey(
-        Lang,
-        verbose_name=_("Язык"),
-        on_delete=models.SET(get_sentinel_lang),
-    )
+    # lang = models.CharField(_("Язык"), max_length=7, choices=settings.LANGUAGES, default='en')
     parent = TreeForeignKey(
         'self',
         verbose_name=_("Родительская категория"),
@@ -29,7 +26,7 @@ class Category(MPTTModel):
         related_name='children'
     )
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_list.html")
-    slug = models.SlugField(_("url"), unique=True, max_length=100, blank=True, null=True)
+    # slug = models.SlugField(_("url"), max_length=100, blank=True, null=True)
     published = models.BooleanField(_("Отображать?"), default=True)
     paginated = models.PositiveIntegerField(_("Количество новостей на странице"), default=5)
 
@@ -40,6 +37,7 @@ class Category(MPTTModel):
     class Meta:
         verbose_name = _("Категория новостей")
         verbose_name_plural = _("Категории новостей")
+        unique_together = ('lang', 'slug')
 
     class MPTTMeta:
         order_insertion_by = ('sort',)
@@ -107,7 +105,7 @@ class Post(AbstractLang):
         on_delete=models.CASCADE,
     )
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_detail.html")
-    slug = models.SlugField(_("url"), max_length=500, unique=True)
+    # slug = models.SlugField(_("url"), max_length=500, unique=True)
 
     published = models.BooleanField(_("Опубликовать?"), default=True)
     viewed = models.IntegerField(_("Просмотрено"), default=0)
@@ -121,6 +119,7 @@ class Post(AbstractLang):
         verbose_name = _("Новость")
         verbose_name_plural = _("Новости")
         ordering = ["sort", "-published_date"]
+        unique_together = ('lang', 'slug')
 
     # def publish(self):
     #     self.published_date = timezone.now()

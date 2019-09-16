@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib import admin
+from django.contrib import admin, messages
 from mptt.admin import MPTTModelAdmin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -32,7 +32,7 @@ class CategoryAdminForm(forms.ModelForm):
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     """Категории"""
-    list_display = ("name", "slug", "published", "sort", "id")
+    list_display = ("name", "slug", "lang", "published", "sort", "id")
     list_display_links = ("name",)
     list_filter = ("name", "published")
     list_editable = ("published", "sort")
@@ -41,6 +41,10 @@ class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     actions = ['unpublish', 'publish']
     inlines = (SeoInlines,)
     form = CategoryAdminForm
+
+    def save_model(self, request, obj, form, change):
+        messages.add_message(request, messages.INFO, 'Hello world.')
+        obj.save()
 
 
 @admin.register(Tags)

@@ -10,11 +10,11 @@ def search_contact(context, name=None):
     """Queryset контактов по имени и языку"""
     if name is not None:
         try:
-            contacts = Contact.objects.get(name__icontains=name, lang__slug=context["request"].LANGUAGE_CODE)
+            contacts = Contact.objects.get(name__icontains=name, lang=context["request"].LANGUAGE_CODE)
         except Contact.DoesNotExist:
             return None
     else:
-        contacts = Contact.objects.filter(lang__slug=context["request"].LANGUAGE_CODE).first()
+        contacts = Contact.objects.filter(lang=context["request"].LANGUAGE_CODE).first()
     return contacts
 
 

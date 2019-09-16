@@ -23,7 +23,7 @@ Template tags
 
     .. code-block:: python
 
-       {% contact name='Контакты', template='base/tags/contact/contact_block_tag.html' %}
+       {% contact name='Контакты' template='base/tags/contact/contact_block_tag.html' %}
 
     Шаблон для вывода полей контактов и соц. сетей.
 

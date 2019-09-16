@@ -22,14 +22,6 @@ class Pages(AbstractLang):
     published_date = models.DateTimeField(_("Дата публикации"), blank=True, null=True)
     published = models.BooleanField(_("Опубликовать?"), default=True)
     template = models.CharField(_("Шаблон"), max_length=500, default="pages/home.html")
-    slug = models.CharField(
-        _("URL"),
-        max_length=500,
-        default="",
-        help_text=_("Укажите url"),
-        blank=True,
-        null=True
-    )
     registration_required = models.BooleanField(
         _('Требуется регистрация'),
         help_text=_("Если флажок установлен, только зарегистрированные пользователи могут "
@@ -56,6 +48,7 @@ class Pages(AbstractLang):
     class Meta:
         verbose_name = _("Страница")
         verbose_name_plural = _("Страницы")
+        unique_together = ('lang', 'slug')
 
 
 class BlockPage(models.Model):

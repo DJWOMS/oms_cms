@@ -11,9 +11,9 @@ def get_posts(context, category, order, count):
     if category is not None:
         posts = Post.objects.filter(
             category__name__icontains=category,
-            lang__slug=get_language()).order_by(order)
+            lang=get_language()).order_by(order)
     else:
-        posts = Post.objects.filter(lang__slug=get_language()).order_by(order)
+        posts = Post.objects.filter(lang=get_language()).order_by(order)
     if count is not None:
         posts = posts[:count]
     return posts
@@ -21,7 +21,7 @@ def get_posts(context, category, order, count):
 
 def get_categories(context, order, count):
     """Получаю список категорий"""
-    categories = Category.objects.filter(published=True, lang__slug=get_language()).order_by(order)
+    categories = Category.objects.filter(published=True, lang=get_language()).order_by(order)
     if count is not None:
         categories = categories[:count]
     return categories

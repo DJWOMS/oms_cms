@@ -9,5 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         call_command('makemigrations', verbosity=3)
         call_command('migrate', verbosity=3)
-        call_command('addlang', settings.LANGUAGE_CODE, verbosity=3)
+        # call_command('addlang', settings.LANGUAGE_CODE, verbosity=3)
         self.stdout.write('Success deploy min oms-cms')
+

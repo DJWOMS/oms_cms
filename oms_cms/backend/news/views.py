@@ -15,8 +15,9 @@ class PostView(ListView):
     paginate_by = 5
 
     def get_posts(self):
+        print(get_language())
         return Post.objects.filter(
-                lang__slug__icontains=get_language(),
+                lang=get_language(),
                 category__published=True,
                 published=True,
                 published_date__lte=datetime.now())
@@ -47,7 +48,7 @@ class PostDetail(View):
     def get(self, request, **kwargs):
         new = get_object_or_404(
             Post,
-            lang__slug=get_language(),
+            lang=get_language(),
             slug=kwargs.get("post"),
             category__published=True,
             published=True,

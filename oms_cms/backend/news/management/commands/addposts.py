@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from oms_cms.backend.languages.models import Lang
 from oms_cms.backend.news.models import Post, Category, Tags
 
 
@@ -9,23 +8,23 @@ class Command(BaseCommand):
     help = 'Add post'
 
     def handle(self, *args, **options):
-        mini = """<p>OMS CMS написана на языке python3 и основана на framework django2. 
-        Что позволяет вам без проблем расширить ее функционал.</p>"""
-        text = """<p>OMS CMS написана на языке python3 и основана на framework django2. 
-                Что позволяет вам без проблем расширить ее функционал.</p>
-                <p>Данная cms позволяет сделать сайт за считанные минуту. Вы можете использовать базовый шаблон или 
-                скачать с официального сайта.</p>"""
-        category = Category.objects.create(name="Блог", slug="blog", lang=Lang.objects.get(slug=settings.LANGUAGE_CODE))
+        mini = """<p>OMS CMS is written in python3 and is based on the django2 framework.
+         That allows you to easily expand its functionality.</p>"""
+        text = """<p>OMS CMS is written in python3 and is based on the django2 framework.
+                 That allows you to easily expand its functionality.</p>
+                 <p>This cms allows you to make a website in minutes. You can use the basic template 
+                    or download from the official site.</p>"""
+        category = Category.objects.create(name="Blog", slug="blog", lang=settings.LANGUAGE_CODE)
         tag = Tags.objects.create(name="oms", slug="oms")
         i = 10
         while i > 0:
             post = Post.objects.create(
-                title="Новость-{}".format(i),
+                title="Article-{}".format(i),
                 mini_text=mini,
                 text=text,
                 slug="post-{}".format(i),
                 category=category,
-                lang=Lang.objects.get(slug=settings.LANGUAGE_CODE)
+                lang=settings.LANGUAGE_CODE
             )
             post.tag.add(tag)
             i -= 1
