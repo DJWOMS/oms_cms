@@ -15,17 +15,14 @@ class Contact(AbstractLang):
     name = models.CharField(_("Название"), max_length=100, default=_("Контакты"))
     description = models.TextField(_("Описание"), max_length=5000, blank=True, null=True)
     map = models.CharField(_("Карта"), max_length=10000, blank=True, null=True)
-    slug = models.SlugField(_("URL"), max_length=100, unique=True)
 
     class Meta:
         verbose_name = _("Контакт")
         verbose_name_plural = _("Контакты")
+        unique_together = ('lang', 'slug')
 
     def __str__(self):
         return "{}".format(self.name)
-
-    # def get_absolute_url(self):
-    #     return reverse('member', kwargs={'slug': self.slug})
 
     def get_contact_fields(self):
         return ContactFields.objects.filter(contact_id=self.id)

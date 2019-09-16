@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from oms_cms.backend.languages.models import Lang
 from oms_cms.backend.news.models import Post, Category, Tags
 
 
