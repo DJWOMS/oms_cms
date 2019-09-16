@@ -29,7 +29,7 @@ class Category(MPTTModel):
         related_name='children'
     )
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_list.html")
-    slug = models.SlugField(_("url"), unique=True, max_length=100, blank=True, null=True)
+    slug = models.SlugField(_("url"), max_length=100, blank=True, null=True)
     published = models.BooleanField(_("Отображать?"), default=True)
     paginated = models.PositiveIntegerField(_("Количество новостей на странице"), default=5)
 
@@ -40,6 +40,7 @@ class Category(MPTTModel):
     class Meta:
         verbose_name = _("Категория новостей")
         verbose_name_plural = _("Категории новостей")
+        unique_together = ('lang', 'slug')
 
     class MPTTMeta:
         order_insertion_by = ('sort',)
