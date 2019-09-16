@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from oms_cms.backend.languages.models import Lang
 from oms_cms.backend.pages.models import Pages
 
 
@@ -9,27 +8,27 @@ class Command(BaseCommand):
     help = 'Add page'
 
     def handle(self, *args, **options):
-        text_home = """<h3>Язык</h3>
-                <p>OMS написана на Python, самом быстрорастущем языке программирования.</p>
-                <h3>Сайты</h3>
-                <p>Сайты на OMS сразу готовы к работе после установки и легко расширяются.</p>
-                <h3>Безопасность</h3>
-                <p>OMS разработана на Django который включает безопасность.</p>"""
-        text_about = """<h1>Установите OMS CMS всего за 4 шага</h1>
+        text_home = """<h3>Language</h3>
+                 <p>OMS is written in Python, the fastest growing programming language.</p>
+                 <h3>Sites</h3>
+                 <p>OMS sites are immediately operational after installation and easily expandable.</p>
+                 <h3>Security</h3>
+                 <p>OMS is developed on Django which includes security.</p>"""
+        text_about = """<h1>Install OMS CMS in just 4 steps</h1>
                     <p>pip install oms-cms</p>
                     <p>oms-start</p>
                     <p>cd mysite</p>
                     <p>python manage.py runserver</p>"""
         Pages.objects.create(
-            title="Главная",
+            title="Home",
             text=text_home,
             slug=None,
-            lang=Lang.objects.get(slug=settings.LANGUAGE_CODE)
+            lang=settings.LANGUAGE_CODE
         )
         Pages.objects.create(
-            title="О нас",
+            title="About",
             text=text_about,
             slug='about',
-            lang=Lang.objects.get(slug=settings.LANGUAGE_CODE)
+            lang=settings.LANGUAGE_CODE
         )
-        self.stdout.write('Success page')
+        self.stdout.write('Success add page')

@@ -11,7 +11,7 @@ def get_menu_item(context, menu):
             menu__name=menu,
             menu__published=True,
             published=True,
-            lang__slug=context["request"].LANGUAGE_CODE
+            lang=context["request"].LANGUAGE_CODE
         )
 
 

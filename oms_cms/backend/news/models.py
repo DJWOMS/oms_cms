@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
@@ -7,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from oms_gallery.models import Photo
 
-from oms_cms.backend.languages.models import AbstractLang, Lang, get_sentinel_lang
+from oms_cms.backend.languages.models import AbstractLang #, Lang, get_sentinel_lang
 from oms_cms.backend.oms_seo.models import Seo
 
 
@@ -15,11 +16,12 @@ class Category(MPTTModel):
     """Класс модели категорий сетей"""
     name = models.CharField(_("Название"), max_length=50)
     description = models.TextField(_("Описание"), max_length=1000, default="", blank=True)
-    lang = models.ForeignKey(
-        Lang,
-        verbose_name=_("Язык"),
-        on_delete=models.SET(get_sentinel_lang),
-    )
+    # lang = models.ForeignKey(
+    #     Lang,
+    #     verbose_name=_("Язык"),
+    #     on_delete=models.SET(get_sentinel_lang),
+    # )
+    lang = models.CharField(_("Язык"), max_length=7, choices=settings.LANGUAGES, default='en')
     parent = TreeForeignKey(
         'self',
         verbose_name=_("Родительская категория"),

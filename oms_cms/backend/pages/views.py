@@ -17,11 +17,11 @@ def get_page(request, url):
     if url.startswith(language_prefix):
         url = url[len(language_prefix):]
     try:
-        page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
+        page = get_object_or_404(Pages, slug=url, lang=request.LANGUAGE_CODE, published=True)
     except Http404:
         if not url.endswith('/') and settings.APPEND_SLASH:
             url += '/'
-            page = get_object_or_404(Pages, slug=url, lang__slug=request.LANGUAGE_CODE, published=True)
+            page = get_object_or_404(Pages, slug=url, lang=request.LANGUAGE_CODE, published=True)
             return HttpResponsePermanentRedirect('%s/' % request.path)
         else:
             raise
