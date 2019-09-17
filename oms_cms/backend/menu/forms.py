@@ -8,6 +8,7 @@ class MenuItemAdminForm(forms.ModelForm):
     class Meta(object):
         model = MenuItem
         fields = ('__all__')
+        exclude = ("slug",)
         widgets = {
             'object_id': GfkLookupWidget(
                 content_type_field_name='content_type',
