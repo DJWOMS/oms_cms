@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django import forms
+from django.utils.translation import ugettext_lazy as _
+
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django.contrib.contenttypes.admin import GenericStackedInline
 
@@ -10,7 +12,7 @@ from oms_cms.backend.comments.models import OmsComment
 
 class CommentAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    comment = forms.CharField(label="Комментарий", widget=CKEditorUploadingWidget())
+    comment = forms.CharField(label=_("Комментарий"), widget=CKEditorUploadingWidget())
 
     class Meta:
         model = OmsComment
