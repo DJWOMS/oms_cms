@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
@@ -16,7 +15,6 @@ class Category(MPTTModel, AbstractLang):
     """Класс модели категорий сетей"""
     name = models.CharField(_("Название"), max_length=50)
     description = models.TextField(_("Описание"), max_length=1000, default="", blank=True)
-    # lang = models.CharField(_("Язык"), max_length=7, choices=settings.LANGUAGES, default='en')
     parent = TreeForeignKey(
         'self',
         verbose_name=_("Родительская категория"),
@@ -26,7 +24,6 @@ class Category(MPTTModel, AbstractLang):
         related_name='children'
     )
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_list.html")
-    # slug = models.SlugField(_("url"), max_length=100, blank=True, null=True)
     published = models.BooleanField(_("Отображать?"), default=True)
     paginated = models.PositiveIntegerField(_("Количество новостей на странице"), default=5)
 
@@ -105,7 +102,6 @@ class Post(AbstractLang):
         on_delete=models.CASCADE,
     )
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_detail.html")
-    # slug = models.SlugField(_("url"), max_length=500, unique=True)
 
     published = models.BooleanField(_("Опубликовать?"), default=True)
     viewed = models.IntegerField(_("Просмотрено"), default=0)

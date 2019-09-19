@@ -35,11 +35,11 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),
     path('comments/', include('django_comments.urls')),
     path('lang/', include('oms_cms.backend.languages.urls', namespace="languages")),
-    path('news/', include('oms_cms.backend.news.urls', namespace='news')),
     path('contact/', include('oms_cms.backend.contact.urls', namespace='contact')),
     path('search/', include('oms_cms.backend.search.urls', namespace='search')),
     # path('comments/', include('oms_cms.backend.comments.urls', namespace='news')),
-    path('', include('oms_cms.backend.pages.urls', namespace='pages')),
+    path('', include('oms_cms.backend.news.urls', namespace='news')),
+    # path('', include('oms_cms.backend.pages.urls', namespace='pages')),
     prefix_default_language=True
 )
 
