@@ -41,12 +41,12 @@ class Command(BaseCommand):
         )
         ContactSocNet.objects.create(
             contact_soc=contact_footer,
-            your_id="djangochannel",
+            your_id="groups/djangochannel/",
             link=SocialNetworks.objects.get(title="Facebook")
         )
         ContactSocNet.objects.create(
             contact_soc=contact_footer,
-            your_id="DJWOMS",
+            your_id="DJWOMS/oms_cms",
             link=SocialNetworks.objects.get(title="Github")
         )
         self.stdout.write('Success add contact')

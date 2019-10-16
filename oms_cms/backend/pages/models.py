@@ -1,8 +1,10 @@
+from django.contrib.sites.models import Site
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import get_script_prefix
 from django.utils.encoding import iri_to_uri
 from django.utils.translation import gettext_lazy as _
+from oms_gallery.models import Photo
 
 from oms_cms.backend.oms_seo.models import Seo
 
@@ -45,6 +47,12 @@ class Pages(AbstractLang):
     def get_absolute_url(self):
         return iri_to_uri(get_script_prefix().rstrip('/') + self.slug)
 
+    # def get_slug_url(self):
+    #     return f"{Site.objects.get_current()}/{self.slug}"
+    #
+    # get_slug_url.short_description = 'Site url'
+    # get_slug_url.allow_tags = True
+
     class Meta:
         verbose_name = _("Страница")
         verbose_name_plural = _("Страницы")
@@ -54,6 +62,7 @@ class Pages(AbstractLang):
 class BlockPage(models.Model):
     """Блок информации для старницы"""
     page = models.ForeignKey(Pages, on_delete=models.CASCADE)
+    image = models.ImageField(_("Изображение"), upload_to="block_page/", null=True, blank=True)
     name = models.CharField(_("Имя"), max_length=100, help_text=_("Для обращения в шаблоне"))
     title = models.CharField(_("Заголовок"), max_length=100, blank=True, null=True)
     sub_title = models.CharField(_("Под заголовок"), max_length=100, blank=True, null=True)

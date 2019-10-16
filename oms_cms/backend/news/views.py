@@ -15,7 +15,6 @@ class PostView(ListView):
     paginate_by = 5
 
     def get_posts(self):
-        print(get_language())
         return Post.objects.filter(
                 lang=get_language(),
                 category__published=True,

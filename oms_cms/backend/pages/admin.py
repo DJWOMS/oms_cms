@@ -44,6 +44,7 @@ class PagesAdmin(ActionPublish):
     actions = ['unpublish', 'publish']
     inlines = [SeoInlines, BlockPageAdmin]
     save_on_top = True
+    readonly_fields = ("get_slug_url",)
 
 
 
