@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-{% load i18n staticfiles seo_tags comments %}
+{% load i18n static seo_tags comments mptt_tags %}
 
 {% block seo %}
     {% seo post %}
@@ -10,7 +10,8 @@
         <div class="col-lg-12">
             <div class="feature-img">
                 {% if post.image %}
-                    <img class="img-fluid" src="{{ post.image.image.url }}" alt="{{ post.image.captions }}">
+                    <img class="img-fluid" src="{{ post.image.image.url }}"
+                         alt="{{ post.image.captions }}">
                 {% else %}
                     <img class="img-fluid" src="{% static 'img/blog/m-blog-1.jpg' %}" alt="">
                 {% endif %}
@@ -20,7 +21,8 @@
             <div class="blog_info text-right">
                 <div class="post_tag">
                     {% for tag in post.tag.all %}
-                        <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
+                        <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                        {% if not forloop.last %},{% endif %}
                     {% endfor %}
                 </div>
                 <ul class="blog_meta list">
@@ -32,7 +34,8 @@
                     <li><span>{{ post.viewed }} Просмотров<i class="lnr lnr-eye"></i></span></li>
                     <li>
                         <span>
-                            {{ post.comments_set.all.count }} Комментариев<i class="lnr lnr-bubble"></i>
+                            {{ post.comments_set.all.count }} Комментариев<i
+                                class="lnr lnr-bubble"></i>
                         </span>
                     </li>
                 </ul>
@@ -90,7 +93,8 @@
     <div class="comments-area">
         <h4>{% get_comment_count for post as comment_count %} {{ comment_count }} Коментарии</h4>
         {% get_comment_list for post as comment_list %}
-        {% for comment in comment_list %}
+        {#        {% for comment in comment_list %}#}
+        {% recursetree comment_list %}
             <div class="comment-list">
                 <div class="single-comment justify-content-between d-flex">
                     <div class="user justify-content-between d-flex">
@@ -98,19 +102,32 @@
                             <img src="img/blog/c1.jpg" alt="">
                         </div>
                         <div class="desc">
-                            <h5><a href="#">{{ comment.user_name }}</a></h5>
-                            <p class="date">{{ comment.submit_date|date:"d M Y f" }}</p>
+                            <h5><a href="#">{{ node.user_name }}</a></h5>
+                            <p class="date">{{ node.submit_date|date:"d M Y f" }}</p>
                             <p class="comment">
-                                {{ comment.comment }}
+                                {{ node.comment }}
                             </p>
+                            <p>perent - {{ node.parent.id }} ; id {{ node.id }}</p>
                         </div>
                     </div>
-                    <div class="reply-btn">
-{#                        <a href="" class="btn-reply text-uppercase">reply</a>#}
-                    </div>
+                    {% if user.is_active and node.level < 1 %}
+                        <div class="reply-btn">
+                            <a href="#form-comment"
+                               class="btn-reply text-uppercase"
+                               onclick="reply('{{ node.user_name }}', {{ node.id }})">
+                                reply
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
             </div>
-        {% endfor %}
+        {% endrecursetree %}
+        {#        {% endfor %}#}
         {#        <div class="comment-list left-padding">#}
         {#            <div class="single-comment justify-content-between d-flex">#}
         {#                <div class="user justify-content-between d-flex">#}
@@ -135,16 +152,19 @@
     <div class="comment-form">
         <h4>Оставить комментарий</h4>
         {% get_comment_form for post as form %}
-        <form action="{% comment_form_target %}" method="post">
+        <form action="{% url "comments:post-comment" %}" method="post" id="form-comment">
             {% csrf_token %}
-            {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+            {#            {% if next %}<input type="hidden" name="next" value="{{ request.path }}"/>{% endif %}#}
+            <input type="hidden" name="next" value="{{ request.path }}"/>
+            <input type="hidden" name="comment_parent" id="comment_parent" value=""/>
             <div class="form-group form-inline">
                 {% for field in form %}
                     {% if field.is_hidden %}
                         {{ field }}
                     {% else %}
 
-                        {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                        {% if field.errors %}<span class="error">{{ field.errors }}</span>
+                        {% endif %}
                         {% ifequal field.name "honeypot" %}
                             <span style="display:none;">{{ field }}</span>
                         {% endifequal %}
@@ -153,29 +173,34 @@
                         {% ifequal field.name "name" %}
                             <div class="form-group col-lg-6 col-md-6 name">
                                 <input class="form-control" id="id_name" name="name"
-                                        {% if user.is_authenticated %} type="hidden" {% else %} type="text" {% endif %}
+                                        {% if user.is_authenticated %} type="hidden" {% else %}
+                                       type="text" {% endif %}
                                        placeholder="Ваше имя" value="{{ user.username }}">
                             </div>
                         {% endifequal %}
                         {% ifequal field.name "email" %}
                             <div class="form-group col-lg-6 col-md-6 email">
                                 <input class="form-control" id="id_email" name="email"
-                                        {% if user.is_authenticated %} type="hidden" {% else %} type="email" {% endif %}
+                                        {% if user.is_authenticated %} type="hidden" {% else %}
+                                       type="email" {% endif %}
                                        value="{{ user.email }}" placeholder="Ваш email">
                             </div>
                         {% endifequal %}
 
                         {% ifequal field.name "comment" %}
                             <div class="form-group col-md-12">
-                            <br>
-                            <textarea class="form-control mb-12" rows="5" cols="15" name="comment"
-                                      required="true">Сообщение</textarea>
+                                <br>
+                                <textarea class="form-control mb-12" rows="5" cols="15"
+                                          name="comment"
+                                          id="comment-text"
+                                          required="true">Сообщение</textarea>
                             </div>
                         {% endifequal %}
                     {% endif %}
                 {% endfor %}
             </div>
-            <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">
+            <input type="submit" name="submit" value="Отправить сообщение"
+                   class="primary-btn submit_btn">
         </form>
         <hr>
         {#        <div class="form-group form-inline">#}
@@ -192,4 +217,11 @@
         {#        </div>#}
         {#        <input type="submit" name="submit" value="Отправить сообщение" class="primary-btn submit_btn">#}
     </div>
+    <script>
+        function reply(name, id) {
+            document.getElementById("comment_parent").value = id;
+            document.getElementById("comment-text").value = name + ", ";
+            document.getElementById("comment-text").focus();
+        }
+    </script>
 {% endblock posts %}

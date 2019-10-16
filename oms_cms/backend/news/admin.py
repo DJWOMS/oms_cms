@@ -41,6 +41,7 @@ class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     actions = ['unpublish', 'publish']
     inlines = (SeoInlines,)
     form = CategoryAdminForm
+    readonly_fields = ("get_slug_url",)
 
     def save_model(self, request, obj, form, change):
         messages.add_message(request, messages.INFO, 'Hello world.')
@@ -71,6 +72,5 @@ class PostAdmin(ActionPublish):
     save_as = True
     save_on_top = True
     autocomplete_fields = ["tag"]
-    readonly_fields = ('viewed',)
-
+    readonly_fields = ('viewed', "get_slug_url")
     inlines = (SeoInlines, CommentsInlines,)

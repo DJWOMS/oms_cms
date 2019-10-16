@@ -14,7 +14,6 @@ prune oms_cms/static/css
 prune oms_cms/static/js
 prune oms_cms/static/vendor
 prune oms_cms/static/img
-prune oms_cms/static/fonts
 prune oms_cms/static/rest_framework
 prune oms_cms/static/range_filter
 prune oms_cms/static/drf-yasg

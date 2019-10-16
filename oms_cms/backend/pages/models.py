@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import get_script_prefix
 from django.utils.encoding import iri_to_uri
 from django.utils.translation import gettext_lazy as _
+from oms_gallery.models import Photo
 
 from oms_cms.backend.oms_seo.models import Seo
 
@@ -61,6 +62,7 @@ class Pages(AbstractLang):
 class BlockPage(models.Model):
     """Блок информации для старницы"""
     page = models.ForeignKey(Pages, on_delete=models.CASCADE)
+    image = models.ImageField(_("Изображение"), upload_to="block_page/", null=True, blank=True)
     name = models.CharField(_("Имя"), max_length=100, help_text=_("Для обращения в шаблоне"))
     title = models.CharField(_("Заголовок"), max_length=100, blank=True, null=True)
     sub_title = models.CharField(_("Под заголовок"), max_length=100, blank=True, null=True)
