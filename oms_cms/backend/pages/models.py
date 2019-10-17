@@ -14,6 +14,7 @@ from oms_cms.backend.languages.models import AbstractLang
 class Pages(AbstractLang):
     """Страницы"""
     title = models.CharField(_("Заголовок"), max_length=500)
+    sub_title = models.CharField(_("Подзаголовок"), max_length=500, blank=True, null=True)
     text = models.TextField(_("Текст"), blank=True, null=True)
     edit_date = models.DateTimeField(
         _("Дата редактирования"),
