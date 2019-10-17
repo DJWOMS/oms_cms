@@ -41,7 +41,7 @@ get_block_page
 
 about - имя блока
 
-page - объекст страницы
+page - объект страницы
 
 get_list_block_page
 ~~~~~~~~~~~~~~~~~~~
@@ -61,4 +61,4 @@ get_list_block_page
 
 about - имя блока
 
-page - объекст страницы
+page - объект страницы
