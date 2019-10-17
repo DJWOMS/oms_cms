@@ -23,6 +23,42 @@
     :template: Шаблон
     :slug: url
 
+Template tags
+--------------
 
+get_block_page
+~~~~~~~~~~~~~~
+Вернет словарь с блоками страницы
 
+.. code-block:: python
 
+   {% load pages_tags %}
+   {% get_block_page page as blockpage %}
+
+   <h2>{{ blockpage.about.title }}</h2>
+   <h3>{{ blockpage.about.sub_title }}</h3>
+   <p>{{ blockpage.about.description|safe }}</p>
+
+about - имя блока
+
+page - объекст страницы
+
+get_list_block_page
+~~~~~~~~~~~~~~~~~~~
+Вывод списка блоков страниц
+
+.. code-block:: python
+
+   {% load pages_tags %}
+   {% get_list_block_page page as blockpage %}
+   {% for block in blockpage %}
+        <div>
+            <h2>{{ blockpage.about.title }}</h2>
+            <h3>{{ blockpage.about.sub_title }}</h3>
+            <p>{{ blockpage.about.description|safe }}</p>
+        </div>
+   {% endfor %}
+
+about - имя блока
+
+page - объекст страницы

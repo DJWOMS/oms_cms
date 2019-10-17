@@ -10,7 +10,7 @@ from .models import Pages, BlockPage
 
 class PagesAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    text = forms.CharField(label="Контент страницы", widget=CKEditorUploadingWidget())
+    text = forms.CharField(required=False, label="Контент страницы", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Pages
