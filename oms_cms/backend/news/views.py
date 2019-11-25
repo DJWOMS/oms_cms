@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from django.http import Http404
+from django.contrib.auth.models import User
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import get_language
@@ -44,19 +45,35 @@ class PostView(ListView):
 class PostDetail(View):
     """Вывод полной новости"""
 
-    def get(self, request, **kwargs):
-        new = get_object_or_404(
+    def get_post(self, request, **kwargs):
+        post = get_object_or_404(
             Post,
             lang=get_language(),
             slug=kwargs.get("post"),
             category__published=True,
             published=True,
-            published_date__lte=datetime.now())
-        if new.status and request.user.is_authenticated or not new.status:
-            new.viewed += 1
-            new.save()
-            return render(request, new.template, {"post": new})
+            published_date__lte=datetime.now()
+        )
+        return post
+
+    def get(self, request, **kwargs):
+        post = self.get_post(request, **kwargs)
+        if post.status and request.user.is_authenticated or not post.status:
+            post.viewed += 1
+            post.save()
+            return render(request, post.template, {"post": post})
         else:
             raise Http404
+
+    def post(self, request, **kwargs):
+        post = self.get_post(request, **kwargs)
+        if request.user in post.user_like.all():
+            post.user_like.remove(User.objects.get(id=request.user.id))
+            post.like -= 1
+        else:
+            post.user_like.add(User.objects.get(id=request.user.id))
+            post.like += 1
+        post.save()
+        return HttpResponse(status=201)
 
 

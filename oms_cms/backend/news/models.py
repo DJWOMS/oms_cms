@@ -108,6 +108,8 @@ class Post(AbstractLang):
     status = models.BooleanField(_("Для зарегистрированных"), default=False)
 
     sort = models.PositiveIntegerField(_('Порядок'), default=0)
+    like = models.PositiveIntegerField(_('Понравилось'), default=0)
+    user_like = models.ManyToManyField(User, verbose_name="Кто лайкнул", related_name="users_like")
 
     seo = GenericRelation(Seo)
 
