@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
@@ -63,6 +64,27 @@ class Tags(models.Model):
         return self.name
 
 
+class FilterPost(models.Model):
+    """Фильтры для статей"""
+    lang = models.CharField(_("Язык"), max_length=7, choices=settings.LANGUAGES, default='en')
+    title = models.CharField(
+        _("Название"), max_length=100, help_text=_("Имя которое отображается на сайте")
+    )
+    name = models.CharField(_("Имя"), max_length=100)
+    icon = models.FileField(_("Изображение"), upload_to="filters/", blank=True, null=True)
+    icon_ui = models.CharField(
+        _("Иконка"), max_length=50, help_text=_("Иконка из вашего UI"), blank=True, null=True
+    )
+    published = models.BooleanField(_("Отображать?"), default=True)
+
+    class Meta:
+        verbose_name = _("Фильтр")
+        verbose_name_plural = _("Фильтры")
+
+    def __str__(self):
+        return f"{self.title}"
+
+
 class Post(AbstractLang):
     """Класс модели поста"""
     author = models.ForeignKey(
@@ -101,6 +123,7 @@ class Post(AbstractLang):
         verbose_name=_("Категория"),
         on_delete=models.CASCADE,
     )
+    filters = models.ManyToManyField(FilterPost, verbose_name=_("Фильтр"), blank=True)
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_detail.html")
 
     published = models.BooleanField(_("Опубликовать?"), default=True)
@@ -109,7 +132,9 @@ class Post(AbstractLang):
 
     sort = models.PositiveIntegerField(_('Порядок'), default=0)
     like = models.PositiveIntegerField(_('Понравилось'), default=0)
-    user_like = models.ManyToManyField(User, verbose_name="Кто лайкнул", related_name="users_like")
+    user_like = models.ManyToManyField(
+        User, verbose_name="Кто лайкнул", related_name="users_like", blank=True
+    )
 
     seo = GenericRelation(Seo)
 
@@ -133,7 +158,10 @@ class Post(AbstractLang):
         return self.category.paginated
 
     def get_absolute_url(self):
-        return reverse('news:new-detail', kwargs={'category': self.category.slug, 'post': self.slug})
+        return reverse(
+            'news:new-detail', kwargs={'category': self.category.slug, 'post': self.slug}
+        )
 
     def __str__(self):
-        return "{}".format(self.title)
+        return f"{self.title}"
+

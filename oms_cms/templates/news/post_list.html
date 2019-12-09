@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-{% load staticfiles seo_tags %}
+{% load static seo_tags news_tags %}
 
 {% block seo %}
     {% seo post_list.first.category %}
@@ -7,6 +7,7 @@
 
 {% block posts %}
     <div class="blog_left_sidebar">
+    {% filters_list %}
         {% for post in post_list %}
             <article class="row blog_item">
                 <div class="col-md-3">
