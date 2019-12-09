@@ -20,26 +20,39 @@ class PostView(ListView):
                 lang=get_language(),
                 category__published=True,
                 published=True,
-                published_date__lte=datetime.now())
+                published_date__lte=datetime.now()
+        )
 
     def get_queryset(self):
+        query_set = self.get_posts()
+
         if self.kwargs.get('slug') is not None:
-            post_list = self.get_posts().filter(category__slug=self.kwargs.get('slug'))
+            post_list = query_set.filter(category__slug=self.kwargs.get('slug'))
             if post_list.exists():
                 self.paginate_by = post_list.first().get_category_paginated()
                 self.template_name = post_list.first().get_category_template()
             else:
                 raise Http404()
         elif self.kwargs.get('tag') is not None:
-            post_list = self.get_posts().filter(tag__slug=self.kwargs.get('tag'))
+            post_list = query_set.filter(tag__slug=self.kwargs.get('tag'))
         else:
-            post_list = self.get_posts()
+            post_list = query_set
+        if self.request.GET.getlist("filters"):
+            post_list = post_list.filter(filters__name__in=self.request.GET.getlist("filters"))
+            if not post_list.exists():
+                #return []
+                return query_set
         if post_list.exists():
-            if not self.request.user.is_authenticated:
+            if not self.request.user.is_authenticated and post_list.exists():
                 post_list = post_list.filter(status=False)
             return post_list
         else:
             raise Http404()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["filters_list"] = self.request.GET.getlist("filters")
+        return context
 
 
 class PostDetail(View):
