@@ -15,6 +15,7 @@ from oms_cms.backend.oms_seo.models import Seo
 class Category(MPTTModel, AbstractLang):
     """Класс модели категорий сетей"""
     name = models.CharField(_("Название"), max_length=50)
+    title = models.CharField(_("Заголовок"), max_length=350, default='', blank=True)
     description = models.TextField(_("Описание"), max_length=1000, default="", blank=True)
     parent = TreeForeignKey(
         'self',
