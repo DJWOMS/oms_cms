@@ -7,7 +7,7 @@
 
 {% block posts %}
     <div class="blog_left_sidebar">
-    {% filters_list %}
+    {% filters_list category=post_list.first.category.slug %}
         {% for post in post_list %}
             <article class="row blog_item">
                 <div class="col-md-3">
