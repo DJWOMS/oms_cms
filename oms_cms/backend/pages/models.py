@@ -63,7 +63,12 @@ class Pages(AbstractLang):
 class BlockPage(models.Model):
     """Блок информации для старницы"""
     page = models.ForeignKey(Pages, on_delete=models.CASCADE)
-    image = models.ImageField(_("Изображение"), upload_to="block_page/", null=True, blank=True)
+    image = models.ForeignKey(
+        Photo,
+        verbose_name=_("Изображение"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True)
     slider = models.ForeignKey(
         Gallery, verbose_name=_("Слайдер"), null=True, blank=True, on_delete=models.CASCADE
     )

@@ -63,7 +63,12 @@ def for_tags_list(context, order="name", count=None):
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
-def filters_list(context, template='base/tags/news/filters_list_tag.html'):
+def filters_list(context, category, template='base/tags/news/filters_list_tag.html'):
     """Вывод списка фильтров"""
     filters = FilterPost.objects.filter(published=True)
-    return {"filters_checked": context["filters_list"], 'template': template, "filters": filters}
+    return {
+        "filters_checked": context["filters_list"],
+        'template': template,
+        "filters": filters,
+        "category": category
+    }

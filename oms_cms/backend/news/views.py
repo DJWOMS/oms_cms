@@ -28,6 +28,8 @@ class PostView(ListView):
 
         if self.kwargs.get('slug') is not None:
             post_list = query_set.filter(category__slug=self.kwargs.get('slug'))
+            if self.request.GET.getlist("filters"):
+                post_list = post_list.filter(filters__name__in=self.request.GET.getlist("filters"))
             if post_list.exists():
                 self.paginate_by = post_list.first().get_category_paginated()
                 self.template_name = post_list.first().get_category_template()
@@ -37,13 +39,6 @@ class PostView(ListView):
             post_list = query_set.filter(tag__slug=self.kwargs.get('tag'))
         else:
             post_list = query_set
-        if self.request.GET.getlist("filters"):
-            post_list = post_list.filter(filters__name__in=self.request.GET.getlist("filters"))
-            self.paginate_by = post_list.first().get_category_paginated()
-            self.template_name = post_list.first().get_category_template()
-            if not post_list.exists():
-                #return []
-                return query_set
         if post_list.exists():
             if not self.request.user.is_authenticated and post_list.exists():
                 post_list = post_list.filter(status=False)
