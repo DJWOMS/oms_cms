@@ -8,16 +8,17 @@
         {% for filter in filters %}
             <label>
                 <input type="checkbox" name="filters" value="{{ filter.name }}"
-                    {% if filter.name  in filters_checked %}
-                        checked
-                       {% endif %}
+                        {% if filter.name  in filters_checked %}
+                       checked
+                        {% endif %}
                 >
-                    {% if filter.icon %}
-                            <img src="{{filter.icon.url}}">
-                    {% endif %}
+                {% if filter.icon %}
+                    <img src="{{ filter.icon.url }}">
+                {% endif %}
                 <p>{{ filter.title }}</p>
             </label>
         {% endfor %}
     </div>
-<button type="submit">Отправить</button>
+    <button type="submit">Отправить</button>
 </form>
+

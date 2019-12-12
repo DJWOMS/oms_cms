@@ -74,7 +74,7 @@ class FilterPostAdmin(ActionPublish):
     def get_image(self, obj):
         if obj.icon:
             return mark_safe(
-                f'<img src="{obj.icon.url}" width="{obj.icon.width}" height={obj.icon.height} />'
+                f'<img src="{obj.icon.url}" width="50" height=50 />'
             )
 
     get_image.short_description = _("Иконка")

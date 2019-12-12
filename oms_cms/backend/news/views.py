@@ -39,6 +39,8 @@ class PostView(ListView):
             post_list = query_set
         if self.request.GET.getlist("filters"):
             post_list = post_list.filter(filters__name__in=self.request.GET.getlist("filters"))
+            self.paginate_by = post_list.first().get_category_paginated()
+            self.template_name = post_list.first().get_category_template()
             if not post_list.exists():
                 #return []
                 return query_set
