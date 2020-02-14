@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from oms_cms.backend.news.models import Category, Post
+from oms_cms.backend.news.models import Category, Post, FilterPost
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -10,8 +10,20 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ("id", "name", "slug")
 
 
-class PostSerializer(serializers.ModelSerializer):
+class FilterPostSerializer(serializers.ModelSerializer):
+    """Сериализация тегов"""
+    class Meta:
+        model = FilterPost
+        fields = ("title", "name", "icon")
+
+
+class PostListSerializer(serializers.ModelSerializer):
     """Сериализация новостей"""
+    author = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    link = serializers.URLField(source="get_absolute_url", read_only=True)
+    filters = FilterPostSerializer(many=True)
+    #comments_count = serializers.IntegerField(source="get_count_comments", read_only=True)
+
     class Meta:
         model = Post
         fields = (
@@ -20,15 +32,13 @@ class PostSerializer(serializers.ModelSerializer):
             "title",
             "subtitle",
             "mini_text",
-            "created_date",
-            "edit_date",
             "published_date",
             "photo",
-            "tag",
-            "category",
             "slug",
             "viewed",
-            "background_color",
+            "filters",
+            "image"
+           # "comments_count"
         )
 
 

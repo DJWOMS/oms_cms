@@ -73,6 +73,9 @@ class FilterPost(models.Model):
     )
     name = models.CharField(_("Имя"), max_length=100)
     icon = models.FileField(_("Изображение"), upload_to="filters/", blank=True, null=True)
+    icon_inactive = models.FileField(
+        _("Изображение не активной иконки"), upload_to="filters/", blank=True, null=True
+    )
     icon_ui = models.CharField(
         _("Иконка"), max_length=50, help_text=_("Иконка из вашего UI"), blank=True, null=True
     )
@@ -148,6 +151,9 @@ class Post(AbstractLang):
     # def publish(self):
     #     self.published_date = timezone.now()
     #     self.save()
+
+    # def get_count_comments(self):
+    #     return f"{self.comments.all().count()}"
 
     def get_category_slug(self):
         return self.category.slug

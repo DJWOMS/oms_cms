@@ -17,7 +17,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('i18n/', include('django.conf.urls.i18n')),
     # API
-    #path('api/v1/', include('oms_cms.backend.api.v1.urls')),
+    # path('api/v1/', include('oms_cms.backend.api.v1.urls')),
 ]
 
 urlpatterns += [

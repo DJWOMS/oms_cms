@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.models import User
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import get_language
@@ -80,10 +80,12 @@ class PostDetail(View):
         if request.user in post.user_like.all():
             post.user_like.remove(User.objects.get(id=request.user.id))
             post.like -= 1
+            result = False
         else:
             post.user_like.add(User.objects.get(id=request.user.id))
             post.like += 1
+            result = True
         post.save()
-        return HttpResponse(status=201)
+        return JsonResponse({"result": result}, status=201)
 
 

@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 
 from oms_cms.backend.news.models import Category, Post
-from .serializers import CategorySerializer, PostSerializer, PostDetailSerializer
+from .serializers import CategorySerializer, PostListSerializer, PostDetailSerializer
 
 
 class CategoryList(generics.ListAPIView):
@@ -14,7 +14,7 @@ class CategoryList(generics.ListAPIView):
 class PostList(generics.ListAPIView):
     """Список новостей из категории"""
     permission_classes = [permissions.AllowAny]
-    serializer_class = PostSerializer
+    serializer_class = PostListSerializer
 
     def get_queryset(self):
         return Post.objects.filter(category__slug=self.request.get("category_slug"))

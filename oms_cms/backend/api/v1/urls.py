@@ -18,15 +18,15 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('news/', include('oms_cms.backend.api.v1.news.urls')),
-    path('contact/', include('oms_cms.backend.api.v1.contact.urls')),
-    path('gallery/', include('oms_cms.backend.api.v1.photologue.urls')),
-    path('video/', include('oms_cms.backend.api.v1.video.urls')),
-    path('info-block/', include('oms_cms.backend.api.v1.info_block.urls')),
-    path('partners/', include('oms_cms.backend.api.v1.partners.urls')),
+    # path('contact/', include('oms_cms.backend.api.v1.contact.urls')),
+    # path('gallery/', include('oms_cms.backend.api.v1.photologue.urls')),
+    # path('video/', include('oms_cms.backend.api.v1.video.urls')),
+    # path('info-block/', include('oms_cms.backend.api.v1.info_block.urls')),
+    # path('partners/', include('oms_cms.backend.api.v1.partners.urls')),
 
-    re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0),
-            name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0),
-         name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0),
+    #         name='schema-json'),
+    # path('swagger/', schema_view.with_ui('swagger', cache_timeout=0),
+    #      name='schema-swagger-ui'),
+    # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
