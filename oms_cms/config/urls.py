@@ -17,7 +17,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('i18n/', include('django.conf.urls.i18n')),
     # API
-    #path('api/v1/', include('oms_cms.backend.api.v1.urls')),
+    # path('api/v1/', include('oms_cms.backend.api.v1.urls')),
+    path('api/v2/', include('oms_cms.backend.api.v2.urls')),
 ]
 
 urlpatterns += [
@@ -27,9 +28,10 @@ urlpatterns += [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     import debug_toolbar
+
     urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+                      path('__debug__/', include(debug_toolbar.urls)),
+                  ] + urlpatterns
 
 urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),
@@ -45,5 +47,3 @@ urlpatterns += i18n_patterns(
 
 admin.site.site_title = "OMS CMS"
 admin.site.site_header = "OMS CMS"
-
-
