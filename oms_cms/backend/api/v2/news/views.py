@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-
+from rest_framework import filters as filters_rf
 from django_filters import rest_framework as filters
 
 from oms_cms.backend.news.models import Category, Post, Tags
@@ -12,8 +12,12 @@ class TagsListApi(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Tags.objects.all()
     serializer_class = TagsSerializer
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [filters.DjangoFilterBackend,
+                       filters_rf.SearchFilter,
+                       filters_rf.OrderingFilter]
     filter_fields = ('id', 'name', 'slug', 'published')
+    search_fields = ['id', 'name', 'slug']
+    ordering = ['id']
 
 
 class TagRetrieveWithId(generics.RetrieveAPIView):
@@ -58,10 +62,14 @@ class CategoryListApi(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [filters.DjangoFilterBackend,
+                       filters_rf.SearchFilter,
+                       filters_rf.OrderingFilter]
     filter_fields = ('id', 'lang', 'slug', 'name', 'title', 'description',
                      'template', 'published', 'paginated', 'sort',
                      'lft', 'rght', 'tree_id', 'level', 'parent')
+    search_fields = ['id', 'name', 'title', 'slug']
+    ordering = ['id']
 
 
 class CategoryRetrieveWithId(generics.RetrieveAPIView):
@@ -104,12 +112,16 @@ class PostList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [filters.DjangoFilterBackend,
+                       filters_rf.SearchFilter,
+                       filters_rf.OrderingFilter]
     filter_fields = ('id', 'lang', 'slug', 'title', 'subtitle', 'mini_text',
                      'text', 'created_date', 'edit_date', 'published_date',
                      'template', 'published', 'viewed', 'status', 'sort',
                      'like', 'author', 'image', 'category', 'tag', 'filters',
                      'user_like')
+    search_fields = ['id', 'title', 'slug']
+    ordering = ['id']
 
 
 class PostRetrieveWithId(generics.RetrieveAPIView):
