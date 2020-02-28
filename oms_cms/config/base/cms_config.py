@@ -9,7 +9,8 @@ CMS_APP = [
     # 'allauth.socialaccount.providers.vk',
 
     # API
-    # 'rest_framework',
+    'rest_framework',
+    'django_filters',
     # 'corsheaders',
     # DOC
     #'drf_yasg',
