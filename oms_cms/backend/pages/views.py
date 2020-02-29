@@ -12,16 +12,21 @@ def get_page(request, url):
     if not url.startswith('/'):
         url = '/' + url
 
-    language_prefix = '/%s' % request.LANGUAGE_CODE
+    if not request.LANGUAGE_CODE:
+        language_code = settings.LANGUAGE_CODE
+    else:
+        language_code = request.LANGUAGE_CODE
+
+    language_prefix = '/%s' % language_code
 
     if url.startswith(language_prefix):
         url = url[len(language_prefix):]
     try:
-        page = get_object_or_404(Pages, slug=url, lang=request.LANGUAGE_CODE, published=True)
+        page = get_object_or_404(Pages, slug=url, lang=language_code, published=True)
     except Http404:
         if not url.endswith('/') and settings.APPEND_SLASH:
             url += '/'
-            page = get_object_or_404(Pages, slug=url, lang=request.LANGUAGE_CODE, published=True)
+            page = get_object_or_404(Pages, slug=url, lang=request.language_code, published=True)
             return HttpResponsePermanentRedirect('%s/' % request.path)
         else:
             raise

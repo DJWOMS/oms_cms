@@ -31,6 +31,7 @@ class MenuItem(MPTTModel, AbstractLang):
     """Элементы меню"""
     title = models.CharField(_("Название пункта меню на сайте"), max_length=255)
     name = models.CharField(_("Название латиницей"), max_length=255)
+    icon = models.FileField(_("Иконка"), upload_to="menu/", null=True, blank=True)
     parent = TreeForeignKey(
         'self',
         verbose_name=_("Родительский пункт"),

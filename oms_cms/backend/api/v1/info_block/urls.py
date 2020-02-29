@@ -1,6 +1,6 @@
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('', views.InfoBlockList.as_view()),
-]
+# from django.urls import path
+# from . import views
+#
+# urlpatterns = [
+#     path('', views.InfoBlockList.as_view()),
+# ]
