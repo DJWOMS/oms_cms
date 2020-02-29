@@ -162,7 +162,7 @@ class PostDeleteUpdateWithSlug(generics.RetrieveAPIView,
 
 class PostCreate(generics.CreateAPIView,
                  generics.GenericAPIView):
-    '''Создание новости'''
+    """Создание новости"""
     permission_classes = [permissions.DjangoModelPermissions]
     serializer_class = PostDeleteUpdateCreateSerializer
     queryset = Post.objects.none()  # Required for DjangoModelPermissions
