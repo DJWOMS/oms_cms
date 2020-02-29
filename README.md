@@ -10,8 +10,8 @@ OMS CMS
 
 [Documentation](https://oms-cms.readthedocs.io/ru/latest/)
 
-* Python => 3.6
-* Django => 2
+* Python = 3.7, 3.8
+* Django = 2.2, 3
 
 OMS CMS is designed for a wide range of developers.
 
@@ -67,8 +67,8 @@ __________________________________________________________
 
 [Документация](https://oms-cms.readthedocs.io/ru/latest/)
  
-* Python => 3.6
-* Django => 2
+* Python = 3.7, 3.8
+* Django = 2.2, 3
 
 OMS CMS создана для широкого круга разработчиков. 
 
