@@ -126,6 +126,7 @@ class Post(AbstractLang):
         Category,
         verbose_name=_("Категория"),
         on_delete=models.CASCADE,
+        related_name='category_posts'
     )
     filters = models.ManyToManyField(FilterPost, verbose_name=_("Фильтр"), blank=True)
     template = models.CharField(_("Шаблон"), max_length=500, default="news/post_detail.html")
