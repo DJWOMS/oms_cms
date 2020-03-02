@@ -62,7 +62,7 @@ class Pages(AbstractLang):
 
 class BlockPage(models.Model):
     """Блок информации для старницы"""
-    page = models.ForeignKey(Pages, on_delete=models.CASCADE)
+    page = models.ForeignKey(Pages, on_delete=models.CASCADE, related_name='page_blocks')
     image = models.ForeignKey(
         Photo,
         verbose_name=_("Изображение"),
