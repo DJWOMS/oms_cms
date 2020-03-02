@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from oms_cms.backend.news.models import Category, Post, Tags, FilterPost
+from oms_cms.backend.news.models import Category, Post, Tags
 
 
 class UserSerilizer(serializers.ModelSerializer):
-    '''Сериализация пользователя'''
+    """Сериализация пользователя"""
     class Meta:
         model = User
         fields = ('id', 'username')
@@ -13,21 +13,21 @@ class UserSerilizer(serializers.ModelSerializer):
 # Post ############################
 
 class TagsInPostSerializer(serializers.ModelSerializer):
-    '''Сериализация тегов (для отображения в новости)'''
+    """Сериализация тегов (для отображения в новости)"""
     class Meta:
         model = Tags
         fields = ('id', 'name')
 
 
 class CategoryInPostSerializer(serializers.ModelSerializer):
-    '''Сериализация категории (для отображения в новости)'''
+    """Сериализация категории (для отображения в новости)"""
     class Meta:
         model = Category
         fields = ('id', 'name')
 
 
 class PostSerializerRetrieve(serializers.ModelSerializer):
-    '''Сериализация отдельной новости'''
+    """Сериализация отдельной новости"""
     author = UserSerilizer(read_only=True)
     tag = TagsInPostSerializer(many=True, read_only=True)
     category = CategoryInPostSerializer()
@@ -38,14 +38,14 @@ class PostSerializerRetrieve(serializers.ModelSerializer):
 
 
 class PostListSerializer(serializers.ModelSerializer):
-    '''Сериализация всех новостей'''
+    """Сериализация всех новостей"""
     author = UserSerilizer()
     class Meta:
         model = Post
         fields = '__all__'
 
 class PostDeleteUpdateCreateSerializer(serializers.ModelSerializer):
-    '''Сериализация для удаления/изменения/создания новостей'''
+    """Сериализация для удаления/изменения/создания новостей"""
     class Meta:
         model = Post
         fields = '__all__'
@@ -54,14 +54,14 @@ class PostDeleteUpdateCreateSerializer(serializers.ModelSerializer):
 # Category ############################
 
 class CategoryPostsSerializer(serializers.HyperlinkedModelSerializer):
-    '''Сериализация новостей (для отображения в категории)'''
+    """Сериализация новостей (для отображения в категории)"""
     class Meta:
         model = Post
         fields = ('id', 'title', 'published')
 
 
 class CategorySerializerRetrieve(serializers.ModelSerializer):
-    '''Сериализация отдельной категории'''
+    """Сериализация отдельной категории"""
     category_posts = CategoryPostsSerializer(many=True, read_only=True)
     class Meta:
         model = Category
@@ -80,7 +80,7 @@ class CategorySerializer(serializers.ModelSerializer):
 # Tags ############################
 
 class TagsSerializer(serializers.ModelSerializer):
-    '''Сериализация тегов'''
+    """Сериализация тегов"""
     class Meta:
         model = Tags
         fields = ('__all__')
