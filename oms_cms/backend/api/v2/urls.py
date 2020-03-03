@@ -19,6 +19,7 @@ from django.urls import path,  include
 urlpatterns = [
     path('news/', include('oms_cms.backend.api.v2.news.urls')),
     path('pages/', include('oms_cms.backend.api.v2.pages.urls')),
+    path('menu/', include('oms_cms.backend.api.v2.menu.urls')),
 
 
     # re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0),

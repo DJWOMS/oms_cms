@@ -40,7 +40,7 @@ class MenuItem(MPTTModel, AbstractLang):
         blank=True,
         related_name='children'
     )
-    menu = models.ForeignKey('Menu', verbose_name=_("Меню"), on_delete=models.CASCADE)
+    menu = models.ForeignKey('Menu', verbose_name=_("Меню"), on_delete=models.CASCADE, related_name='menu_items')
     status = models.BooleanField(_("Только для зарегистрированных"), default=False)
 
     url = models.CharField(_("url на внешний ресурс"), max_length=255, null=True, blank=True)

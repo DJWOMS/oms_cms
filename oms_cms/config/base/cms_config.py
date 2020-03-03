@@ -11,6 +11,7 @@ CMS_APP = [
     # API
     'rest_framework',
     'django_filters',
+    # 'generic_relations',
     # 'corsheaders',
     # DOC
     #'drf_yasg',
