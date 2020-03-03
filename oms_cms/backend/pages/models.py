@@ -68,7 +68,7 @@ class BlockPage(models.Model):
     )
     video_link = models.CharField(_("Ссылка на видео"), max_length=1000, blank=True, null=True)
     video_up = models.FileField(_("Видео"), upload_to="block_page/video/", null=True, blank=True)
-    background_color = models.CharField(_("Цвет фона"), max_length=7, blank=True, null=True)
+    background_color = models.CharField(_("Цвет фона"), max_length=30, blank=True, null=True)
     name = models.CharField(_("Имя"), max_length=100, help_text=_("Для обращения в шаблоне"))
     title = models.CharField(_("Заголовок"), max_length=100, blank=True, null=True)
     sub_title = models.CharField(_("Под заголовок"), max_length=100, blank=True, null=True)
