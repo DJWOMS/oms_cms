@@ -20,6 +20,8 @@ urlpatterns = [
     path('news/', include('oms_cms.backend.api.v2.news.urls')),
     path('pages/', include('oms_cms.backend.api.v2.pages.urls')),
     path('menu/', include('oms_cms.backend.api.v2.menu.urls')),
+    path('video/', include('oms_cms.backend.api.v2.video.urls')),
+    path('search/', include('oms_cms.backend.api.v2.search.urls')),
 
 
     # re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0),
