@@ -9,6 +9,7 @@ urlpatterns = [
     path('menu-create/', views.MenuCreate.as_view(), name='menu_create_api'),
     path('menuitem-list', views.MenuItemListApi.as_view(), name='menuitem_list_api'),
     path('menuitem/<int:id>/', views.MenuItemRetrieveWithId.as_view(), name='menuitem_api'),
-    path('menuitem-delete-update/<int:id>/', views.MenuItemDeleteUpdateWithId.as_view(), name='menuitem_delete_update_api'),
+    path('menuitem-delete-update/<int:id>/', views.MenuItemDeleteUpdateWithId.as_view(),
+         name='menuitem_delete_update_api'),
     path('menuitem-create/', views.MenuItemCreate.as_view(), name='menuitem_create_api'),
 ]
