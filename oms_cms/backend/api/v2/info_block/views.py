@@ -14,7 +14,7 @@ class InfoBlockListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'lang', 'slug', 'title', 'slider')
+    filter_fields = ('id', 'lang', 'slider')
     search_fields = ['slug', 'title', 'sub_title', 'description']
     ordering = ['id']
 

@@ -14,8 +14,7 @@ class SpySearchListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('counter', 'record')
-    search_fields = ['counter', 'record']
+    search_fields = ['record']
     ordering = ['-counter']
 
 

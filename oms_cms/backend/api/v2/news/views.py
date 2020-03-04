@@ -15,8 +15,8 @@ class TagsListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'name', 'slug', 'published')
-    search_fields = ['id', 'name', 'slug']
+    filter_fields = ('id', 'published')
+    search_fields = ['name', 'slug']
     ordering = ['id']
 
 
@@ -51,9 +51,7 @@ class CategoryListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'lang', 'slug', 'name', 'title', 'description',
-                     'template', 'published', 'paginated', 'sort',
-                     'lft', 'rght', 'tree_id', 'level', 'parent')
+    filter_fields = ('id', 'lang', 'published', 'tree_id', 'level', 'parent')
     search_fields = ['id', 'name', 'title', 'slug']
     ordering = ['id']
 
@@ -89,10 +87,8 @@ class PostList(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'lang', 'slug', 'title', 'subtitle', 'mini_text',
-                     'text', 'created_date', 'edit_date', 'published_date',
-                     'template', 'published', 'viewed', 'status', 'sort',
-                     'like', 'author', 'image', 'category', 'tag', 'filters',
+    filter_fields = ('id', 'lang', 'created_date', 'edit_date', 'published_date', 'published', 'viewed', 'status',
+                     'author', 'image', 'category', 'tag', 'filters',
                      'user_like')
     search_fields = ['id', 'title', 'slug']
     ordering = ['id']

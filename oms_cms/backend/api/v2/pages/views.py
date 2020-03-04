@@ -14,7 +14,7 @@ class PagesListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'title', 'slug', 'published')
+    filter_fields = ('id', 'published')
     search_fields = ['id', 'title', 'slug']
     ordering = ['id']
 
@@ -50,7 +50,7 @@ class BlockPageListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id',)
+    filter_fields = ('id', 'page_id')
     search_fields = ['id', 'title']
     ordering = ['id']
 

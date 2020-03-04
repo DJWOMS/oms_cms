@@ -14,12 +14,9 @@ class OmsCommentListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'object_pk', 'user', 'user_name', 'user_email',
-                     'user_url', 'comment', 'submit_date', 'ip_address', 'is_public',
-                     'is_removed', 'update', 'published', 'lft', 'rght', 'tree_id',
-                     'level', 'content_type', 'site', 'parent', 'children')
-    search_fields = ['user', 'user_name', 'user_email', 'comment', 'is_public',
-                     'is_removed']
+    filter_fields = ('id', 'user', 'is_public', 'is_removed', 'published', 'tree_id',
+                     'level', 'site', 'parent', 'children')
+    search_fields = ['user_name', 'user_email', 'comment']
     ordering = ['id']
 
 

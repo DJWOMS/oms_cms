@@ -14,8 +14,8 @@ class MenuListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'name', 'status', 'published')
-    search_fields = ['id', 'name']
+    filter_fields = ('id', 'status', 'published')
+    search_fields = ['name']
     ordering = ['id']
 
 
@@ -50,8 +50,8 @@ class MenuItemListApi(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'title', 'name', 'status', 'published', 'parent')
-    search_fields = ['id', 'title', 'name', 'parent']
+    filter_fields = ('id', 'status', 'published', 'parent')
+    search_fields = ['title', 'name']
     ordering = ['id']
 
 
