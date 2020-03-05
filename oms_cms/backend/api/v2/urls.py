@@ -28,6 +28,7 @@ urlpatterns = [
     path('social-networks/', include('oms_cms.backend.api.v2.social_networks.urls')),
     path('utils/', include('oms_cms.backend.api.v2.utils.urls')),
     path('oms-seo/', include('oms_cms.backend.api.v2.oms_seo.urls')),
+    path('contact/', include('oms_cms.backend.api.v2.contact.urls')),
     # path('languages/', include('oms_cms.backend.api.v2.languages.urls')),
 
 
