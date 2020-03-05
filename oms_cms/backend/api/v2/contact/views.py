@@ -139,26 +139,3 @@ class FeedbackCreateApi(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Feedback.objects.none()
     serializer_class = FeedbackSerializer
-
-
-# class InfoBlockRetrieveApi(generics.RetrieveAPIView):
-#     """Просмотр InfoBlock (доступ по ID)"""
-#     permission_classes = [permissions.AllowAny]
-#     queryset = InfoBlock.objects.all()
-#     lookup_field = 'id'
-#     serializer_class = InfoBlockRetrieveSerializer
-#
-#
-# class InfoBlockDeleteUpdateWithId(generics.RetrieveUpdateDestroyAPIView):
-#     """Удаление и изменение InfoBlock (доступ по ID)"""
-#     permission_classes = [permissions.DjangoModelPermissions]
-#     queryset = InfoBlock.objects.all()
-#     lookup_field = 'id'
-#     serializer_class = InfoBlockSerializer
-#
-#
-# class InfoBlockCreate(generics.CreateAPIView):
-#     """Создание InfoBlock"""
-#     permission_classes = [permissions.DjangoModelPermissions]
-#     serializer_class = InfoBlockSerializer
-#     queryset = InfoBlock.objects.none()  # Required for DjangoModelPermissions
