@@ -7,7 +7,7 @@ class ContentTypeSerializer(serializers.ModelSerializer):
     """Сериализация content_type"""
     class Meta:
         model = ContentType
-        fields = ('app_label', 'model', 'objects')
+        fields = ('id', 'app_label', 'model', 'objects')
 
 
 class MenuItemChildSerializer(serializers.ModelSerializer):
