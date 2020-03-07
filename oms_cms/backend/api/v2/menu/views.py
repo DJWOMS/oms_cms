@@ -3,77 +3,80 @@ from rest_framework import filters as filters_rf
 from django_filters import rest_framework as filters
 
 from oms_cms.backend.menu.models import Menu, MenuItem
-from .serializers import MenuItemSerializer, MenuListSerializer, MenuRetrieveSerializer, MenuDeleteUpdateCreateSerializer, MenuItemInMenuRetrieveSerializer
+from .serializers import MenuSerializer, MenuRetrieveSerializer, MenuItemSerializer, MenuItemExtendedSerializer, \
+MenuItemDeleteUpdateCreateSerializer
 
 
 class MenuListApi(generics.ListAPIView):
     """Список всех меню"""
     permission_classes = [permissions.AllowAny]
     queryset = Menu.objects.all()
-    serializer_class = MenuListSerializer
+    serializer_class = MenuSerializer
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
     filter_fields = ('id', 'status', 'published')
-    search_fields = ['name']
+    search_fields = ('name', 'id')
     ordering = ['id']
 
 
-class MenuRetrieveWithId(generics.RetrieveAPIView):
-    """Просмотр информации об отдельном меню (доступ по ID)"""
+class MenuRetrieveApi(generics.RetrieveAPIView):
+    """Отдельное меню"""
     permission_classes = [permissions.AllowAny]
     queryset = Menu.objects.all()
-    lookup_field = 'id'
     serializer_class = MenuRetrieveSerializer
+    lookup_field = 'id'
 
 
-class MenuDeleteUpdateWithId(generics.RetrieveUpdateDestroyAPIView):
-    """Удаление и изменение меню (доступ по ID)"""
+class MenuDeleteUpdateApi(generics.RetrieveUpdateDestroyAPIView):
+    """Изменение и удаление меню"""
     permission_classes = [permissions.DjangoModelPermissions]
     queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
     lookup_field = 'id'
-    serializer_class = MenuDeleteUpdateCreateSerializer
 
 
-class MenuCreate(generics.CreateAPIView):
+class MenuCreateApi(generics.CreateAPIView):
     """Создание меню"""
     permission_classes = [permissions.DjangoModelPermissions]
-    serializer_class = MenuDeleteUpdateCreateSerializer
-    queryset = Menu.objects.none()  # Required for DjangoModelPermissions
+    queryset = Menu.objects.none()
+    serializer_class = MenuSerializer
 
 
 class MenuItemListApi(generics.ListAPIView):
-    """Список всех элементов меню"""
+    """Список элементов меню"""
     permission_classes = [permissions.AllowAny]
     queryset = MenuItem.objects.all()
-    serializer_class = MenuItemInMenuRetrieveSerializer
+    serializer_class = MenuItemSerializer
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'status', 'published', 'parent')
-    search_fields = ['title', 'name']
+    filter_fields = ('id', 'parent', 'menu', 'status', 'content_type', 'published')
+    search_fields = ('name', 'id', 'title', 'anchor')
     ordering = ['id']
 
 
-class MenuItemRetrieveWithId(generics.RetrieveAPIView):
-    """Просмотр информации об отдельном элементе меню (доступ по ID)"""
+class MenuItemRetrieveApi(generics.RetrieveAPIView):
+    """Элемент меню"""
     permission_classes = [permissions.AllowAny]
     queryset = MenuItem.objects.all()
+    serializer_class = MenuItemExtendedSerializer
     lookup_field = 'id'
-    serializer_class = MenuItemInMenuRetrieveSerializer
 
 
-class MenuItemDeleteUpdateWithId(generics.RetrieveUpdateDestroyAPIView):
-    """Удаление и изменение элемента меню (доступ по ID)"""
+class MenuItemDeleteUpdateApi(generics.RetrieveUpdateDestroyAPIView):
+    """Изменение и удаление элементов меню"""
     permission_classes = [permissions.DjangoModelPermissions]
     queryset = MenuItem.objects.all()
+    serializer_class = MenuItemDeleteUpdateCreateSerializer
     lookup_field = 'id'
-    serializer_class = MenuItemSerializer
 
 
-
-class MenuItemCreate(generics.CreateAPIView):
+class MenuItemCreateApi(generics.CreateAPIView):
     """Создание элемента меню"""
     permission_classes = [permissions.DjangoModelPermissions]
-    serializer_class = MenuItemSerializer
-    queryset = MenuItem.objects.none()  # Required for DjangoModelPermissions
+    queryset = MenuItem.objects.none()
+    serializer_class = MenuItemDeleteUpdateCreateSerializer
+
+
+

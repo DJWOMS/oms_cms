@@ -31,7 +31,6 @@ urlpatterns = [
     path('contact/', include('oms_cms.backend.api.v2.contact.urls')),
     path('account/', include('oms_cms.backend.api.v2.account.urls')),
     path('socialaccount/', include('oms_cms.backend.api.v2.socialaccount.urls')),
-    # path('languages/', include('oms_cms.backend.api.v2.languages.urls')),
 
 
     # re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0),
