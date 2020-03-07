@@ -8,160 +8,110 @@ from .serializers import TagsSerializer, CategorySerializer, PostSerializerRetri
 
 
 class TagsListApi(generics.ListAPIView):
-    '''Список всех тегов'''
+    """Список всех тегов"""
     permission_classes = [permissions.AllowAny]
     queryset = Tags.objects.all()
     serializer_class = TagsSerializer
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'name', 'slug', 'published')
-    search_fields = ['id', 'name', 'slug']
+    filter_fields = ('id', 'published')
+    search_fields = ['name', 'slug']
     ordering = ['id']
 
 
 class TagRetrieveWithId(generics.RetrieveAPIView):
-    '''Просмотр информации об отдельном теге (доступ через ID)'''
+    """Просмотр информации об отдельном теге (доступ по ID)"""
     permission_classes = [permissions.AllowAny]
     queryset = Tags.objects.all()
     serializer_class = TagsSerializer
     lookup_field = 'id'
 
 
-class TagRetrieveWithSlug(generics.RetrieveAPIView):
-    '''Просмотр информации об отдельном теге (доступ через slug)'''
-    permission_classes = [permissions.AllowAny]
-    queryset = Tags.objects.all()
-    serializer_class = TagsSerializer
-    lookup_field = 'slug'
-
-
-class TagsDeleteUpdateWithId(generics.RetrieveAPIView,
-                             generics.UpdateAPIView,
-                             generics.DestroyAPIView):
-    '''Удаление и изменение тега (доступ через ID)'''
+class TagsDeleteUpdateWithId(generics.RetrieveUpdateDestroyAPIView):
+    """Удаление и изменение тега (доступ по ID)"""
     permission_classes = [permissions.DjangoModelPermissions]
     queryset = Tags.objects.all()
     lookup_field = 'id'
     serializer_class = TagsSerializer
 
 
-class TagsCreate(generics.CreateAPIView,
-                 generics.GenericAPIView):
-    '''Создание тега'''
+class TagsCreate(generics.CreateAPIView):
+    """Создание тега"""
     permission_classes = [permissions.DjangoModelPermissions]
     serializer_class = TagsSerializer
     queryset = Tags.objects.none()  # Required for DjangoModelPermissions
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
 
 class CategoryListApi(generics.ListAPIView):
-    '''Список всех категорий'''
+    """Список всех категорий"""
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'lang', 'slug', 'name', 'title', 'description',
-                     'template', 'published', 'paginated', 'sort',
-                     'lft', 'rght', 'tree_id', 'level', 'parent')
+    filter_fields = ('id', 'lang', 'published', 'tree_id', 'level', 'parent')
     search_fields = ['id', 'name', 'title', 'slug']
     ordering = ['id']
 
 
 class CategoryRetrieveWithId(generics.RetrieveAPIView):
-    '''Просмотр информации об отдельной категории (доступ через ID)'''
+    """Просмотр информации об отдельной категории (доступ по ID)"""
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects.all()
     lookup_field = 'id'
     serializer_class = CategorySerializerRetrieve
 
 
-
-class CategoryRetrieveWithSlug(generics.RetrieveAPIView):
-    '''Просмотр информации об отдельной категории (доступ через slug)'''
-    permission_classes = [permissions.AllowAny]
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializerRetrieve
-    lookup_field = 'slug'
-
-
-class CategoryDeleteUpdateWithId(generics.RetrieveAPIView,
-                                 generics.UpdateAPIView,
-                                 generics.DestroyAPIView):
-    '''Удаление и изменение категории (доступ через ID)'''
+class CategoryDeleteUpdateWithId(generics.RetrieveUpdateDestroyAPIView):
+    """Удаление и изменение категории (доступ по ID)"""
     permission_classes = [permissions.DjangoModelPermissions]
     queryset = Category.objects.all()
     lookup_field = 'id'
     serializer_class = CategorySerializer
 
 
-class CategoryCreate(generics.CreateAPIView,
-                     generics.GenericAPIView):
-    '''Создание категории'''
+class CategoryCreate(generics.CreateAPIView):
+    """Создание категории"""
     permission_classes = [permissions.DjangoModelPermissions]
     serializer_class = CategorySerializer
     queryset = Category.objects.none()  # Required for DjangoModelPermissions
 
 
 class PostList(generics.ListAPIView):
-    '''Список всех новостей'''
+    """Список всех новостей"""
     permission_classes = [permissions.AllowAny]
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
     filter_backends = [filters.DjangoFilterBackend,
                        filters_rf.SearchFilter,
                        filters_rf.OrderingFilter]
-    filter_fields = ('id', 'lang', 'slug', 'title', 'subtitle', 'mini_text',
-                     'text', 'created_date', 'edit_date', 'published_date',
-                     'template', 'published', 'viewed', 'status', 'sort',
-                     'like', 'author', 'image', 'category', 'tag', 'filters',
+    filter_fields = ('id', 'lang', 'created_date', 'edit_date', 'published_date', 'published', 'viewed', 'status',
+                     'author', 'image', 'category', 'tag', 'filters',
                      'user_like')
     search_fields = ['id', 'title', 'slug']
     ordering = ['id']
 
 
 class PostRetrieveWithId(generics.RetrieveAPIView):
-    '''Просмотр информации об отдельной новости (доступ через ID)'''
+    """Просмотр информации об отдельной новости (доступ по ID)"""
     permission_classes = [permissions.AllowAny]
     queryset = Post.objects.all()
     serializer_class = PostSerializerRetrieve
     lookup_field = 'id'
 
 
-class PostRetrieveWithSlug(generics.RetrieveAPIView):
-    '''Просмотр информации об отдельной новости (доступ через slug)'''
-    permission_classes = [permissions.AllowAny]
-    queryset = Post.objects.all()
-    serializer_class = PostSerializerRetrieve
-    lookup_field = 'slug'
-
-
-class PostDeleteUpdateWithId(generics.RetrieveAPIView,
-                             generics.UpdateAPIView,
-                             generics.DestroyAPIView):
-    '''Удаление и изменение новости (доступ через ID)'''
+class PostDeleteUpdateWithId(generics.RetrieveUpdateDestroyAPIView):
+    """Удаление и изменение новости (доступ по ID)"""
     permission_classes = [permissions.DjangoModelPermissions]
     queryset = Post.objects.all()
     lookup_field = 'id'
     serializer_class = PostDeleteUpdateCreateSerializer
 
 
-class PostDeleteUpdateWithSlug(generics.RetrieveAPIView,
-                               generics.UpdateAPIView,
-                               generics.DestroyAPIView):
-    '''Удаление и изменение новости (доступ через slug)'''
-    permission_classes = [permissions.DjangoModelPermissions]
-    queryset = Post.objects.all()
-    lookup_field = 'slug'
-    serializer_class = PostDeleteUpdateCreateSerializer
 
-
-class PostCreate(generics.CreateAPIView,
-                 generics.GenericAPIView):
+class PostCreate(generics.CreateAPIView):
     """Создание новости"""
     permission_classes = [permissions.DjangoModelPermissions]
     serializer_class = PostDeleteUpdateCreateSerializer
