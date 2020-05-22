@@ -33,7 +33,7 @@ CMS_APP = [
     'ckeditor',
     'ckeditor_uploader',
 
-    'debug_toolbar',
+    # 'debug_toolbar',
 
     # plugins
     'oms_gallery',
