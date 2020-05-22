@@ -2,18 +2,13 @@
 import os
 import sys
 
-try:
-    from pip._internal.req import parse_requirements
-except ImportError:
-    from pip.req import parse_requirements
-
 from setuptools import find_packages, setup
 
 CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.9.9.1"
+VERSION = "0.9.10.5"
 RELEASE = VERSION
 
 
@@ -21,9 +16,8 @@ def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname), encoding='utf-8') as f:
         return f.read()
 
-
-install_reqs = parse_requirements('req.txt', session='hack')
-reqs = [str(ir.req) for ir in install_reqs]
+with open('req.txt') as f:
+    reqs = f.read().splitlines()
 
 setup(
     name='oms-cms',

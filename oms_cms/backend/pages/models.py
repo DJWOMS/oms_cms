@@ -48,12 +48,6 @@ class Pages(AbstractLang):
     def get_absolute_url(self):
         return iri_to_uri(get_script_prefix().rstrip('/') + self.slug)
 
-    # def get_slug_url(self):
-    #     return f"{Site.objects.get_current()}/{self.slug}"
-    #
-    # get_slug_url.short_description = 'Site url'
-    # get_slug_url.allow_tags = True
-
     class Meta:
         verbose_name = _("Страница")
         verbose_name_plural = _("Страницы")
@@ -62,7 +56,7 @@ class Pages(AbstractLang):
 
 class BlockPage(models.Model):
     """Блок информации для старницы"""
-    page = models.ForeignKey(Pages, on_delete=models.CASCADE)
+    page = models.ForeignKey(Pages, on_delete=models.CASCADE, related_name='page_blocks')
     image = models.ForeignKey(
         Photo,
         verbose_name=_("Изображение"),
@@ -74,6 +68,7 @@ class BlockPage(models.Model):
     )
     video_link = models.CharField(_("Ссылка на видео"), max_length=1000, blank=True, null=True)
     video_up = models.FileField(_("Видео"), upload_to="block_page/video/", null=True, blank=True)
+    background_color = models.CharField(_("Цвет фона"), max_length=30, blank=True, null=True)
     name = models.CharField(_("Имя"), max_length=100, help_text=_("Для обращения в шаблоне"))
     title = models.CharField(_("Заголовок"), max_length=100, blank=True, null=True)
     sub_title = models.CharField(_("Под заголовок"), max_length=100, blank=True, null=True)

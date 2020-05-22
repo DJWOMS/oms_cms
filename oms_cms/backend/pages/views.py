@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponsePermanentRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import get_language
 
 from .models import Pages
 
@@ -15,7 +16,7 @@ def get_page(request, url):
     if not request.LANGUAGE_CODE:
         language_code = settings.LANGUAGE_CODE
     else:
-        language_code = request.LANGUAGE_CODE
+        language_code = get_language()
 
     language_prefix = '/%s' % language_code
 
@@ -26,7 +27,7 @@ def get_page(request, url):
     except Http404:
         if not url.endswith('/') and settings.APPEND_SLASH:
             url += '/'
-            page = get_object_or_404(Pages, slug=url, lang=request.language_code, published=True)
+            page = get_object_or_404(Pages, slug=url, lang=get_language(), published=True)
             return HttpResponsePermanentRedirect('%s/' % request.path)
         else:
             raise
