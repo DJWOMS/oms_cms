@@ -10,60 +10,65 @@ class ContentTypeSerializer(serializers.ModelSerializer):
         fields = ('id', 'app_label', 'model', 'objects')
 
 
-class MenuItemChildSerializer(serializers.ModelSerializer):
-    """Сериализация дочернего элемента меню"""
-    class Meta:
-        model = MenuItem
-        fields = ('id', 'menu', 'title', 'name')
-
-
-class MenuItemInMenuListSerializer(serializers.ModelSerializer):
-    """Сериализация элементов меню в списке меню"""
-    children = MenuItemChildSerializer(many=True, read_only=True)
-    parent = MenuItemChildSerializer(read_only=True)
-    content_type = ContentTypeSerializer(read_only=True)
-    class Meta:
-        model = MenuItem
-        fields = ('id', 'title', 'name', 'icon', 'status', 'url', 'anchor', 'content_type',
-                  'object_id', 'sort', 'published', 'parent', 'children')
-
-
-class MenuListSerializer(serializers.ModelSerializer):
-    """Сериализация всех меню"""
-    menu_items = MenuItemInMenuListSerializer(many=True)
+class MenuSerializer(serializers.ModelSerializer):
+    """Сериализация меню"""
     class Meta:
         model = Menu
         fields = ('id', 'name', 'status', 'published', 'menu_items')
 
 
-class MenuItemInMenuRetrieveSerializer(serializers.ModelSerializer):
-    """Сериализация элементов меню в отдельном меню"""
-    children = MenuItemInMenuListSerializer(many=True, read_only=True)
-    parent = MenuItemChildSerializer(read_only=True)
-    content_type = ContentTypeSerializer(read_only=True)
+class MenuItemShortSerializer(serializers.ModelSerializer):
+    """Сериализация элементов меню"""
     class Meta:
         model = MenuItem
-        fields = ('id', 'title', 'name', 'icon', 'status', 'url', 'anchor', 'content_type',
-                  'object_id', 'sort', 'published', 'parent', 'children')
+        fields = ('id', 'title', 'content_type', 'children')
 
 
 class MenuRetrieveSerializer(serializers.ModelSerializer):
     """Сериализация меню"""
-    menu_items = MenuItemInMenuRetrieveSerializer(many=True)
-    class Meta:
-        model = Menu
-        fields = ('id', 'name', 'status', 'published', 'menu_items')
-
-
-class MenuDeleteUpdateCreateSerializer(serializers.ModelSerializer):
-    """Сериализация меню"""
+    menu_items = MenuItemShortSerializer(many=True)
     class Meta:
         model = Menu
         fields = '__all__'
+
+
+class MenuItemChildShortSerializer(serializers.ModelSerializer):
+    """Сериализация дочернего элемента меню"""
+    class Meta:
+        model = MenuItem
+        fields = ('id',)
 
 
 class MenuItemSerializer(serializers.ModelSerializer):
-    """Сериализация пункта меню"""
+    """Сериализация элементов меню"""
+    children = MenuItemChildShortSerializer(many=True)
+    content_type = ContentTypeSerializer()
     class Meta:
         model = MenuItem
         fields = '__all__'
+
+
+class MenuItemChildExtendedSerializer(serializers.ModelSerializer):
+    """Сериализация дочернего элемента меню"""
+    content_type = ContentTypeSerializer()
+    children = MenuItemChildShortSerializer(many=True)
+    class Meta:
+        model = MenuItem
+        fields = ('id', 'title', 'name', 'children', 'status', 'content_type', 'object_id', 'published')
+
+
+class MenuItemExtendedSerializer(serializers.ModelSerializer):
+    """Сериализация элементов меню"""
+    content_type = ContentTypeSerializer()
+    children = MenuItemChildExtendedSerializer(many=True)
+    class Meta:
+        model = MenuItem
+        fields = '__all__'
+
+
+class MenuItemDeleteUpdateCreateSerializer(serializers.ModelSerializer):
+    """Сериализация элементов меню"""
+    class Meta:
+        model = MenuItem
+        fields = '__all__'
+
