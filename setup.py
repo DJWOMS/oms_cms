@@ -8,13 +8,14 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
 BUILD = 0
-VERSION = "0.9.10.5"
+VERSION = "0.9.14"
 RELEASE = VERSION
 
 
 def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname), encoding='utf-8') as f:
         return f.read()
+
 
 with open('req.txt') as f:
     reqs = f.read().splitlines()

@@ -27,7 +27,7 @@ def get_page(request, url):
     except Http404:
         if not url.endswith('/') and settings.APPEND_SLASH:
             url += '/'
-            page = get_object_or_404(Pages, slug=url, lang=get_language(), published=True)
+            page = get_object_or_404(Pages, slug=url, lang=language_code, published=True)
             return HttpResponsePermanentRedirect('%s/' % request.path)
         else:
             raise
