@@ -28,7 +28,7 @@ CMS_APP = [
     'oms_cms.backend.info_block',
     'oms_cms.backend.partners',
     'oms_cms.backend.oms_seo',
-
+    'oms_cms.backend.opengraph',
     # Editor
     'ckeditor',
     'ckeditor_uploader',

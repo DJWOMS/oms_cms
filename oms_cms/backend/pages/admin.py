@@ -4,8 +4,10 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from oms_cms.backend.oms_seo.admin import SeoInlines
 from oms_cms.backend.utils.admin import ActionPublish
+from oms_cms.backend.opengraph.admin import OpenGraphInlines
 
 from .models import Pages, BlockPage
+
 
 
 class PagesAdminForm(forms.ModelForm):
@@ -42,7 +44,7 @@ class PagesAdmin(ActionPublish):
     prepopulated_fields = {"slug": ("title", )}
     form = PagesAdminForm
     actions = ['unpublish', 'publish']
-    inlines = [SeoInlines, BlockPageAdmin]
+    inlines = [SeoInlines, OpenGraphInlines, BlockPageAdmin]
     save_on_top = True
     readonly_fields = ("get_slug_url",)
 

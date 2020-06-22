@@ -10,6 +10,7 @@ from oms_gallery.models import Photo
 
 from oms_cms.backend.languages.models import AbstractLang
 from oms_cms.backend.oms_seo.models import Seo
+from oms_cms.backend.opengraph.models import OpenGraph
 
 
 class Category(MPTTModel, AbstractLang):
@@ -32,6 +33,7 @@ class Category(MPTTModel, AbstractLang):
     sort = models.PositiveIntegerField(_('Порядок'), default=0)
 
     seo = GenericRelation(Seo)
+    opengraph = GenericRelation(OpenGraph)
 
     class Meta:
         verbose_name = _("Категория новостей")
@@ -142,6 +144,7 @@ class Post(AbstractLang):
     )
 
     seo = GenericRelation(Seo)
+    opengraph = GenericRelation(OpenGraph)
 
     class Meta:
         verbose_name = _("Новость")

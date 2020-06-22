@@ -1,9 +1,13 @@
 {% extends 'news/base.html' %}
-{% load static i18n seo_tags news_tags pages_tags %}
+{% load static i18n seo_tags news_tags pages_tags opengraph_tags %}
 
 {% block seo %}
     {% seo page %}
 {% endblock seo %}
+
+{% block opengraph %}
+    {% open_graph page %}
+{% endblock opengraph %}
 
 {% block header %}
     <header class="masthead">

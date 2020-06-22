@@ -1,0 +1,32 @@
+<meta property="og:url" content="
+    {% if object.url_page %}{{ object.url_page }}
+    {% else %} {{ r_object.get_absolute_url }} {% endif %}"/>
+
+<meta property="og:type" content="article"/>
+
+<meta property="og:title" content="
+    {% if object.title_page %}{{ object.title_page }}
+    {% else %} {{ r_object.title }} {% endif %}"/>
+
+<meta property="og:description" content="
+    {% if object.description_page %}{{ object.description_page }}
+    {% else %} {{ r_object.text|truncatechars:250 }} {% endif %}"/>
+
+<meta property="og:image" content="
+    {% if object.image_page %}{{ object.image_page.url }}
+    {% else %} {% if r_object.image %}{{ r_object.image.url }}{% endif %} {% endif %}"/>
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:title" content="
+    {% if object.title_page %}{{ object.title_page }}
+    {% else %} {{ r_object.title }} {% endif %}">
+
+<meta name="twitter:description" content="
+    {% if object.description_page %}{{ object.description_page }}
+    {% else %} {{ r_object.text|truncatechars:250 }} {% endif %}">
+
+<meta name="twitter:image" content="
+    {% if object.image_page %}{{ object.image_page.url }}
+    {% else %} {% if r_object.image %}{{ r_object.image.url }}{% endif %} {% endif %}"/>
