@@ -7,6 +7,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from oms_cms.backend.oms_seo.admin import SeoInlines
 from oms_cms.backend.comments.admin import CommentsInlines
+from oms_cms.backend.opengraph.admin import OpenGraphInlines
 from oms_cms.backend.utils.admin import ActionPublish
 
 from .models import Post, Category, Tags, FilterPost
@@ -42,7 +43,7 @@ class CategoryAdmin(MPTTModelAdmin, ActionPublish):
     prepopulated_fields = {"slug": ("name",)}
     mptt_level_indent = 20
     actions = ['unpublish', 'publish']
-    inlines = (SeoInlines,)
+    inlines = (SeoInlines, OpenGraphInlines)
     form = CategoryAdminForm
     readonly_fields = ("get_slug_url",)
 
@@ -97,4 +98,4 @@ class PostAdmin(ActionPublish):
     save_on_top = True
     autocomplete_fields = ["tag"]
     readonly_fields = ('viewed', "get_slug_url")
-    inlines = (SeoInlines, CommentsInlines,)
+    inlines = (SeoInlines, OpenGraphInlines, CommentsInlines,)

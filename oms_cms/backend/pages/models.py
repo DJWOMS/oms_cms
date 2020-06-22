@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from oms_gallery.models import Photo, Gallery
 
 from oms_cms.backend.oms_seo.models import Seo
+from oms_cms.backend.opengraph.models import OpenGraph
 
 from oms_cms.backend.languages.models import AbstractLang
 
@@ -32,6 +33,7 @@ class Pages(AbstractLang):
         default=False,
     )
     seo = GenericRelation(Seo)
+    opengraph = GenericRelation(OpenGraph)
 
     def __str__(self):
         return self.title
@@ -44,7 +46,7 @@ class Pages(AbstractLang):
         if not self.slug.endswith("/"):
             self.slug += "/"
         super().save(*args, **kwargs)
-        
+
     def get_absolute_url(self):
         return iri_to_uri(get_script_prefix().rstrip('/') + self.slug)
 
