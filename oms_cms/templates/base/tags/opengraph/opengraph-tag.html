@@ -14,7 +14,7 @@
 
 <meta property="og:image" content="
     {% if object.image_page %}{{ object.image_page.url }}
-    {% else %} {% if r_object.image %}{{ r_object.image.url }}{% endif %} {% endif %}"/>
+    {% else %} {% if r_object.image %}{{ r_object.image.image.url}}{% endif %} {% endif %}"/>
 
 
 <meta name="twitter:card" content="summary">
@@ -29,4 +29,4 @@
 
 <meta name="twitter:image" content="
     {% if object.image_page %}{{ object.image_page.url }}
-    {% else %} {% if r_object.image %}{{ r_object.image.url }}{% endif %} {% endif %}"/>
+    {% else %} {% if r_object.image %}{{ r_object.image.image.url }}{% endif %} {% endif %}"/>
