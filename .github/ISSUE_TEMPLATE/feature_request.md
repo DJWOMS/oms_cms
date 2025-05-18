@@ -1,20 +1,20 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+about: Предложить идею для проекта
+title: '[FEATURE] '
+labels: enhancement
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**Ваше предложение связано с проблемой? Пожалуйста, опишите.**
+Четкое и краткое описание проблемы. Например: Я всегда расстроен, когда [...]
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Опишите решение, которое вы хотели бы**
+Четкое и краткое описание того, что вы хотите, чтобы произошло.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Опишите альтернативы, которые вы рассматривали**
+Четкое и краткое описание любых альтернативных решений или функций, которые вы рассматривали.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Дополнительный контекст**
+Добавьте сюда любой другой контекст или скриншоты о предложении функции.

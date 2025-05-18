@@ -1,3 +1,33 @@
+include LICENSE
+include README.md
+include requirements/base.txt
+include requirements/dev.txt
+include requirements/prod.txt
+include pyproject.toml
+include pytest.ini
+include mypy.ini
+
+recursive-include oms_cms/templates *
+recursive-include oms_cms/static *
+recursive-include oms_cms/locale *
+
+global-exclude *.py[cod]
+global-exclude __pycache__
+global-exclude *.so
+global-exclude .DS_Store
+global-exclude .git
+global-exclude .gitignore
+global-exclude .env
+global-exclude .env.*
+global-exclude *.log
+global-exclude .coverage
+global-exclude htmlcov
+global-exclude .pytest_cache
+global-exclude .mypy_cache
+global-exclude .tox
+global-exclude .idea
+global-exclude .vscode
+
 global-include *.py *.js *.rst *.html *.css *.lyx *.pdf *.png *.gif *.jpg *.txt *.bat *.html *tpl *
 recursive-include oms_cms/*
 global-exclude *.pyc .gitignore

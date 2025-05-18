@@ -1,121 +1,207 @@
-OMS CMS
-=======
+# OMS CMS
+
 [![Build Status](https://travis-ci.org/DJWOMS/oms_cms.svg?branch=master)](https://travis-ci.org/DJWOMS/oms_cms)
 [![Coverage Status](https://coveralls.io/repos/github/DJWOMS/oms_cms/badge.svg?branch=master)](https://coveralls.io/github/DJWOMS/oms_cms?branch=master)
 [![License](https://img.shields.io/pypi/l/oms-cms)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/) 
-[![Slack](https://img.shields.io/badge/Slack-chat-green)](https://join.slack.com/t/oms-cms/) 
+[![Version](https://img.shields.io/pypi/v/oms-cms)](https://pypi.org/project/oms-cms/)
+[![Python](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/django-3.0%2B-green)](https://www.djangoproject.com/)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen)](https://oms-cms.readthedocs.io/ru/latest/)
 
-[Website](https://oms-cms.site/en/)
+Высокоуровневая open-source CMS на Python/Django для быстрого старта и масштабируемых сайтов.
 
-[Documentation](https://oms-cms.readthedocs.io/ru/latest/)
+## Основные возможности
 
-* Python = 3.7, 3.8
-* Django = 2.2, 3
+- 🚀 Быстрый старт и легкая масштабируемость
+- 🔌 Простая интеграция с другими Django-приложениями
+- 🌐 Мультиязычность из коробки
+- 📱 Адаптивный дизайн
+- 🔍 Встроенный поиск
+- 📊 SEO-оптимизация
+- 🔐 Безопасность и производительность
 
-OMS CMS is designed for a wide range of developers.
+## Модули
 
-The system is open source, written using the Django framework in the Python programming language.
+- 📄 Страницы
+- 📰 Новости (категории, статьи, теги)
+- 💬 Комментарии
+- 📞 Контакты
+- ℹ️ Инфоблоки
+- 🌍 Языки и мультиязычность
+- 📑 Меню
+- 🔍 SEO
+- 🤝 Партнеры
+- 🔎 Поиск
+- 🔗 Социальные сети
+- 📱 OpenGraph
 
-This CMS was designed by developers for a quick start and easy scalability.
-OMS allows you to easily integrate with other django applications and use them immediately,
-Or create new compatible applications!
+## Требования
 
-This cms allows you to make a website in minutes.
-You can use the basic template or download from the official site.
+- Python 3.7+
+- Django 3.0+
+- PostgreSQL/SQLite/MySQL/Oracle
+- Node.js 14+ (для frontend)
 
-Modules
--------
-* Pages
-* News
-   * Categories
-   * Articles
-   * Tags
-* Comments
-* Contacts
-* Info block
-* Languages, multilingualism
-* Menu
-* SEO
-* Partners
-* Search
-* Links to social networks
-* OpenGraph
+## Установка
 
-Installation:
--------------
+1. Создайте виртуальное окружение:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# или
+.\venv\Scripts\activate  # Windows
+```
 
-Create virtual environment ::
+2. Установите CMS:
+```bash
+pip install oms-cms
+```
 
-    python -m venv venv
-    
-Activate virtual environment
+3. Создайте проект:
+```bash
+oms-start
+```
 
-Install CMS ::
+## Быстрый старт с Docker
 
-    pip install oms-cms
-    
-Create Project ::
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/DJWOMS/oms_cms.git
+cd oms_cms
+```
 
-    oms-start
-    
-   
-[Development](https://github.com/DJWOMS/oms_cms/wiki/Development)
+2. Запустите с Docker Compose:
+```bash
+docker-compose up -d
+```
 
-__________________________________________________________
+## Структура проекта
 
-[Сайт](https://oms-cms.site)
+```
+.
+├── oms_cms/           # Исходный код CMS
+│   ├── backend/       # Модули (pages, news, comments, ...)
+│   ├── config/        # Настройки (settings.py, local_settings.py)
+│   ├── scripts/       # CLI-утилиты
+│   ├── static/        # Статика
+│   └── templates/     # Шаблоны
+├── manage.py          # Django entrypoint
+├── requirements/      # Зависимости
+│   ├── base.txt      # Основные зависимости
+│   ├── dev.txt       # Зависимости для разработки
+│   └── prod.txt      # Зависимости для продакшена
+├── setup.py          # Установка как пакета
+└── docs/             # Документация
+```
 
-[Документация](https://oms-cms.readthedocs.io/ru/latest/)
- 
-* Python = 3.7, 3.8
-* Django = 2.2, 3
+## Переменные окружения
 
-OMS CMS создана для широкого круга разработчиков. 
+Создайте файл `.env` на основе `.env.example`:
 
-Система имеет открытый исходный код, написана с использованием фреймворка Django на языке программирования Python. 
+```bash
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=postgres://user:password@localhost:5432/omsCMS
+```
 
-Данная CMS была задумана разработчиками для быстрого старта и легкой масштабируемости. 
-OMS позволяет без трудностей интегрироваться с другими приложениями django и сразу же использовать их, 
-либо создавать новые совместимые приложения!
+## Запуск
 
-Данная cms позволяет сделать сайт за считанные минуту. 
-Вы можете использовать базовый шаблон или скачать с официального сайта.
+1. Примените миграции:
+```bash
+python manage.py migrate
+```
 
-Модули
-------
-* Страницы
-* Новости
-   * Категории
-   * Статьи
-   * Теги
-* Комментарии
-* Контакты
-* Инфо блк
-* Языки \ мультиязычность
-* Меню
-* SEO
-* Партнеры
-* Поиск
-* Ссылки на социальные сети
-* OpenGraph
+2. Создайте суперпользователя:
+```bash
+python manage.py createsuperuser
+```
 
-Установка:
-----------
+3. Запустите сервер:
+```bash
+python manage.py runserver
+```
 
-Создать виртуальное окружение ::
+## Тестирование
 
-    python -m venv venv
-    
-Активировать виртуальное окружение
+```bash
+# Запуск тестов
+python manage.py test
 
-Установить CMS ::
+# Запуск тестов с покрытием
+coverage run manage.py test
+coverage report
+```
 
-    pip install oms-cms
-    
-Создать проект ::
-    
-    oms-start
+## Документация
 
+- [Руководство пользователя](https://oms-cms.readthedocs.io/ru/latest/)
+- [API документация](https://oms-cms.readthedocs.io/ru/latest/api.html)
+- [Руководство разработчика](https://oms-cms.readthedocs.io/ru/latest/dev.html)
 
-[Разработка](https://github.com/DJWOMS/oms_cms/wiki/Development)
+## Внесение вклада
+
+Мы приветствуем вклад в развитие проекта! Пожалуйста, ознакомьтесь с [CONTRIBUTING.md](CONTRIBUTING.md) для получения дополнительной информации.
+
+## Лицензия
+
+Проект распространяется под лицензией BSD. Подробности в файле [LICENSE](LICENSE).
+
+## Поддержка
+
+- [Документация](https://oms-cms.readthedocs.io/ru/latest/)
+- [Issues](https://github.com/DJWOMS/oms_cms/issues)
+- [Slack](https://join.slack.com/t/oms-cms/)
+
+## Сборка пакета
+
+### Локальная сборка
+
+1. Установите инструменты сборки:
+```bash
+pip install build twine
+```
+
+2. Соберите пакет:
+```bash
+python -m build
+```
+
+3. Проверьте собранный пакет:
+```bash
+twine check dist/*
+```
+
+4. Установите пакет локально:
+```bash
+pip install dist/oms_cms-0.11.0.tar.gz
+```
+
+### Публикация в PyPI
+
+1. Создайте аккаунт на [PyPI](https://pypi.org)
+
+2. Создайте файл `~/.pypirc`:
+```ini
+[pypi]
+username = your_username
+password = your_password
+```
+
+3. Загрузите пакет:
+```bash
+twine upload dist/*
+```
+
+### Разработка
+
+Для разработки установите пакет в режиме разработки:
+```bash
+pip install -e .
+```
+
+Или с дополнительными зависимостями:
+```bash
+pip install -e ".[dev]"  # для разработки
+pip install -e ".[prod]"  # для продакшена
+```

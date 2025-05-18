@@ -1,0 +1,24 @@
+-r base.txt
+
+# Testing
+pytest==6.2.5
+pytest-django==4.4.0
+pytest-cov==2.12.1
+factory-boy==3.2.1
+faker==8.12.1
+
+# Code quality
+black==21.5b2
+flake8==3.9.2
+isort==5.9.2
+mypy==0.910
+pre-commit==2.15.0
+
+# Documentation
+sphinx==4.0.2
+sphinx-rtd-theme==0.5.2
+
+# Development tools
+ipython==7.24.1
+django-debug-toolbar==3.2.2
+django-extensions==3.1.3 

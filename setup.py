@@ -1,50 +1,53 @@
-# coding=utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 import sys
-
 from setuptools import find_packages, setup
 
 CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 
-BUILD = 0
-VERSION = "0.11"
+VERSION = "0.11.0"
 RELEASE = VERSION
-
 
 def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname), encoding='utf-8') as f:
         return f.read()
 
-
-with open('req.txt') as f:
-    reqs = f.read().splitlines()
+def get_requirements(filename):
+    with open(filename) as f:
+        return f.read().splitlines()
 
 setup(
     name='oms-cms',
     version=VERSION,
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
-    url='https://github.com/DJWOMS/oms_cms',
+    description='Высокоуровневая open-source CMS на Python/Django',
+    long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     author='DJWOMS - Omelchenko Michael',
     author_email='socanime@gmail.com',
-    description=('A high-level Python Web CMS'),
-    long_description=read('README.md'),
-    license='BSD',
-    packages=['oms_cms'],
+    url='https://github.com/DJWOMS/oms_cms',
+    packages=find_packages(exclude=['tests*']),
     include_package_data=True,
-    install_requires=reqs,
-    entry_points={'console_scripts': [
-        'oms-start = oms_cms.scripts.create_project:cli_create',
-    ]},
-    # extras_require={
-    #     "bcrypt": ["bcrypt"],
-    #     "argon2": ["argon2-cffi >= 16.1.0"],
-    # },
-    zip_safe=False,
+    install_requires=get_requirements('requirements/base.txt'),
+    extras_require={
+        'dev': get_requirements('requirements/dev.txt'),
+        'prod': get_requirements('requirements/prod.txt'),
+    },
+    entry_points={
+        'console_scripts': [
+            'oms-start=oms_cms.scripts.create_project:cli_create',
+        ],
+    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Framework :: Django',
+        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
@@ -62,5 +65,7 @@ setup(
     project_urls={
         'Documentation': 'https://oms-cms.readthedocs.io/ru/latest/',
         'Source': 'https://github.com/DJWOMS/oms_cms',
+        'Tracker': 'https://github.com/DJWOMS/oms_cms/issues',
     },
+    zip_safe=False,
 )
